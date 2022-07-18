@@ -20,7 +20,7 @@ function getDatabaseUri() {
 
 const BCRYPT_WORK_FACTOR = IS_TESTING ? 1 : 13
 
-console.log("Rate My Setup Config:".red)
+console.log("Bucket Hero Config:".red)
 console.log("PORT:".blue, PORT)
 console.log("SECRET_KEY:".blue, SECRET_KEY)
 console.log("IS_TESTING:".blue, IS_TESTING)
