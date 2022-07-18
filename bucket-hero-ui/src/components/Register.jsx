@@ -18,8 +18,13 @@ import { LockClosedIcon } from '@heroicons/react/solid';
 import {useState} from 'react';
 import apiClient from '../services/apiClient';
 import Logo from "../assets/BH.png";
+import { useAuthContext } from "../contexts/auth";
+import {useNavigate} from 'react-router-dom';
 
-export default function Register({setUser}) {
+
+
+export default function Register({}) {
+    const navigate = useNavigate();
     const [form, setForm] = useState({
         first_name: "",
         last_name: "",
@@ -27,7 +32,8 @@ export default function Register({setUser}) {
         password: "",
         confirmpassword: "",
       })
-      const [error, setError] = useState({})
+      const {user, setUser, error, setError, isProcessing, setIsProcessing, signupUser} = useAuthContext();
+      
     
       const handleOnInputChange = (event) => {
         if (event.target.name === "password") {
@@ -59,9 +65,9 @@ export default function Register({setUser}) {
         event.preventDefault();
         //axios to backend
 
-        const res = apiClient.signupUser(form);
+        const res = signupUser(form);
         console.log("submitted", res);
-        //if (nav) navigate("/activity");
+        if (res) navigate("/");
       }
 
   return (

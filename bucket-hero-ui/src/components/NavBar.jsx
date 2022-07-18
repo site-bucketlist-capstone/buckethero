@@ -3,16 +3,20 @@ import { Fragment } from 'react'
 import { Popover, Transition } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
 import Logo from "../assets/BH.png";
+import { useAuthContext } from "../contexts/auth";
 
 
-
-export default function NavBar({user}) {
+export default function NavBar({}) {
+    const {user, logoutUser} = useAuthContext();
     const navigation = user.email ? [
         { name: 'Product', href: '#' },
         { name: 'Features', href: '#' },
         { name: 'Marketplace', href: '#' },
         { name: 'Company', href: '#' },
-      ] : []
+      ] : [];
+
+   
+      
     
   return (
     <div className="fixed top-0 left-0 right-0 bg-white ">
@@ -43,12 +47,16 @@ export default function NavBar({user}) {
                       {item.name}
                     </a>
                   ))}
-                  <a href="/register" className="font-medium text-orange-600 hover:text-orange-500">
+                  {user?.email ? 
+                  <a href="/" onClick={logoutUser} className="font-medium text-orange-600 hover:text-orange-500">
+                    Logout
+                  </a> : <><a href="/register" className="font-medium text-orange-600 hover:text-orange-500">
                     Register
                   </a>
                   <a href="/signin" className="font-medium text-orange-600 hover:text-orange-500">
                     Log in
-                  </a>
+                  </a></>
+                  }
                 </div>
               </nav>
             </div>

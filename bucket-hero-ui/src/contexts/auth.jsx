@@ -48,7 +48,7 @@ export const AuthContextProvider = ({children}) => {
         } else {
         setError((e) => ({ ...e, confirmpassword: null }))
         }
-        const {data, error} = await apiClient.signupUser({email: form.email, password: form.password, first_name: form.first_name, last_name: form.last_name, username: form.username});
+        const {data, error} = await apiClient.signupUser({email: form.email, password: form.password, confirmpassword: form.confirmpassword, first_name: form.first_name, last_name: form.last_name, username: form.username});
         if (error) {
             setError((e) => ({ ...e, form: error }))
             const message = error?.response?.data?.error?.message

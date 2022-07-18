@@ -26,7 +26,7 @@ export default function AppContainer() {
 }
 
 function App() {
-  const [user, setUser] = useState({email: ""})
+  const {user, setUser} = useAuthContext();
   
 
   return (
