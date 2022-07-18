@@ -1,7 +1,43 @@
 const db = require("../db")
 const { BadRequestError, NotFoundError } = require("../utils/errors")
 
-class Item {
+class Items {
+
+    static async fetchItemsByListId(listId) {
+        const results = await db.query(
+            `
+                SELECT * from list_items 
+                WHERE list_id = $ 1
+            `, [listId]
+        )
+
+        const items = results.rows
+
+        if (!items) {
+            throw new NotFoundError() 
+        }
+
+        return items
+    }
+
+    static async fetchItemsByCompletion() {
+        const results = await db.query(
+            `
+                SELECT * from list_items 
+                WHERE is_completed = true 
+            `
+        )
+
+        const items = results.rows 
+
+        if (!items) {
+            throw new NotFoundError()
+        }
+
+        return items 
+    }
+
+
     static async fetchItemById(itemId) {
         const results = await db.query(
         `
@@ -26,5 +62,5 @@ class Item {
 
         return item 
     }
-    
+
 }

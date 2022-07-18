@@ -17,22 +17,39 @@ router.get("/lists", security.requireAuthenticatedUser, async (req, res, next) =
 router.post("/lists/new", security.requireAuthenticatedUser, async (req, res, next) => {
   try {
      const  { user } = res.locals;
-     const list = await List.createNewList({ nutrition: req.body, user});
+     const list = await List.createNewList({ list: req.body, user});
      res.status(201).json({ list });
   } catch(error) {
      next(error);
   }
 });
 
+
 router.get("/items/:filterOption", security.requireAuthenticatedUser, async (req, res, next) => {
   try {
-    const { email } = res.locals.user
-    const user = await User.fetchUserByEmail(email)
-    
-    return res.status(200).json({ user: publicUser })
+    //3 filter options (listID, completed, due_date)
+    const { filterOption } = req.params 
+    if ( Number.isInteger(filterOption) ) {
+      const result = await Items.fetchItemsByListId(filterOption) 
+    } else if ( filterOption == "completed" ) {
+      const result = await Items.fetchItemsByCompletion()
+    } 
+    // else if ( filterOption == "due_date") {
+    //   const result = await Items.fetchItemsByDueDate() 
+    // } 
   } catch (err) {
     next(err)
   }
 })
+
+// router.get("/items/:itemId", security.requireAuthenticatedUser, async (req, res, next) => {
+//   try {
+//     const { itemId } = req.params
+//     const item = await Items.fetchItemById(itemId)
+//     return res.status(200).json({ item })
+//   } catch(err) {
+//     next(err)
+//   }
+// })
 
 module.exports = router
