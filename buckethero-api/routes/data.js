@@ -5,15 +5,24 @@ const security = require("../middleware/security")
 const router = express.Router()
 
 router.get("/lists", security.requireAuthenticatedUser, async (req, res, next) => {
-   try {
-     const { email } = res.locals.user
-     const user = await User.fetchUserByEmail(email)
+  try {
+     const { user } = res.locals;
+     const list = await List.getUserLists({user});
+     return res.status(200).json({ list });
+  } catch(error) {
+     next(error);
+  }
+});
 
-     return res.status(200).json({ user: publicUser })
-   } catch (err) {
-     next(err)
-   }
-})
+router.post("/lists/new", security.requireAuthenticatedUser, async (req, res, next) => {
+  try {
+     const  { user } = res.locals;
+     const list = await List.createNewList({ nutrition: req.body, user});
+     res.status(201).json({ list });
+  } catch(error) {
+     next(error);
+  }
+});
 
 router.get("/items/:filterOption", security.requireAuthenticatedUser, async (req, res, next) => {
   try {
