@@ -9,6 +9,8 @@ import {
 
 import Hero from './components/Hero';
 import NavBar from './components/NavBar';
+import SignIn from './components/SignIn';
+import Register from './components/Register';
 
 
 import './App.css'
@@ -22,8 +24,8 @@ function App() {
         <NavBar/>
         <Routes>
           <Route path='/' element={<Hero/>}/>
-          <Route path='/signin' element={<div>Sign in</div>}/>
-          <Route path='/register' element={<div>Register</div>}/>
+          <Route path='/signin' element={<SignIn/>}/>
+          <Route path='/register' element={<Register/>}/>
         </Routes>
       </BrowserRouter>
     </div>
