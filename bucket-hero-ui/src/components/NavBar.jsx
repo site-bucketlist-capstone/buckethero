@@ -2,15 +2,18 @@
 import { Fragment } from 'react'
 import { Popover, Transition } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
+import Logo from "../assets/BH.png";
 
-const navigation = [
-  { name: 'Product', href: '#' },
-  { name: 'Features', href: '#' },
-  { name: 'Marketplace', href: '#' },
-  { name: 'Company', href: '#' },
-]
 
-export default function NavBar() {
+
+export default function NavBar({user}) {
+    const navigation = user.email ? [
+        { name: 'Product', href: '#' },
+        { name: 'Features', href: '#' },
+        { name: 'Marketplace', href: '#' },
+        { name: 'Company', href: '#' },
+      ] : []
+    
   return (
     <div className="fixed top-0 left-0 right-0 bg-white ">
         <Popover>
@@ -23,7 +26,7 @@ export default function NavBar() {
                       <img
                         alt="Workflow"
                         className="h-8 w-auto sm:h-10"
-                        src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
+                        src={Logo}
                       />
                     </a>
                     <div className="-mr-2 flex items-center md:hidden">
@@ -40,6 +43,9 @@ export default function NavBar() {
                       {item.name}
                     </a>
                   ))}
+                  <a href="/register" className="font-medium text-orange-600 hover:text-orange-500">
+                    Register
+                  </a>
                   <a href="/signin" className="font-medium text-orange-600 hover:text-orange-500">
                     Log in
                   </a>

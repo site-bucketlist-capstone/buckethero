@@ -16,12 +16,13 @@ import Register from './components/Register';
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [user, setUser] = useState({email: ""})
+  
 
   return (
     <div className='app'>
       <BrowserRouter>
-        <NavBar/>
+        <NavBar user={user}/>
         <Routes>
           <Route path='/' element={<Hero/>}/>
           <Route path='/signin' element={<SignIn/>}/>
