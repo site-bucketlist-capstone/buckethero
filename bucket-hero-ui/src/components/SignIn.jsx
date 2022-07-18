@@ -17,6 +17,7 @@
 import { LockClosedIcon } from '@heroicons/react/solid'
 import {useState} from 'react'
 import Logo from "../assets/BH.png";
+import apiClient from '../services/apiClient';
 
 export default function SignIn() {
     const [form, setForm] = useState({
@@ -40,7 +41,8 @@ export default function SignIn() {
 
     const handleOnSubmit = (e) => {
         e.preventDefault();
-        console.log("submitted");
+        const res = apiClient.loginUser(form);
+        console.log("submitted", res);
         //const nav = await loginUser(form);
         //if (nav) navigate("/activity");
         
