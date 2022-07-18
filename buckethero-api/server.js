@@ -22,7 +22,8 @@ app.use(morgan("tiny"))
 app.use(security.extractUserFromJwt)
 
 app.use("/auth", authRoutes)
-app.use("/user", listRoutes)
+app.use("/user", listRoutes) 
+//new
 
 /** Handle 404 errors -- this matches everything */
 app.use((req, res, next) => {
