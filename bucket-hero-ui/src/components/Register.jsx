@@ -16,6 +16,7 @@
 */
 import { LockClosedIcon } from '@heroicons/react/solid';
 import {useState} from 'react';
+import apiClient from '../services/apiClient';
 import Logo from "../assets/BH.png";
 
 export default function Register() {
@@ -58,7 +59,8 @@ export default function Register() {
         event.preventDefault();
         //axios to backend
 
-        console.log("submitted")
+        const res = apiClient.loginUser(form);
+        console.log("submitted", res);
         //if (nav) navigate("/activity");
       }
 
