@@ -18,13 +18,20 @@ import { LockClosedIcon } from '@heroicons/react/solid'
 import {useState} from 'react'
 import Logo from "../assets/BH.png";
 import apiClient from '../services/apiClient';
+import { useAuthContext } from "../contexts/auth";
+import {useNavigate} from 'react-router-dom';
+
+
 
 export default function SignIn() {
+    const navigate = useNavigate();
     const [form, setForm] = useState({
         email: "",
         password: "",
     });
-    const [error, setError] = useState({});
+    const {user, setUser, error, setError, isProcessing, setIsProcessing, loginUser} = useAuthContext();
+
+    //const [error, setError] = useState({});
     //const [isLoading, setIsLoading] = useState(false)
 
     const handleOnInputChange = (event) => {
@@ -39,12 +46,12 @@ export default function SignIn() {
         setForm((f) => ({ ...f, [event.target.name]: event.target.value }))
     }
 
-    const handleOnSubmit = (e) => {
+    const handleOnSubmit = async (e) => {
         e.preventDefault();
-        const res = apiClient.loginUser(form);
+        const res = await loginUser(form);
         console.log("submitted", res);
         //const nav = await loginUser(form);
-        //if (nav) navigate("/activity");
+        if (res) navigate("/dashboard");
         
     }
 
@@ -134,7 +141,7 @@ export default function SignIn() {
                 <span className="absolute left-0 inset-y-0 flex items-center pl-3">
                   <LockClosedIcon className="h-5 w-5 text-orange-500 group-hover:text-orange-400" aria-hidden="true" />
                 </span>
-                Sign in
+                {isProcessing ? "Loading..." : "Sign In"}
               </button>
             </div>
           </form>

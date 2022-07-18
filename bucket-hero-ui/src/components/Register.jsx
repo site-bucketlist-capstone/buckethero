@@ -19,29 +19,29 @@ import {useState} from 'react';
 import apiClient from '../services/apiClient';
 import Logo from "../assets/BH.png";
 
-export default function Register() {
+export default function Register({setUser}) {
     const [form, setForm] = useState({
-        firstName: "",
-        lastName: "",
+        first_name: "",
+        last_name: "",
         email: "",
         password: "",
-        passwordConfirm: "",
+        confirmpassword: "",
       })
       const [error, setError] = useState({})
     
       const handleOnInputChange = (event) => {
         if (event.target.name === "password") {
-          if (form.passwordConfirm && form.passwordConfirm !== event.target.value) {
-            setError((e) => ({ ...e, passwordConfirm: "Password's do not match" }))
+          if (form.confirmpassword && form.confirmpassword !== event.target.value) {
+            setError((e) => ({ ...e, confirmpassword: "Password's do not match" }))
           } else {
-            setError((e) => ({ ...e, passwordConfirm: null }))
+            setError((e) => ({ ...e, confirmpassword: null }))
           }
         }
-        if (event.target.name === "passwordConfirm") {
+        if (event.target.name === "confirmpassword") {
           if (form.password && form.password !== event.target.value) {
-            setError((e) => ({ ...e, passwordConfirm: "Password's do not match" }))
+            setError((e) => ({ ...e, confirmpassword: "Password's do not match" }))
           } else {
-            setError((e) => ({ ...e, passwordConfirm: null }))
+            setError((e) => ({ ...e, confirmpassword: null }))
           }
         }
         if (event.target.name === "email") {
@@ -59,7 +59,7 @@ export default function Register() {
         event.preventDefault();
         //axios to backend
 
-        const res = apiClient.loginUser(form);
+        const res = apiClient.signupUser(form);
         console.log("submitted", res);
         //if (nav) navigate("/activity");
       }
@@ -105,16 +105,16 @@ export default function Register() {
                 />
               </div>
               <div>
-                <label htmlFor="firstName" className="sr-only">
+                <label htmlFor="first_name" className="sr-only">
                   First Name
                 </label>
                 <input
-                  id="firstName"
-                  name="firstName"
+                  id="first_name"
+                  name="first_name"
                   type="text"
-                  value={form.firstName}
+                  value={form.first_name}
                   onChange={handleOnInputChange}
-                  autoComplete="firstName"
+                  autoComplete="first_name"
                   required
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-orange-500 focus:border-orange-500 focus:z-10 sm:text-sm"
                   placeholder="First Name"
@@ -125,12 +125,12 @@ export default function Register() {
                   Last Name
                 </label>
                 <input
-                  id="lastName"
-                  name="lastName"
+                  id="last_name"
+                  name="last_name"
                   type="text"
-                  value={form.lastName}
+                  value={form.last_name}
                   onChange={handleOnInputChange}
-                  autoComplete="lastName"
+                  autoComplete="last_name"
                   required
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-orange-500 focus:border-orange-500 focus:z-10 sm:text-sm"
                   placeholder="Last Name"
@@ -154,14 +154,14 @@ export default function Register() {
               </div>
               {/* check that passwords match!! */}
               <div>
-                <label htmlFor="passwordConfirm" className="sr-only">
+                <label htmlFor="confirmpassword" className="sr-only">
                   Confirm Password
                 </label>
                 <input
-                  id="passwordConfirm"
-                  name="passwordConfirm"
+                  id="confirmpassword"
+                  name="confirmpassword"
                   type="password"
-                  value={form.passwordConfirm}
+                  value={form.confirmpassword}
                   onChange={handleOnInputChange}
                   required
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-orange-500 focus:border-orange-500 focus:z-10 sm:text-sm"
@@ -169,7 +169,7 @@ export default function Register() {
                 />
               </div>
             </div>
-            {error?.passwordConfirm ? <p className="mt-2 text-sm text-red-600 dark:text-red-500"><span className="font-medium">Passwords do not match</span></p> : <p className="mt-2 text-sm text-red-600 dark:text-red-500"><span className="font-medium"></span></p>}
+            {error?.confirmpassword ? <p className="mt-2 text-sm text-red-600 dark:text-red-500"><span className="font-medium">Passwords do not match</span></p> : <p className="mt-2 text-sm text-red-600 dark:text-red-500"><span className="font-medium"></span></p>}
 
             {/* <div className="flex items-center justify-between">
               <div className="flex items-center">
