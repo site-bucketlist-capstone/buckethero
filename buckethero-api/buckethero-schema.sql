@@ -1,26 +1,32 @@
 CREATE TABLE users (
   id          SERIAL PRIMARY KEY,
-  password    TEXT NOT NULL,
+  first_name  TEXT NOT NULL,
+  last_name   TEXT NOT NULL,
   email       TEXT NOT NULL UNIQUE CHECK (POSITION('@' IN email) > 1),
-  is_admin    BOOLEAN NOT NULL DEFAULT FALSE,
+  password    TEXT NOT NULL,
+
   created_at  TIMESTAMP NOT NULL DEFAULT NOW()
 );
 
-CREATE TABLE posts (
+CREATE TABLE lists (
   id          SERIAL PRIMARY KEY,
-  caption     VARCHAR(140) NOT NULL,
-  image_url   TEXT NOT NULL,
+  name        TEXT NOT NUll,
   user_id     INTEGER NOT NULL,
   created_at  TIMESTAMP NOT NULL DEFAULT NOW(),
-  updated_at  TIMESTAMP NOT NULL DEFAULT NOW(),
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
-CREATE TABLE ratings (
+CREATE TABLE list_items (
   rating      INTEGER NOT NULL CHECK (rating > 0 AND rating <= 10),
-  post_id     INTEGER NOT NULL REFERENCES posts(id) ON DELETE CASCADE,
+  list_id     INTEGER NOT NULL REFERENCES lists(id) ON DELETE CASCADE,
   user_id     INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-  created_at  TIMESTAMP NOT NULL DEFAULT NOW(),  
-  PRIMARY KEY (post_id, user_id)
+  name        TEXT NOT NULL,
+  due_date    TIMESTAMP,
+  location    TEXT,
+  category    TEXT,
+  price_point  INTEGER DEFAULT 0,
+  is_completed  BOOLEAN NOT NULL DEFAULT false,
+  created_at  TIMESTAMP NOT NULL DEFAULT NOW(),
+  PRIMARY KEY (list_id, user_id)
 );
 

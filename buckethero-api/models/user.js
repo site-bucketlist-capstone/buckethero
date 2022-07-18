@@ -7,9 +7,9 @@ class User {
   static makePublicUser(user) {
     return {
       id: user.id,
+      first_name: user.first_name,
+      last_name: user.last_name,
       email: user.email,
-      isAdmin: user.is_admin,
-      createdAt: user.created_at,
     }
   }
 
@@ -33,7 +33,7 @@ class User {
   }
 
   static async register(credentials) {
-    const requiredFields = ["email", "password", "isAdmin"]
+    const requiredFields = ["first_name", "last_name", "email", "password", "confirmpassword"]
     requiredFields.forEach((property) => {
       if (!credentials.hasOwnProperty(property)) {
         throw new BadRequestError(`Missing ${property} in request body.`)
@@ -53,11 +53,11 @@ class User {
     const normalizedEmail = credentials.email.toLowerCase()
 
     const userResult = await db.query(
-      `INSERT INTO users (email, password, is_admin)
-       VALUES ($1, $2, $3)
-       RETURNING id, email, is_admin, created_at;
+      `INSERT INTO users (first_name, last_name, email, password)
+       VALUES ($1, $2, $3, $4)
+       RETURNING id, first_name, last_name, email, password;
       `,
-      [normalizedEmail, hashedPassword, credentials.isAdmin]
+      [credentials.first_name, credentials.last_name, normalizedEmail, hashedPassword]
     )
     const user = userResult.rows[0]
 
