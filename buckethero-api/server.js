@@ -11,9 +11,10 @@ app.get("/", (req, res) => {
 // check if user or token exists in header
 app.use(security.extractUserFromJwt);
 
-app.use("/auth", authRoutes);
 
-
+app.use("/auth", authRoutes)
+app.use("/user", listRoutes) 
+//new
 
 app.use((req, res, next) => {
    return next(new NotFoundError());
