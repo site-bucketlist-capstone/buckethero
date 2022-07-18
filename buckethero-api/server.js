@@ -4,7 +4,7 @@ const morgan = require("morgan")
 const { PORT } = require("./config")
 const security = require("./middleware/security")
 const authRoutes = require("./routes/auth")
-const postRoutes = require("./routes/posts")
+const listRoutes = require("./routes/data")
 const { NotFoundError } = require("./utils/errors")
 
 const app = express()
@@ -22,7 +22,7 @@ app.use(morgan("tiny"))
 app.use(security.extractUserFromJwt)
 
 app.use("/auth", authRoutes)
-app.use("/posts", postRoutes)
+app.use("/user", listRoutes)
 
 /** Handle 404 errors -- this matches everything */
 app.use((req, res, next) => {
