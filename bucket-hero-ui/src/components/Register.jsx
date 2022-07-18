@@ -14,9 +14,54 @@
   }
   ```
 */
-import { LockClosedIcon } from '@heroicons/react/solid'
+import { LockClosedIcon } from '@heroicons/react/solid';
+import {useState} from 'react';
+import Logo from "../assets/BH.png";
 
 export default function Register() {
+    const [form, setForm] = useState({
+        firstName: "",
+        lastName: "",
+        email: "",
+        password: "",
+        passwordConfirm: "",
+      })
+      const [error, setError] = useState({})
+    
+      const handleOnInputChange = (event) => {
+        if (event.target.name === "password") {
+          if (form.passwordConfirm && form.passwordConfirm !== event.target.value) {
+            setError((e) => ({ ...e, passwordConfirm: "Password's do not match" }))
+          } else {
+            setError((e) => ({ ...e, passwordConfirm: null }))
+          }
+        }
+        if (event.target.name === "passwordConfirm") {
+          if (form.password && form.password !== event.target.value) {
+            setError((e) => ({ ...e, passwordConfirm: "Password's do not match" }))
+          } else {
+            setError((e) => ({ ...e, passwordConfirm: null }))
+          }
+        }
+        if (event.target.name === "email") {
+          if (event.target.value.indexOf("@") === -1) {
+            setError((e) => ({ ...e, email: "Please enter a valid email." }))
+          } else {
+            setError((e) => ({ ...e, email: null }))
+          }
+        }
+    
+        setForm((f) => ({ ...f, [event.target.name]: event.target.value }))
+      }
+    
+      function handleOnSubmit(event) {
+        event.preventDefault();
+        //axios to backend
+
+        console.log("submitted")
+        //if (nav) navigate("/activity");
+      }
+
   return (
     <>
       {/*
@@ -32,13 +77,13 @@ export default function Register() {
           <div>
             <img
               className="mx-auto h-12 w-auto"
-              src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
+              src={Logo}
               alt="Workflow"
             />
             <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Create a new account</h2>
             
           </div>
-          <form className="mt-8 space-y-6">
+          <form className="mt-8 space-y-6" onSubmit={handleOnSubmit}>
             <input type="hidden" name="remember" defaultValue="true" />
             <div className="rounded-md shadow-sm -space-y-px">
               <div>
@@ -49,6 +94,8 @@ export default function Register() {
                   id="email-address"
                   name="email"
                   type="email"
+                  value={form.email}
+                  onChange={handleOnInputChange}
                   autoComplete="email"
                   required
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-orange-500 focus:border-orange-500 focus:z-10 sm:text-sm"
@@ -56,14 +103,16 @@ export default function Register() {
                 />
               </div>
               <div>
-                <label htmlFor="first-name" className="sr-only">
+                <label htmlFor="firstName" className="sr-only">
                   First Name
                 </label>
                 <input
-                  id="first-name"
-                  name="first-name"
+                  id="firstName"
+                  name="firstName"
                   type="text"
-                  autoComplete="first-name"
+                  value={form.firstName}
+                  onChange={handleOnInputChange}
+                  autoComplete="firstName"
                   required
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-orange-500 focus:border-orange-500 focus:z-10 sm:text-sm"
                   placeholder="First Name"
@@ -74,10 +123,12 @@ export default function Register() {
                   Last Name
                 </label>
                 <input
-                  id="last-name"
-                  name="last-name"
+                  id="lastName"
+                  name="lastName"
                   type="text"
-                  autoComplete="last-name"
+                  value={form.lastName}
+                  onChange={handleOnInputChange}
+                  autoComplete="lastName"
                   required
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-orange-500 focus:border-orange-500 focus:z-10 sm:text-sm"
                   placeholder="Last Name"
@@ -91,6 +142,8 @@ export default function Register() {
                   id="password"
                   name="password"
                   type="password"
+                  value={form.password}
+                  onChange={handleOnInputChange}
                   autoComplete="current-password"
                   required
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-orange-500 focus:border-orange-500 focus:z-10 sm:text-sm"
@@ -99,19 +152,22 @@ export default function Register() {
               </div>
               {/* check that passwords match!! */}
               <div>
-                <label htmlFor="password" className="sr-only">
+                <label htmlFor="passwordConfirm" className="sr-only">
                   Confirm Password
                 </label>
                 <input
-                  id="c-password"
-                  name="c-password"
+                  id="passwordConfirm"
+                  name="passwordConfirm"
                   type="password"
+                  value={form.passwordConfirm}
+                  onChange={handleOnInputChange}
                   required
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-orange-500 focus:border-orange-500 focus:z-10 sm:text-sm"
                   placeholder="Confirm Password"
                 />
               </div>
             </div>
+            {error?.passwordConfirm ? <p className="mt-2 text-sm text-red-600 dark:text-red-500"><span className="font-medium">Passwords do not match</span></p> : <p className="mt-2 text-sm text-red-600 dark:text-red-500"><span className="font-medium"></span></p>}
 
             {/* <div className="flex items-center justify-between">
               <div className="flex items-center">
@@ -137,6 +193,7 @@ export default function Register() {
               <button
                 type="submit"
                 className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
+                
               >
                 <span className="absolute left-0 inset-y-0 flex items-center pl-3">
                   <LockClosedIcon className="h-5 w-5 text-orange-500 group-hover:text-orange-400" aria-hidden="true" />

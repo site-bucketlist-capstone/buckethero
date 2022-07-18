@@ -15,8 +15,37 @@
   ```
 */
 import { LockClosedIcon } from '@heroicons/react/solid'
+import {useState} from 'react'
+import Logo from "../assets/BH.png";
 
 export default function SignIn() {
+    const [form, setForm] = useState({
+        email: "",
+        password: "",
+    });
+    const [error, setError] = useState({});
+    //const [isLoading, setIsLoading] = useState(false)
+
+    const handleOnInputChange = (event) => {
+        if (event.target.name === "email") {
+          if (event.target.value.indexOf("@") === -1) {
+            setError((e) => ({ ...e, email: "Please enter a valid email." }))
+          } else {
+            setError((e) => ({ ...e, email: null }))
+          }
+        }
+    
+        setForm((f) => ({ ...f, [event.target.name]: event.target.value }))
+    }
+
+    const handleOnSubmit = (e) => {
+        e.preventDefault();
+        console.log("submitted");
+        //const nav = await loginUser(form);
+        //if (nav) navigate("/activity");
+        
+    }
+
   return (
     <>
       {/*
@@ -32,13 +61,13 @@ export default function SignIn() {
           <div>
             <img
               className="mx-auto h-12 w-auto"
-              src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
+              src={Logo}
               alt="Workflow"
             />
             <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Sign in to your account</h2>
             
           </div>
-          <form className="mt-8 space-y-6">
+          <form className="mt-8 space-y-6" onSubmit={handleOnSubmit}>
             <input type="hidden" name="remember" defaultValue="true" />
             <div className="rounded-md shadow-sm -space-y-px">
               <div>
@@ -50,6 +79,8 @@ export default function SignIn() {
                   name="email"
                   type="email"
                   autoComplete="email"
+                  value={form.email}
+                  onChange={handleOnInputChange}
                   required
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-orange-500 focus:border-orange-500 focus:z-10 sm:text-sm"
                   placeholder="Email address"
@@ -64,6 +95,8 @@ export default function SignIn() {
                   name="password"
                   type="password"
                   autoComplete="current-password"
+                  value={form.password}
+                  onChange={handleOnInputChange}
                   required
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-orange-500 focus:border-orange-500 focus:z-10 sm:text-sm"
                   placeholder="Password"
