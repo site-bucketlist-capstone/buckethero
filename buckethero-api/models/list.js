@@ -41,15 +41,17 @@ class List {
    static async createNewList({ list, user }) {
       const required = ["name"];
       required.forEach(field => {
-         if (!nutrition.hasOwnProperty(field)) {
+         if (!list.hasOwnProperty(field)) {
             throw new BadRequestError(`Missing ${field} in request.`);
          }
       });
 
       const result = await db.query(`
-         INSERT INTO lists ( name ) VALUES ( $1 ) 
+         INSERT INTO lists ( name, user_id ) VALUES ( 
+            $1, (SELECT id FROM users WHERE email=$2) 
+         ) 
          RETURNING id, name, created_at AS createdAt;
-      `, [ list.name]);
+      `, [ list.name, user.email]);
 
       return result.rows[0];
    }
