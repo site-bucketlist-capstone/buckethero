@@ -12,13 +12,13 @@ const navigation = [
 
 export default function Hero() {
   return (
-    <div className="relative bg-white ">
+    <div className="fixed top-0 left-0 right-0 bg-white ">
         <Popover>
             <div className="relative pt-6 px-4 sm:px-6 lg:px-8">
               <nav className="relative flex items-center justify-between sm:h-10 lg:justify-start" aria-label="Global">
                 <div className="flex items-center flex-grow flex-shrink-0 lg:flex-grow-0">
                   <div className="flex items-center justify-between w-full md:w-auto">
-                    <a href="#">
+                    <a href="/">
                       <span className="sr-only">Workflow</span>
                       <img
                         alt="Workflow"
@@ -40,7 +40,7 @@ export default function Hero() {
                       {item.name}
                     </a>
                   ))}
-                  <a href="#" className="font-medium text-orange-600 hover:text-orange-500">
+                  <a href="/signin" className="font-medium text-orange-600 hover:text-orange-500">
                     Log in
                   </a>
                 </div>

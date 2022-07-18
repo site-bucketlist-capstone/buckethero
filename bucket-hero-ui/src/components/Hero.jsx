@@ -38,15 +38,15 @@ export default function Hero() {
               <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
                 <div className="rounded-md shadow">
                   <a
-                    href="#"
+                    href="/register"
                     className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-orange-600 hover:bg-orange-700 hover:text-orange-100 md:py-4 md:text-lg md:px-10"
                   >
-                    Sign Up
+                    Register
                   </a>
                 </div>
                 <div className="mt-3 sm:mt-0 sm:ml-3">
                   <a
-                    href="#"
+                    href="/signin"
                     className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-orange-700 bg-orange-100 hover:bg-orange-200 hover:text-orange-500 md:py-4 md:text-lg md:px-10"
                   >
                     Sign In
