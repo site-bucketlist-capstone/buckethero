@@ -17,7 +17,7 @@ router.get("/lists", security.requireAuthenticatedUser, async (req, res, next) =
 router.post("/lists/new", security.requireAuthenticatedUser, async (req, res, next) => {
   try {
      const  { user } = res.locals;
-     const list = await List.createNewList({ list: req.body, user});
+     const list = await List.createNewList({ nutrition: req.body, user});
      res.status(201).json({ list });
   } catch(error) {
      next(error);
