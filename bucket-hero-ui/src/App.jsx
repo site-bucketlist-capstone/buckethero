@@ -12,6 +12,7 @@ import NavBar from './components/NavBar';
 import SignIn from './components/SignIn';
 import Register from './components/Register';
 import Dashboard from './components/Dashboard';
+import Gallery from './components/Gallery';
 import NewList from './components/NewList';
 
 import { AuthContextProvider, useAuthContext } from "./contexts/auth";
@@ -57,7 +58,7 @@ function App() {
           <Route path='/' element={user?.email ? <Dashboard/>: <Hero/>}/>
           <Route path='/signin' element={<SignIn setUser={setUser}/>}/>
           <Route path='/register' element={<Register setUser={setUser}/>}/>
-          <Route path='/gallery' element={<div>gallery</div>}/>
+          <Route path='/gallery' element={<Gallery/>}/>
           <Route path='/newlist' element={<NewList/>}/>
           <Route path='/profile' element={<div>profile</div>}/>
         </Routes>
