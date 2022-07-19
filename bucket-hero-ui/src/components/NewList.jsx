@@ -1,14 +1,24 @@
 import {useState} from 'react';
 import apiClient from '../services/apiClient';
 import Logo from "../assets/BH.png";
-import { useAuthContext } from "../contexts/auth";
+import { useDashContext } from "../contexts/dashboard";
 import {useNavigate} from 'react-router-dom';
 
 
 
 export default function NewList({}) {
-    const [form, setForm] = useState({'list-name': ""});
-    const [isProcessing, setIsProcessing] = useState();
+    const [form, setForm] = useState({'name': ""});
+    const navigate = useNavigate();
+
+    const {lists, 
+        setLists, 
+        initialized, 
+        setInitialized,
+        isProcessing,
+        setIsProcessing,
+        error,
+        setError,
+        newList} = useDashContext();
 
     const handleOnInputChange = (event) => {
     
@@ -17,10 +27,9 @@ export default function NewList({}) {
 
     const handleOnSubmit = async (e) => {
         e.preventDefault();
-        //const res = await loginUser(form);
+        const res = await newList(form);
         console.log("submitted");
-        //const nav = await loginUser(form);
-        //if (res) navigate("/");
+        if (res) navigate("/");
         
     }
 
@@ -35,8 +44,8 @@ export default function NewList({}) {
                     <div>
                         
                         <input
-                        id="list-name"
-                        name="list-name"
+                        id="name"
+                        name="name"
                         type="text"
                         value={form.name}
                         onChange={handleOnInputChange}

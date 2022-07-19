@@ -15,6 +15,8 @@ import Dashboard from './components/Dashboard';
 import NewList from './components/NewList';
 
 import { AuthContextProvider, useAuthContext } from "./contexts/auth";
+import { DashContextProvider, useDashContext } from "./contexts/dashboard";
+
 import apiClient from './services/apiClient';
 
 
@@ -22,7 +24,9 @@ import apiClient from './services/apiClient';
 export default function AppContainer() {
   return (
     <AuthContextProvider>
-      <App/>
+      <DashContextProvider>
+        <App/>
+      </DashContextProvider>
     </AuthContextProvider>
   )
 }
