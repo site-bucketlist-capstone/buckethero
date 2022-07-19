@@ -48,7 +48,7 @@ class List {
          INSERT INTO lists ( name, user_id ) VALUES ( 
             $1, (SELECT id FROM users WHERE email=$2) 
          ) 
-         RETURNING id, name, created_at AS createdAt;
+         RETURNING id, name, created_at AS "createdAt";
       `, [ nutrition.name, user.email]);
 
       return result.rows[0];
