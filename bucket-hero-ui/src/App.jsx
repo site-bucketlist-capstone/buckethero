@@ -45,7 +45,7 @@ function App() {
   
 
   return (
-    <div className='container mx-auto p-4 h-screen mt-14'>
+    <div className='container mx-auto mt-8 p-4 h-full'>
       <BrowserRouter>
         <NavBar user={user}/>
         <Routes>
