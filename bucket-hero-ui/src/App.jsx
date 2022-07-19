@@ -49,10 +49,12 @@ function App() {
       <BrowserRouter>
         <NavBar user={user}/>
         <Routes>
-          <Route path='/' element={<Hero/>}/>
+          <Route path='/' element={user?.email ? <div>dashboard</div>: <Hero/>}/>
           <Route path='/signin' element={<SignIn setUser={setUser}/>}/>
           <Route path='/register' element={<Register setUser={setUser}/>}/>
-          <Route path='/dashboard' element={<div>dashboard</div>}/>
+          <Route path='/gallery' element={<div>gallery</div>}/>
+          <Route path='/newlist' element={<div>new list</div>}/>
+          <Route path='/profile' element={<div>profile</div>}/>
         </Routes>
       </BrowserRouter>
     </div>

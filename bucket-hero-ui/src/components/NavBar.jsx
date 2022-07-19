@@ -9,10 +9,10 @@ import { useAuthContext } from "../contexts/auth";
 export default function NavBar({}) {
     const {user, logoutUser} = useAuthContext();
     const navigation = user?.email ? [
-        { name: 'Product', href: '#' },
-        { name: 'Features', href: '#' },
-        { name: 'Marketplace', href: '#' },
-        { name: 'Company', href: '#' },
+        { name: 'Gallery', href: '/gallery' },
+        { name: 'New List', href: '/newlist' },
+        { name: 'Profile', href: '/profile' },
+        
       ] : [];
 
    console.log("user", user);
@@ -22,7 +22,7 @@ export default function NavBar({}) {
     <div className="fixed top-0 left-0 right-0 bg-white ">
         <Popover>
             <div className="relative pt-6 px-4 sm:px-6 lg:px-8">
-              <nav className="relative flex items-center justify-between sm:h-10 lg:justify-start" aria-label="Global">
+              <nav className="relative flex items-center justify-between sm:h-10 lg:justify-between" aria-label="Global">
                 <div className="flex items-center flex-grow flex-shrink-0 lg:flex-grow-0">
                   <div className="flex items-center justify-between w-full md:w-auto">
                     <a href="/">
@@ -79,7 +79,7 @@ export default function NavBar({}) {
                     <div>
                       <img
                         className="h-8 w-auto"
-                        src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
+                        src={Logo}
                         alt=""
                       />
                     </div>
