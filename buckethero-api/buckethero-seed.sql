@@ -30,6 +30,15 @@ VALUES ('Jumping into a lake',
  'Go to a frat party',
   'Social',
   'Whichever frat you can find!'  
+),
+(
+ 'Eat 10 hotdogs in a row',
+  'Food',
+  'Nearest market!'  
+),(
+ 'Borrow somebodys car for a joyride',
+  'Social',
+  'Whichever frat you can find!'  
 )
 ;
 
