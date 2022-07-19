@@ -27,7 +27,7 @@ router.post("/lists/new", security.requireAuthenticatedUser, async (req, res, ne
 router.post("/lists/:id/newItem", security.requireAuthenticatedUser, async (req, res, next) => {
   try {
     const { user } = res.locals 
-    const item = await Items.createNewListItem({ item: req.body, listId: req.params, user })
+    const item = await Items.createNewListItem({ item: req.body, user, listId : req.params.id})
     return res.status(201).json({ item })
   } catch(err) {
     next(err)

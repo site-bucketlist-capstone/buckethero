@@ -17,6 +17,7 @@ CREATE TABLE lists (
 );
 
 CREATE TABLE list_items (
+  id          SERIAL PRIMARY KEY,
   list_id     INTEGER NOT NULL REFERENCES lists(id) ON DELETE CASCADE,
   user_id     INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
   name        TEXT NOT NULL,
@@ -25,7 +26,6 @@ CREATE TABLE list_items (
   category    TEXT,
   price_point  INTEGER DEFAULT 0,
   is_completed  BOOLEAN NOT NULL DEFAULT false,
-  created_at  TIMESTAMP NOT NULL DEFAULT NOW(),
-  PRIMARY KEY (list_id, user_id)
+  created_at  TIMESTAMP NOT NULL DEFAULT NOW()
 );
 

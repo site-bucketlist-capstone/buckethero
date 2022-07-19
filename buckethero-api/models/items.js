@@ -15,7 +15,8 @@ class Items {
             `
                 INSERT INTO list_items (name, location, category, price_point, due_date, user_id, list_id)
                 VALUES ($1, $2, $3, $4, $5, (SELECT id FROM users where email = $6), (SELECT id FROM lists WHERE id = $7))
-                RETURNING name,
+                RETURNING id, 
+                          name,
                           location, 
                           category, 
                           price_point, 
