@@ -11,12 +11,12 @@ import ListItems from './ListItems';
 
 export default function Dashboard({}) {
     return (
-        <div className='border border-orange-500 container mx-auto'>
-            <div className='flex flex-row border'>
+        <div className='container mx-auto mt-'>
+            <div className='flex flex-row border items-center justify-center'>
                 <ComingUp></ComingUp>
             </div>
             
-            <div className='flex flex-row border'>
+            <div className='flex flex-row items-center border justify-center mt-4'>
                 <ListCol></ListCol>
                 <ListItems></ListItems>
             </div>

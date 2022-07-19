@@ -8,7 +8,7 @@ import {useNavigate} from 'react-router-dom';
 
 export default function ListItems({}) {
     return (
-        <div>
+        <div className='border border-blue-500 w-2/3 p-2'>
             list items
         </div>
     );

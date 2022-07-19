@@ -17,7 +17,6 @@ import { AuthContextProvider, useAuthContext } from "./contexts/auth";
 import apiClient from './services/apiClient';
 
 
-import './App.css'
 
 export default function AppContainer() {
   return (
@@ -46,7 +45,7 @@ function App() {
   
 
   return (
-    <div className='container mx-auto px-4 border border-blackself-center'>
+    <div className='container mx-auto p-4 h-screen mt-14'>
       <BrowserRouter>
         <NavBar user={user}/>
         <Routes>

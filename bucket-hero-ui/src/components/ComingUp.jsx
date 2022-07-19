@@ -8,7 +8,7 @@ import {useNavigate} from 'react-router-dom';
 
 export default function ComingUp({}) {
     return (
-        <div>
+        <div className='border border-orange-500 w-full p-2'>
             coming up
         </div>
     );

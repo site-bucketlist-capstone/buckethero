@@ -8,7 +8,7 @@ import {useNavigate} from 'react-router-dom';
 
 export default function ListCol({}) {
     return (
-        <div>
+        <div className='border border-purple-500 w-1/3 mr-4 p-2'>
             list col
         </div>
     );
