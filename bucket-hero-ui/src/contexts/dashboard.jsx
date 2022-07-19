@@ -56,6 +56,13 @@ export const DashContextProvider = ({children}) => {
         return nav;
     }
 
+    //function to fetch items for a given list
+    const fetchListItems = async (id) => {
+
+
+        //return value to be an array of list items
+    }
+
 
     const dashValue = {lists, 
         setLists, 

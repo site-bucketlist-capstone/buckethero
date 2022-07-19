@@ -61,6 +61,11 @@ class ApiClient {
     async newList(form) {
         return await this.request({endpoint: `user/lists/new`, method: "POST", data: form});
     }
+
+    //fetch list items for a list id `user/items/${listId}`
+
+    //fetch list items for a list id `user/items/duedate`
+
 }
 
 export default new ApiClient(API_BASE_URL)
