@@ -29,3 +29,10 @@ CREATE TABLE list_items (
   created_at  TIMESTAMP NOT NULL DEFAULT NOW()
 );
 
+CREATE TABLE gallery_items (
+  id          SERIAL PRIMARY KEY,
+  name        TEXT NOT NULL,
+  location    TEXT,
+  category    TEXT
+);
+
