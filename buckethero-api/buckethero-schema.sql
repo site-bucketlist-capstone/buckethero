@@ -17,7 +17,6 @@ CREATE TABLE lists (
 );
 
 CREATE TABLE list_items (
-  rating      INTEGER NOT NULL CHECK (rating > 0 AND rating <= 10),
   list_id     INTEGER NOT NULL REFERENCES lists(id) ON DELETE CASCADE,
   user_id     INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
   name        TEXT NOT NULL,
