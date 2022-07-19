@@ -15,27 +15,23 @@ class List {
       return results.rows;
    }
 
-   static async fetchListById(userId, listId) {
-      const results = await db.query (
-         `
-         SELECT n.id,
-                n.category,
-                n.calories,
-                n.image_url,
-                n.user_id,
-                u.email,
-                n.created_at
-         FROM lists AS n
-            JOIN users AS u ON u.id = n.user_id
-         WHERE n.id = $1 AND n.user_id = $2
-         `, [listId, userId] 
-      )
-      const list = results.rows[0];
-      if (!list) {
-         throw new NotFoundError("Doesn't exist.");
-      }   
-      return list;
-   }
+   // static async fetchListById(userId, listId) {
+   //    const results = await db.query (
+   //       `
+   //       SELECT n.id,
+   //              n.category,
+                
+   //       FROM lists AS n
+   //          JOIN users AS u ON u.id = n.user_id
+   //       WHERE n.id = $1 AND n.user_id = $2
+   //       `, [listId, userId] 
+   //    )
+   //    const list = results.rows[0];
+   //    if (!list) {
+   //       throw new NotFoundError("Doesn't exist.");
+   //    }   
+   //    return list;
+   // }
 
 
    static async createNewList({ list, user }) {
