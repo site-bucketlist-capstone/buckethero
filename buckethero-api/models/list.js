@@ -19,8 +19,7 @@ class List {
    //    const results = await db.query (
    //       `
    //       SELECT n.id,
-   //              n.category,
-                
+   //              n.category,          
    //       FROM lists AS n
    //          JOIN users AS u ON u.id = n.user_id
    //       WHERE n.id = $1 AND n.user_id = $2
