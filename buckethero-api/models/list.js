@@ -38,9 +38,9 @@ class List {
    }
 
 
-   static async createNewList({ nutrition, user }) {
-      console.log(nutrition.name);
-      if (!nutrition.name) {
+   static async createNewList({ list, user }) {
+      console.log(list.name);
+      if (!list.name) {
          throw new BadRequestError("Missing name of list in request.");
       }
 
@@ -49,7 +49,7 @@ class List {
             $1, (SELECT id FROM users WHERE email=$2) 
          ) 
          RETURNING id, name, created_at AS "createdAt";
-      `, [ nutrition.name, user.email]);
+      `, [ list.name, user.email]);
 
       return result.rows[0];
    }
