@@ -1,13 +1,14 @@
 import {useState} from 'react';
 import apiClient from '../services/apiClient';
 import Logo from "../assets/BH.png";
-import { useAuthContext } from "../contexts/auth";
+import { useDashContext } from "../contexts/dashboard";
 import {useNavigate} from 'react-router-dom';
 
 
 
 export default function ListCol({}) {
     const navigate = useNavigate();
+    const {lists} = useDashContext();
     return (
         <div className='border border-purple-500 w-1/3 mr-4 p-2 h-full p-2'>
             <div className='flex flex-row w-full justify-between'>
@@ -18,6 +19,7 @@ export default function ListCol({}) {
                 </svg>
                 </button>
             </div>
+            {lists?.map((list) => <div key={list.id}>{list.name}</div>)}
         </div>
     );
 }

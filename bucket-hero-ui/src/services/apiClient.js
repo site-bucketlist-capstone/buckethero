@@ -26,7 +26,7 @@ class ApiClient {
 
         try {
             const res = await axios({url, method, data, headers});
-            console.log("fetched data", res.data);
+            console.log("fetched data from", method, res.data);
             return {data: res.data, error: null}
         } catch (error) {
             console.error({errorResponse: error.response});
@@ -53,6 +53,19 @@ class ApiClient {
         this.setToken(null)
         localStorage.setItem(this.tokenName, "")
     }
+
+    async fetchLists() {
+        return await this.request({endpoint: `user/lists`, method: "GET"});
+    }
+
+    async newList(form) {
+        return await this.request({endpoint: `user/lists/new`, method: "POST", data: form});
+    }
+
+    //fetch list items for a list id `user/items/${listId}`
+
+    //fetch list items for a list id `user/items/duedate`
+
 }
 
 export default new ApiClient(API_BASE_URL)
