@@ -38,20 +38,18 @@ class List {
    }
 
 
-   static async createNewList({ list, user }) {
-      const required = ["name"];
-      required.forEach(field => {
-         if (!list.hasOwnProperty(field)) {
-            throw new BadRequestError(`Missing ${field} in request.`);
-         }
-      });
+   static async createNewList({ nutrition, user }) {
+      console.log(nutrition.name);
+      if (!nutrition.name) {
+         throw new BadRequestError("Missing name of list in request.");
+      }
 
       const result = await db.query(`
          INSERT INTO lists ( name, user_id ) VALUES ( 
             $1, (SELECT id FROM users WHERE email=$2) 
          ) 
          RETURNING id, name, created_at AS createdAt;
-      `, [ list.name, user.email]);
+      `, [ nutrition.name, user.email]);
 
       return result.rows[0];
    }
