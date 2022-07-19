@@ -18,8 +18,13 @@ import { LockClosedIcon } from '@heroicons/react/solid';
 import {useState} from 'react';
 import apiClient from '../services/apiClient';
 import Logo from "../assets/BH.png";
+import { useAuthContext } from "../contexts/auth";
+import {useNavigate} from 'react-router-dom';
 
-export default function Register({setUser}) {
+
+
+export default function Register({}) {
+    const navigate = useNavigate();
     const [form, setForm] = useState({
         first_name: "",
         last_name: "",
@@ -27,7 +32,8 @@ export default function Register({setUser}) {
         password: "",
         confirmpassword: "",
       })
-      const [error, setError] = useState({})
+      const {user, setUser, error, setError, isProcessing, setIsProcessing, signupUser} = useAuthContext();
+      
     
       const handleOnInputChange = (event) => {
         if (event.target.name === "password") {
@@ -55,13 +61,13 @@ export default function Register({setUser}) {
         setForm((f) => ({ ...f, [event.target.name]: event.target.value }))
       }
     
-      function handleOnSubmit(event) {
+      async function handleOnSubmit(event) {
         event.preventDefault();
         //axios to backend
 
-        const res = apiClient.signupUser(form);
+        const res = await signupUser(form);
         console.log("submitted", res);
-        //if (nav) navigate("/activity");
+        if (res) navigate("/");
       }
 
   return (
@@ -157,7 +163,8 @@ export default function Register({setUser}) {
                 <label htmlFor="confirmpassword" className="sr-only">
                   Confirm Password
                 </label>
-                <input
+                {/*bg-red-100 border border-red-400 text-red-700 */}
+                {!error?.confirmpassword ? <input
                   id="confirmpassword"
                   name="confirmpassword"
                   type="password"
@@ -166,7 +173,16 @@ export default function Register({setUser}) {
                   required
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-orange-500 focus:border-orange-500 focus:z-10 sm:text-sm"
                   placeholder="Confirm Password"
-                />
+                /> : <input
+                id="confirmpassword"
+                name="confirmpassword"
+                type="password"
+                value={form.confirmpassword}
+                onChange={handleOnInputChange}
+                required
+                className="appearance-none rounded-none relative block w-full px-3 py-2 bg-red-100 border border-red-400 text-red-700 placeholder-gray-500 rounded-b-md focus:outline-none focus:ring-orange-500 focus:border-orange-500 focus:z-10 sm:text-sm"
+                placeholder="Confirm Password"
+              />}
               </div>
             </div>
             {error?.confirmpassword ? <p className="mt-2 text-sm text-red-600 dark:text-red-500"><span className="font-medium">Passwords do not match</span></p> : <p className="mt-2 text-sm text-red-600 dark:text-red-500"><span className="font-medium"></span></p>}

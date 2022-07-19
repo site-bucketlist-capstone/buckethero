@@ -44,11 +44,11 @@ export const AuthContextProvider = ({children}) => {
         if (form.confirmpassword !== form.password) {
         setError((e) => ({ ...e, confirmpassword: "Passwords do not match." }))
         setIsProcessing(false)
-        return
+        return false
         } else {
         setError((e) => ({ ...e, confirmpassword: null }))
         }
-        const {data, error} = await apiClient.signupUser({email: form.email, password: form.password, first_name: form.first_name, last_name: form.last_name, username: form.username});
+        const {data, error} = await apiClient.signupUser({email: form.email, password: form.password, confirmpassword: form.confirmpassword, first_name: form.first_name, last_name: form.last_name, username: form.username});
         if (error) {
             setError((e) => ({ ...e, form: error }))
             const message = error?.response?.data?.error?.message
@@ -66,8 +66,10 @@ export const AuthContextProvider = ({children}) => {
         setIsProcessing(false);
     }
 
-    function fetchUserFromToken() {
+    async function fetchUserFromToken() {
         console.log("fetch context");
+        return await apiClient.fetchUserFromToken();
+
     }
 
     async function logoutUser() {
