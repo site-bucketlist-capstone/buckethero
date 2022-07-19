@@ -52,6 +52,7 @@ class List {
       `, [ list.name, user.email]);
 
       return result.rows[0];
+      //
    }
 }
 
