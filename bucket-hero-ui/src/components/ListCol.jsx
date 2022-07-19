@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import apiClient from '../services/apiClient';
 import Logo from "../assets/BH.png";
 import ListColComp from './ListColComp';
@@ -9,8 +9,14 @@ import {useNavigate} from 'react-router-dom';
 
 export default function ListCol({}) {
     const navigate = useNavigate();
-    const {lists} = useDashContext();
-    const [selected, setSelected] = useState(lists[0].id);
+    const {lists, selected, setSelected} = useDashContext();
+
+    useEffect(() => {
+        if(!selected){
+            setSelected(lists[0].id);
+        }
+    }, [])
+    //const [selected, setSelected] = useState(lists[0].id);
 
     return (
         <div className='border border-purple-500 w-1/3 mr-4 p-2 h-full p-2'>

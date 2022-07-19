@@ -5,10 +5,11 @@ import apiClient from '../services/apiClient';
 const DashContext = createContext(null);
 
 export const DashContextProvider = ({children}) => {
-    const [lists, setLists] = useState({});
+    const [lists, setLists] = useState([]);
     const [initialized, setInitialized] = useState();
     const [isProcessing, setIsProcessing] = useState(false);
     const [error, setError] = useState();
+    const [selected, setSelected] = useState();
 
     useEffect(() => {
         //initialize lists? by fetching the lists?
@@ -58,8 +59,14 @@ export const DashContextProvider = ({children}) => {
 
     //function to fetch items for a given list
     const fetchListItems = async (id) => {
-
-
+        //fetch list item using id
+        
+        const {data, err} = await apiClient.fetchItemsById(id);
+        if (data) {
+            console.log("fetched list item data", data)
+            return data;
+        }
+        if (err) return false;
         //return value to be an array of list items
     }
 
@@ -72,7 +79,10 @@ export const DashContextProvider = ({children}) => {
         setIsProcessing,
         error,
         setError,
-        newList
+        newList,
+        selected,
+        setSelected,
+        fetchListItems
         
     }
 

@@ -63,6 +63,9 @@ class ApiClient {
     }
 
     //fetch list items for a list id `user/items/${listId}`
+    async fetchItemsById(id) {
+        return await this.request({endpoint: `user/items/${id}`, method: "GET"});
+    }
 
     //fetch list items for a list id `user/items/duedate`
 
