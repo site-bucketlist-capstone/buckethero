@@ -51,7 +51,7 @@ export default function SignIn() {
         const res = await loginUser(form);
         console.log("submitted", res);
         //const nav = await loginUser(form);
-        if (res) navigate("/dashboard");
+        if (res) navigate("/");
         
     }
 
