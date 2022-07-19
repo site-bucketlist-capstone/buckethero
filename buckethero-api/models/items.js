@@ -1,27 +1,27 @@
 const db = require("../db")
 const { BadRequestError, NotFoundError } = require("../utils/errors")
 
+//!!!!remove any id from list_items!!!!!
 class Items {
 
-    static async createNewListItem({item}, {user}, listId) {
+    static async createNewListItem({item, user, listId}) {
         //checks to make sure item at least has "name"
         if (!item.hasOwnProperty("name")) {
             throw new BadRequestError(`Require field - ${field} - missing from request body`)
         }  
 
+
         const results = await db.query(
             `
                 INSERT INTO list_items (name, location, category, price_point, due_date, user_id, list_id)
                 VALUES ($1, $2, $3, $4, $5, (SELECT id FROM users where email = $6), (SELECT id FROM lists WHERE id = $7))
-                RETURNING id, 
-                          name,
+                RETURNING name,
                           location, 
                           category, 
                           price_point, 
                           user_id, 
                           list_id, 
                           is_completed, 
-                          updated_at, 
                           created_at
             `, [item.name, item.location, item.category, item.price_point, item.due_date, user.email, listId]
         )
@@ -90,3 +90,5 @@ class Items {
     }
 
 }
+
+module.exports = Items;
