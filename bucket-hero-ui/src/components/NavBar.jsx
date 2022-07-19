@@ -8,14 +8,14 @@ import { useAuthContext } from "../contexts/auth";
 
 export default function NavBar({}) {
     const {user, logoutUser} = useAuthContext();
-    const navigation = user.email ? [
+    const navigation = user?.email ? [
         { name: 'Product', href: '#' },
         { name: 'Features', href: '#' },
         { name: 'Marketplace', href: '#' },
         { name: 'Company', href: '#' },
       ] : [];
 
-   
+   console.log("user", user);
       
     
   return (

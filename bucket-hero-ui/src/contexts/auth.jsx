@@ -44,7 +44,7 @@ export const AuthContextProvider = ({children}) => {
         if (form.confirmpassword !== form.password) {
         setError((e) => ({ ...e, confirmpassword: "Passwords do not match." }))
         setIsProcessing(false)
-        return
+        return false
         } else {
         setError((e) => ({ ...e, confirmpassword: null }))
         }
@@ -66,8 +66,10 @@ export const AuthContextProvider = ({children}) => {
         setIsProcessing(false);
     }
 
-    function fetchUserFromToken() {
+    async function fetchUserFromToken() {
         console.log("fetch context");
+        return await apiClient.fetchUserFromToken();
+
     }
 
     async function logoutUser() {
