@@ -23,7 +23,7 @@ app.use(security.extractUserFromJwt);
 
 
 app.use("/auth", authRoutes)
-app.use("/user", listRoutes) 
+app.use("/list", listRoutes) 
 app.use("/global", gallRoutes);
 
 app.use((req, res, next) => {

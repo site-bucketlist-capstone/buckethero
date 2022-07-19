@@ -14,7 +14,7 @@ router.get("/lists", security.requireAuthenticatedUser, async (req, res, next) =
   }
 });
 
-router.post("/lists/new", security.requireAuthenticatedUser, async (req, res, next) => {
+router.post("/new", security.requireAuthenticatedUser, async (req, res, next) => {
   try {
      const  { user } = res.locals;
      const list = await List.createNewList({ list: req.body, user});
@@ -24,7 +24,7 @@ router.post("/lists/new", security.requireAuthenticatedUser, async (req, res, ne
   }
 });
 
-router.post("/lists/:id/newItem", security.requireAuthenticatedUser, async (req, res, next) => {
+router.post("/:id/newItem", security.requireAuthenticatedUser, async (req, res, next) => {
   try {
     const { user } = res.locals 
     const item = await Items.createNewListItem({ item: req.body, user, listId : req.params.id})
