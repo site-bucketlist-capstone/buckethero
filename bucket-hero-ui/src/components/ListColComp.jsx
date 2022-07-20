@@ -6,9 +6,11 @@ import {useNavigate} from 'react-router-dom';
 
 
 
-export default function ListColComp({name, id, selected, setSelected}) {
+export default function ListColComp({name, id, selected, setSelected, setBlTitle}) {
     function handleClick(event) {
         setSelected(id);
+        setBlTitle(name);
+        
     }
     return (
         <div onClick={handleClick}>

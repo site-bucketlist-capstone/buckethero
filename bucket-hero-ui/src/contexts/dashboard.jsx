@@ -10,12 +10,17 @@ export const DashContextProvider = ({children}) => {
     const [isProcessing, setIsProcessing] = useState(false);
     const [error, setError] = useState();
     const [selected, setSelected] = useState();
+    const [blTitle, setBlTitle] = useState();
+    const [modalOpen, setModalOpen] = useState(false);
 
     useEffect(() => {
         //initialize lists? by fetching the lists?
         const fetchLists = async () => {
             const {data, error} = await apiClient.fetchLists();
-            if (data) setLists(data.list);
+            if (data) {
+                await setLists(data.list);
+                setBlTitle(data.list[0].name);
+            }
             if (error) setError(err);
         }
         const token = localStorage.getItem("buckethero-token");
@@ -70,6 +75,25 @@ export const DashContextProvider = ({children}) => {
         //return value to be an array of list items
     }
 
+    const newItem = async (form) => {
+        setIsProcessing(true)
+        setError((e) => ({ ...e, form: null }))
+        const fetchNew = async () => {
+            const {data, err} = await apiClient.newItem(form);
+            if (data) {
+                return true;
+            } else if (err) {
+                return false;
+            }
+
+        }
+        const nav = await fetchNew();
+        const items = await fetchListItems(form.list_id);
+        setIsProcessing(false);
+        console.log("list items after new", items);
+        return nav;
+    }
+
 
     const dashValue = {lists, 
         setLists, 
@@ -82,7 +106,11 @@ export const DashContextProvider = ({children}) => {
         newList,
         selected,
         setSelected,
-        fetchListItems
+        fetchListItems,
+        blTitle,
+        setBlTitle,
+        modalOpen,
+        setModalOpen
         
     }
 

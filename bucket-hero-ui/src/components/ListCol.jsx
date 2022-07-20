@@ -9,11 +9,11 @@ import {useNavigate} from 'react-router-dom';
 
 export default function ListCol({}) {
     const navigate = useNavigate();
-    const {lists, selected, setSelected} = useDashContext();
+    const {lists, selected, setSelected, setBlTitle} = useDashContext();
 
     useEffect(() => {
         if(!selected){
-            setSelected(lists[0].id);
+            setSelected(lists[0]?.id);
         }
     }, [])
     //const [selected, setSelected] = useState(lists[0].id);
@@ -28,7 +28,7 @@ export default function ListCol({}) {
                 </svg>
                 </button>
             </div>
-            {lists?.map((list) => <div key={list.id}><ListColComp setSelected={setSelected} selected={selected} name={list.name} id={list.id}/></div>)}
+            {lists?.map((list) => <div key={list.id}><ListColComp setSelected={setSelected} selected={selected} name={list.name} setBlTitle={setBlTitle} id={list.id}/></div>)}
         </div>
     );
 }
