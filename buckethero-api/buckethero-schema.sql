@@ -11,6 +11,7 @@ CREATE TABLE users (
 CREATE TABLE lists (
   id          SERIAL PRIMARY KEY,
   name        TEXT NOT NUll,
+  emoji_unicode TEXT, 
   user_id     INTEGER NOT NULL,
   created_at  TIMESTAMP NOT NULL DEFAULT NOW(),
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
@@ -27,5 +28,12 @@ CREATE TABLE list_items (
   price_point  INTEGER DEFAULT 0,
   is_completed  BOOLEAN NOT NULL DEFAULT false,
   created_at  TIMESTAMP NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE gallery_items (
+  id          SERIAL PRIMARY KEY,
+  name        TEXT NOT NULL,
+  location    TEXT,
+  category    TEXT
 );
 

@@ -14,7 +14,7 @@ class Items {
         const results = await db.query(
             `
                 INSERT INTO list_items (name, location, category, price_point, due_date, user_id, list_id)
-                VALUES ($1, $2, $3, $4, $5, (SELECT id FROM users where email = $6), (SELECT id FROM lists WHERE id = $7))
+                VALUES ($1, $2, $3, $4, $5, (SELECT id FROM users WHERE email = $6), (SELECT id FROM lists WHERE id = $7))
                 RETURNING id, 
                           name,
                           location, 
@@ -30,14 +30,29 @@ class Items {
         return results.rows[0]
     } 
 
-    static async fetchItemsByListId(listId) {
+    static async fetchItemsByListId(listId, {user}) {
         const results = await db.query(
             `
-                SELECT * from list_items 
-                WHERE list_id = $ 1
-            `, [listId]
+                SELECT list_items.id,
+                       list_items.list_id,
+                       list_items.user_id, 
+                       list_items.name, 
+                       list_items.due_date, 
+                       list_items.category, 
+                       list_items.location, 
+                       list_items.price_point, 
+                       list_items.is_completed, 
+                       list_items.created_At,
+                       users.first_name,
+                       users.last_name,
+                       users.email, 
+                       users.password
+                FROM list_items
+                JOIN users ON users.id = list_items.user_id
+                WHERE list_items.list_id = $1
+                AND users.email = $2
+            `, [listId , user.email]
         )
-
         const items = results.rows
 
         if (!items) {
@@ -47,12 +62,28 @@ class Items {
         return items
     }
 
-    static async fetchItemsByCompletion() {
+    static async fetchItemsByCompletion({user}) {
         const results = await db.query(
             `
-                SELECT * from list_items 
+                SELECT  list_items.id,
+                        list_items.list_id,
+                        list_items.user_id, 
+                        list_items.name, 
+                        list_items.due_date, 
+                        list_items.category, 
+                        list_items.location, 
+                        list_items.price_point, 
+                        list_items.is_completed, 
+                        list_items.created_At,
+                        users.first_name,
+                        users.last_name,
+                        users.email, 
+                        users.password
+                FROM list_items
+                JOIN users ON users.id = list_items.user_id
                 WHERE is_completed = true 
-            `
+                AND users.email = $1
+            `, [user.email]
         )
 
         const items = results.rows 
@@ -64,31 +95,77 @@ class Items {
         return items 
     }
 
-
-    static async fetchItemById(itemId) {
+    static async fetchItemsByDueDate({user}) {
         const results = await db.query(
-        `
-            SELECT list_items.id,
-                   list_items.name, 
-                   list_items.due_date, 
-                   list_items.category, 
-                   list_items.location, 
-                   list_items.price_point, 
-                   list_items.is_completed, 
-                   list_items.rating
-            FROM list_items 
-            WHERE list_items.
-        `, [itemId]
+            `
+                SELECT  list_items.id,
+                        list_items.list_id,
+                        list_items.user_id, 
+                        list_items.name, 
+                        list_items.due_date, 
+                        list_items.category, 
+                        list_items.location, 
+                        list_items.price_point, 
+                        list_items.is_completed, 
+                        list_items.created_At,
+                        users.first_name,
+                        users.last_name,
+                        users.email, 
+                        users.password
+                FROM list_items
+                JOIN users ON users.id = list_items.user_id
+                WHERE users.email = $1 
+                ORDER BY due_date ASC
+                LIMIT 4
+            `, [user.email]
         )
 
-        const item = results.rows[0]
+        const items = results.rows 
 
-        if (!item) {
-            throw new NotFoundError() 
+        if (!items) {
+            throw new NotFoundError()
         }
 
-        return item 
+        return items 
     }
+
+    static async removeItemsByListId(listId, itemId, {user}) {
+        const results = await db.query(
+            `
+                DELETE FROM list_items WHERE list_id = $1 AND id = $2 
+            `, [listId, itemId]
+        )
+
+        const items = await this.fetchItemsByListId(listId, {user})
+        
+        return items 
+    }
+
+
+    // static async fetchItemById(itemId) {
+    //     const results = await db.query(
+    //     `
+    //         SELECT list_items.id,
+    //                list_items.name, 
+    //                list_items.due_date, 
+    //                list_items.category, 
+    //                list_items.location, 
+    //                list_items.price_point, 
+    //                list_items.is_completed, 
+    //                list_items.rating
+    //         FROM list_items 
+    //         WHERE list_items.
+    //     `, [itemId]
+    //     )
+
+    //     const item = results.rows[0]
+
+    //     if (!item) {
+    //         throw new NotFoundError() 
+    //     }
+
+    //     return item 
+    // }
 
 }
 

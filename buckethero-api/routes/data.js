@@ -14,9 +14,9 @@ router.get("/lists", security.requireAuthenticatedUser, async (req, res, next) =
   }
 });
 
-router.post("/lists/new", security.requireAuthenticatedUser, async (req, res, next) => {
+router.post("/new", security.requireAuthenticatedUser, async (req, res, next) => {
   try {
-     const  { user } = res.locals;
+     const { user } = res.locals;
      const list = await List.createNewList({ list: req.body, user});
      res.status(201).json({ list });
   } catch(error) {
@@ -24,7 +24,7 @@ router.post("/lists/new", security.requireAuthenticatedUser, async (req, res, ne
   }
 });
 
-router.post("/lists/:id/newItem", security.requireAuthenticatedUser, async (req, res, next) => {
+router.post("/:id/newItem", security.requireAuthenticatedUser, async (req, res, next) => {
   try {
     const { user } = res.locals 
     const item = await Items.createNewListItem({ item: req.body, user, listId : req.params.id})
@@ -37,28 +37,36 @@ router.post("/lists/:id/newItem", security.requireAuthenticatedUser, async (req,
 router.get("/items/:filterOption", security.requireAuthenticatedUser, async (req, res, next) => {
   try {
     //3 filter options (listID, completed, due_date)
-    const { filterOption } = req.params 
-    if ( Number.isInteger(filterOption) ) {
-      const result = await Items.fetchItemsByListId(filterOption) 
+    const { user } = res.locals
+    const filterOption = req.params.filterOption
+    //checks if filterOption is a number 
+    if ( filterOption[0] >= '0' && filterOption[0] <= '9' ) {
+      const result = await Items.fetchItemsByListId(filterOption, {user}) 
+      return res.status(200).json({result})
     } else if ( filterOption == "completed" ) {
-      const result = await Items.fetchItemsByCompletion()
+      const result = await Items.fetchItemsByCompletion({user})
+      return res.status(200).json({result})
     } 
-    // else if ( filterOption == "due_date") {
-    //   const result = await Items.fetchItemsByDueDate() 
-    // } 
+    else if ( filterOption == "due_date") {
+      const result = await Items.fetchItemsByDueDate({user}) 
+      return res.status(200).json({result})
+    } 
   } catch (err) {
     next(err)
   }
 })
 
-// router.get("/items/:itemId", security.requireAuthenticatedUser, async (req, res, next) => {
-//   try {
-//     const { itemId } = req.params
-//     const item = await Items.fetchItemById(itemId)
-//     return res.status(200).json({ item })
-//   } catch(err) {
-//     next(err)
-//   }
-// })
+router.delete("/:listId/item/:itemId/delete", security.requireAuthenticatedUser, async (req, res, next) => {
+  try {
+    const { user } = res.locals
+    const listId = req.params.listId 
+    const itemId = req.params.itemId 
+    const result = await Items.removeItemsByListId(listId, itemId, {user})
+
+    return res.status(202).json({result})
+  } catch (err) {
+    next(err)
+  }
+})
 
 module.exports = router
