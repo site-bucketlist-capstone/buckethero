@@ -69,4 +69,28 @@ router.delete("/:listId/item/:itemId/delete", security.requireAuthenticatedUser,
   }
 })
 
+router.delete("/:listId/delete", security.requireAuthenticatedUser, async (req, res, next) => {
+  try {
+    const { user } = res.locals
+    const listId = req.params.listId 
+    console.log(listId)
+    const result = await List.removeListByListId(listId, {user})
+    
+    return res.status(202).json({result})
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.put("/:listId/edit", security.requireAuthenticatedUser, security.requireAuthenticatedUser, async (req, res, next) => {
+  try {
+    const { listId } = req.params
+    console.log(listId)
+    const list = await List.editList({ listUpdate: req.body, listId })
+    return res.status(200).json({ list })
+  } catch (err) {
+    next(err)
+  }
+})
+
 module.exports = router

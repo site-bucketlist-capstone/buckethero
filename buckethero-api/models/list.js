@@ -16,24 +16,6 @@ class List {
       return results.rows;
    }
 
-   // static async fetchListById(userId, listId) {
-   //    const results = await db.query (
-   //       `
-   //       SELECT n.id,
-   //              n.category,          
-   //       FROM lists AS n
-   //          JOIN users AS u ON u.id = n.user_id
-   //       WHERE n.id = $1 AND n.user_id = $2
-   //       `, [listId, userId] 
-   //    )
-   //    const list = results.rows[0];
-   //    if (!list) {
-   //       throw new NotFoundError("Doesn't exist.");
-   //    }   
-   //    return list;
-   // }
-
-
    static async createNewList({ list, user }) {
       console.log(list.name);
       if (!list.name) {
@@ -49,6 +31,59 @@ class List {
 
       return result.rows[0];
       //
+   }
+
+   static async removeListByListId(listId, {user}) {
+      const result = await db.query(
+          `
+              DELETE FROM lists WHERE id = $1
+          `, [listId]
+      )
+      
+      const results = await this.getUserLists({user});
+      
+      return results;
+   }
+
+   static async removeListByListId(listId, {user}) {
+      const result = await db.query(
+          `
+              DELETE FROM lists WHERE id = $1
+          `, [listId]
+      )
+      
+      const results = await this.getUserLists({user});
+      
+      return results;
+   }
+
+   static async editList({ listUpdate, listId }) {    
+      const resultName = await db.query(
+         `SELECT name FROM lists WHERE id = $1 `, [listId]
+      )
+      const resultEmoji_unicode = await db.query(
+         `SELECT emoji_unicode FROM lists WHERE id = $1 `, [listId]
+      )
+      const name = resultName.rows[0].name
+      const emoji_unicode = resultEmoji_unicode.rows[0].emoji_unicode
+      console.log(emoji_unicode);
+      const result = await db.query(
+         `
+         UPDATE lists
+         SET name = $1, emoji_unicode = $2       
+         WHERE id = $3
+         RETURNING id, 
+                  name,
+                  emoji_unicode
+      `,
+         [
+            listUpdate.name || name,
+            listUpdate.emoji_unicode || emoji_unicode,
+            listId
+         ]
+      )
+
+      return result.rows[0]
    }
 }
 
