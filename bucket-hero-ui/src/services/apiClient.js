@@ -55,19 +55,25 @@ class ApiClient {
     }
 
     async fetchLists() {
-        return await this.request({endpoint: `user/lists`, method: "GET"});
+        return await this.request({endpoint: `list/lists`, method: "GET"});
     }
 
     async newList(form) {
-        return await this.request({endpoint: `user/lists/new`, method: "POST", data: form});
+        return await this.request({endpoint: `list/new`, method: "POST", data: form});
     }
 
     //fetch list items for a list id `user/items/${listId}`
     async fetchItemsById(id) {
-        return await this.request({endpoint: `user/items/${id}`, method: "GET"});
+        return await this.request({endpoint: `list/items/${id}`, method: "GET"});
     }
 
     //fetch list items for a list id `user/items/duedate`
+
+    async newItem(form) {
+        return await this.request({endpoint: `list/${form.list_id}/newItem`, method: 'POST', data: form})
+    }
+
+    
 
 }
 

@@ -75,6 +75,25 @@ export const DashContextProvider = ({children}) => {
         //return value to be an array of list items
     }
 
+    const newItem = async (form) => {
+        setIsProcessing(true)
+        setError((e) => ({ ...e, form: null }))
+        const fetchNew = async () => {
+            const {data, err} = await apiClient.newItem(form);
+            if (data) {
+                return true;
+            } else if (err) {
+                return false;
+            }
+
+        }
+        const nav = await fetchNew();
+        const items = await fetchListItems(form.list_id);
+        setIsProcessing(false);
+        console.log("list items after new", items);
+        return nav;
+    }
+
 
     const dashValue = {lists, 
         setLists, 
