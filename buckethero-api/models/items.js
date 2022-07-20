@@ -137,8 +137,7 @@ class Items {
         )
 
         const items = await this.fetchItemsByListId(listId, {user})
-        console.log(items)
-
+        
         return items 
     }
 

@@ -62,6 +62,8 @@ router.delete("/:listId/item/:itemId/delete", security.requireAuthenticatedUser,
     const listId = req.params.listId 
     const itemId = req.params.itemId 
     const result = await Items.removeItemsByListId(listId, itemId, {user})
+
+    return res.status(202).json({result})
   } catch (err) {
     next(err)
   }
