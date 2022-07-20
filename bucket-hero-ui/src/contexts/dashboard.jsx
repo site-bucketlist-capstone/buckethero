@@ -19,9 +19,9 @@ export const DashContextProvider = ({children}) => {
             const {data, error} = await apiClient.fetchLists();
             if (data) {
                 await setLists(data.list);
-                setBlTitle(data.list[0].name);
+                setBlTitle(data.list[0]?.name);
             }
-            if (error) setError(err);
+            if (error) setError(error);
         }
         const token = localStorage.getItem("buckethero-token");
         if(token) {
@@ -78,9 +78,11 @@ export const DashContextProvider = ({children}) => {
     const newItem = async (form) => {
         setIsProcessing(true)
         setError((e) => ({ ...e, form: null }))
+        console.log("in new item")
         const fetchNew = async () => {
             const {data, err} = await apiClient.newItem(form);
             if (data) {
+                console.log("got data")
                 return true;
             } else if (err) {
                 return false;
@@ -88,6 +90,7 @@ export const DashContextProvider = ({children}) => {
 
         }
         const nav = await fetchNew();
+        console.log("have nav", nav);
         const items = await fetchListItems(form.list_id);
         setIsProcessing(false);
         console.log("list items after new", items);
@@ -110,7 +113,8 @@ export const DashContextProvider = ({children}) => {
         blTitle,
         setBlTitle,
         modalOpen,
-        setModalOpen
+        setModalOpen,
+        newItem
         
     }
 

@@ -14,6 +14,7 @@ export default function ListItemComp(item) {
     return (
         <div className='border'>
             {item?.name}
+            yayadshfhjakdsf
         </div>
         
     );

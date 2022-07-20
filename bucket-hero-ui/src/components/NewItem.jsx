@@ -7,16 +7,24 @@ import { useDashContext } from '../contexts/dashboard'
 export default function NewItem() {
   //const [open, setOpen] = useState(true)
 
-  const {modalOpen, setModalOpen, blTitle} = useDashContext();
-  const [form, setForm] = useState({'name': "", 'location': "", 'due_date': "", 'category': "", 'price': "", "list_id": null});
+    const {modalOpen, setModalOpen, blTitle, newItem, selected} = useDashContext();
+    const [form, setForm] = useState({'name': "", 'location': "", 'due_date': "", 'category': "", 'price': "", "list_id": selected});
 
-  const cancelButtonRef = useRef(null);
+    const cancelButtonRef = useRef(null);
 
-  const handleOnInputChange = (event) => {
+    const handleOnInputChange = (event) => {
     
     setForm((f) => ({ ...f, [event.target.name]: event.target.value }))
     }
-
+    
+    const handleOnSubmit = async (e) => {
+        console.log("in submit");
+        e.preventDefault();
+        const res = await newItem(form);
+        console.log("submitted");
+        if (res) setModalOpen(false);
+        
+    }
 
   return (
     <Transition.Root show={modalOpen} as={Fragment}>
@@ -138,7 +146,7 @@ export default function NewItem() {
                   <button
                     type="button"
                     className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-orange-500 text-base font-medium text-white hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
-                    onClick={() => setModalOpen(false)}
+                    onClick={(e) => handleOnSubmit(e)}
                   >
                     Save
                   </button>
