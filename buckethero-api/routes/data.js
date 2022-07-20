@@ -16,7 +16,7 @@ router.get("/lists", security.requireAuthenticatedUser, async (req, res, next) =
 
 router.post("/new", security.requireAuthenticatedUser, async (req, res, next) => {
   try {
-     const  { user } = res.locals;
+     const { user } = res.locals;
      const list = await List.createNewList({ list: req.body, user});
      res.status(201).json({ list });
   } catch(error) {
@@ -58,7 +58,10 @@ router.get("/items/:filterOption", security.requireAuthenticatedUser, async (req
 
 router.delete("/:listId/item/:itemId/delete", security.requireAuthenticatedUser, async (req, res, next) => {
   try {
-    const result = await Items.removeItemsByListId()
+    const { user } = res.locals
+    const listId = req.params.listId 
+    const itemId = req.params.itemId 
+    const result = await Items.removeItemsByListId(listId, itemId, {user})
   } catch (err) {
     next(err)
   }
