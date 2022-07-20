@@ -70,6 +70,7 @@ class ApiClient {
     //fetch list items for a list id `user/items/duedate`
 
     async newItem(form) {
+        console.log("in api client")
         return await this.request({endpoint: `list/${form.list_id}/newItem`, method: 'POST', data: form})
     }
 

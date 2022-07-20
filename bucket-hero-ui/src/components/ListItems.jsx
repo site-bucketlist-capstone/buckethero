@@ -15,7 +15,7 @@ export default function ListItems({}) {
         const getItems = async () => {
             const result = await fetchListItems(selected);
             if (result) {
-                await setItems(result.items);
+                await setItems(result.result);
                 console.log(result)
             }
             return result;
@@ -23,7 +23,7 @@ export default function ListItems({}) {
         getItems();
         console.log("use effect items", items);
         
-    }, [])
+    }, [selected])
     return (
         <div className='border border-blue-500 w-2/3 p-2 h-full'>
             <h2>{blTitle}</h2>
