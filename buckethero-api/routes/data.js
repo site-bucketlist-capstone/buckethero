@@ -85,9 +85,19 @@ router.delete("/:listId/delete", security.requireAuthenticatedUser, async (req, 
 router.put("/:listId/edit", security.requireAuthenticatedUser, security.requireAuthenticatedUser, async (req, res, next) => {
   try {
     const { listId } = req.params
-    console.log(listId)
     const list = await List.editList({ listUpdate: req.body, listId })
     return res.status(200).json({ list })
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.put("/:listId/item/:itemId/edit", security.requireAuthenticatedUser, security.requireAuthenticatedUser, async (req, res, next) => {
+  try {
+    const listId  = req.params.listId
+    const itemId  = req.params.itemId
+    const item = await Items.editItem({ itemUpdate: req.body, listId, itemId })
+    return res.status(200).json({ item })
   } catch (err) {
     next(err)
   }

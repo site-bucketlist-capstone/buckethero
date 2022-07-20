@@ -119,13 +119,10 @@ class Items {
                 LIMIT 4
             `, [user.email]
         )
-
         const items = results.rows 
-
         if (!items) {
             throw new NotFoundError()
         }
-
         return items 
     }
 
@@ -135,12 +132,48 @@ class Items {
                 DELETE FROM list_items WHERE list_id = $1 AND id = $2 
             `, [listId, itemId]
         )
-
-        const items = await this.fetchItemsByListId(listId, {user})
-        
+        const items = await this.fetchItemsByListId(listId, {user})   
         return items 
     }
 
+    static async editItem({ itemUpdate, listId, itemId }) {    
+        const resultInfo = await db.query(
+            `SELECT name, location, category, price_point, due_date FROM list_items WHERE id = $1 `, [itemId]
+        )
+        const name = resultInfo.rows[0].name
+        const location = resultInfo.rows[0].location
+        const category = resultInfo.rows[0].category
+        const price_point = resultInfo.rows[0].price_point
+        const due_date  = resultInfo.rows[0].due_date
+
+        const result = await db.query(
+            `
+            UPDATE list_items
+            SET name = $1, location = $2, category = $3, price_point = $4, due_date = $5       
+            WHERE id = $6
+            RETURNING id, 
+                    name,
+                    category,
+                    location,
+                    price_point,
+                    due_date::timestamp::DATE
+        `,
+            [
+                itemUpdate.name || name,
+                itemUpdate.location || location,
+                itemUpdate.category || category,
+                itemUpdate.price_point || price_point,
+                itemUpdate.due_date || due_date,
+                itemId
+            ]
+        )
+
+        return result.rows[0]
+    }
+
+}
+
+module.exports = Items;
 
     // static async fetchItemById(itemId) {
     //     const results = await db.query(
@@ -166,7 +199,3 @@ class Items {
 
     //     return item 
     // }
-
-}
-
-module.exports = Items;
