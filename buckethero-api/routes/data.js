@@ -56,4 +56,12 @@ router.get("/items/:filterOption", security.requireAuthenticatedUser, async (req
   }
 })
 
+router.delete("/:listId/item/:itemId/delete", security.requireAuthenticatedUser, async (req, res, next) => {
+  try {
+    const result = await Items.removeItemsByListId()
+  } catch (err) {
+    next(err)
+  }
+})
+
 module.exports = router

@@ -11,6 +11,7 @@ CREATE TABLE users (
 CREATE TABLE lists (
   id          SERIAL PRIMARY KEY,
   name        TEXT NOT NUll,
+  emoji_unicode TEXT, 
   user_id     INTEGER NOT NULL,
   created_at  TIMESTAMP NOT NULL DEFAULT NOW(),
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE

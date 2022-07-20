@@ -6,7 +6,8 @@ class List {
       const results = await db.query (
          `
          SELECT n.id,
-                n.name
+                n.name,
+                n.emoji_unicode
          FROM lists AS n
          WHERE n.user_id = (SELECT users.id from users WHERE email = $1)
          ORDER BY n.created_at DESC
@@ -40,11 +41,11 @@ class List {
       }
 
       const result = await db.query(`
-         INSERT INTO lists ( name, user_id ) VALUES ( 
-            $1, (SELECT id FROM users WHERE email=$2) 
+         INSERT INTO lists ( name, emoji_unicode, user_id ) VALUES ( 
+            $1, $2,(SELECT id FROM users WHERE email=$3)
          ) 
-         RETURNING id, name, created_at AS "createdAt";
-      `, [ list.name, user.email]);
+         RETURNING id, name, emoji_unicode, created_at AS "createdAt";
+      `, [ list.name, list.emoji_unicode, user.email]);
 
       return result.rows[0];
       //
