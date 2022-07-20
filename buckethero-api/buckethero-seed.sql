@@ -39,6 +39,10 @@ VALUES ('Jumping into a lake',
  'Borrow somebodys car for a joyride',
   'Social',
   'Whichever frat you can find!'  
-)
-;
+);
 
+
+INSERT INTO users (first_name, last_name, email, password)
+VALUES (
+  'ex', 'ex', 'ex@ex', '$2b$13$6C2btzujqUyZobjG9x9YX.pkLiqA1BdzY22QZnHY1q2Ib4jyDd6Mm'
+);

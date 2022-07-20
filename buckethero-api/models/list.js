@@ -58,15 +58,11 @@ class List {
    }
 
    static async editList({ listUpdate, listId }) {    
-      const resultName = await db.query(
-         `SELECT name FROM lists WHERE id = $1 `, [listId]
+      const resultInfo = await db.query(
+         `SELECT name, emoji_unicode FROM lists WHERE id = $1 `, [listId]
       )
-      const resultEmoji_unicode = await db.query(
-         `SELECT emoji_unicode FROM lists WHERE id = $1 `, [listId]
-      )
-      const name = resultName.rows[0].name
-      const emoji_unicode = resultEmoji_unicode.rows[0].emoji_unicode
-      console.log(emoji_unicode);
+      const name = resultInfo.rows[0].name
+      const emoji_unicode = resultInfo.rows[0].emoji_unicode
       const result = await db.query(
          `
          UPDATE lists
