@@ -67,6 +67,10 @@ class ApiClient {
         return await this.request({endpoint: `list/items/${id}`, method: "GET"});
     }
 
+    async fetchCompletedItems() {
+        return await this.request({endpoint: `list/items/completed`, method: "GET"});
+    }
+
     //fetch list items for a list id `user/items/duedate`
 
     async newItem(form) {
