@@ -69,16 +69,17 @@ export default function SignIn() {
         <div className="max-w-md w-full space-y-8">
           <div>
             <img
-              className="mx-auto h-12 w-auto"
+              className="mx-auto h-20 w-auto"
               src={Logo}
               alt="Workflow"
+              
             />
             <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Sign in to your account</h2>
             
           </div>
           <form className="mt-8 space-y-6" onSubmit={handleOnSubmit}>
             <input type="hidden" name="remember" defaultValue="true" />
-            <div className="rounded-md shadow-sm -space-y-px">
+            <div className="rounded-md ">
               <div>
                 <label htmlFor="email-address" className="sr-only">
                   Email address
@@ -111,27 +112,8 @@ export default function SignIn() {
                   placeholder="Password"
                 />
               </div>
+              
             </div>
-
-            {/* <div className="flex items-center justify-between">
-              <div className="flex items-center">
-                <input
-                  id="remember-me"
-                  name="remember-me"
-                  type="checkbox"
-                  className="h-4 w-4 text-orange-600 focus:ring-orange-500 border-gray-300 rounded"
-                />
-                <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
-                  Remember me
-                </label>
-              </div>
-
-              <div className="text-sm">
-                <a href="#" className="font-medium text-orange-600 hover:text-orange-500">
-                  Forgot your password?
-                </a>
-              </div>
-            </div> */}
 
             <div>
               <button
@@ -144,6 +126,9 @@ export default function SignIn() {
                 {isProcessing ? "Loading..." : "Sign In"}
               </button>
             </div>
+            <div className='my-2 flex items-center justify-center'>
+              <p >Don't have an account? Register <a className='text-orange-500 underline ' href="/register">Here</a> </p>
+              </div>
           </form>
         </div>
       </div>

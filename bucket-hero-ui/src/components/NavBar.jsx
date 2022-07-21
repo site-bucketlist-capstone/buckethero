@@ -9,9 +9,11 @@ import { useAuthContext } from "../contexts/auth";
 export default function NavBar({}) {
     const {user, logoutUser} = useAuthContext();
     const navigation = user?.email ? [
+        { name: 'Dashboard', href: '/'},
         { name: 'Gallery', href: '/gallery' },
         { name: 'New List', href: '/newlist' },
         { name: 'Profile', href: '/profile' },
+        
         
       ] : [];
 
