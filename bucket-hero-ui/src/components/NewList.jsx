@@ -34,20 +34,30 @@ export default function NewList({}) {
         
     }
 
+    //transfer all this to dashcontext
     const [chosenEmoji, setChosenEmoji] = useState({
         activeSkinTone: "", 
-        emoji: "📓", 
+        emoji: "", 
         names: [], 
         originalUnified: "", 
-        unified: ""
+        unified: "1f4d4"
     });
 
+    const [openEmojiBoard, setOpenEmojiBoard] = useState(false)
+
     const onEmojiClick = (event, emojiObject) => {
-      setChosenEmoji(emojiObject);
+      setChosenEmoji(emojiObject)
+      setOpenEmojiBoard(false)
       console.log(chosenEmoji)
     };
 
-    let emojiString = `&#x${chosenEmoji};`
+    const handleOnEmojiClick = () => {
+        setOpenEmojiBoard(true)
+    }
+
+
+    let emojiString = `&#x${chosenEmoji.unified};`
+
     return (
         <div className='container mx-auto border rounded w-2/3 p-7 h-max flex flex-col justify-between'>
             <div className=''>
@@ -91,14 +101,14 @@ export default function NewList({}) {
                 </div>
                 <div className='flex flex-row items-center px-4'>
                     <p className="">List Emoji:</p>
-                    <div className="ml-10 hover:bg-orange-200">
-                        <p className="text-6xl">{chosenEmoji?.emoji}</p>
+                    <div className="ml-10 hover:bg-orange-200" onClick={handleOnEmojiClick}>
+                        <p className="text-6xl" dangerouslySetInnerHTML={{__html : emojiString}}></p>
                     </div>
                 </div>
                 </form>
             </div>
-            <Picker onEmojiClick={onEmojiClick} />
-            
+            {openEmojiBoard ? <Picker onEmojiClick={onEmojiClick}/> : null}
+
             <div className=' flex justify-end mt-8'>
               <button
                 type="submit"
