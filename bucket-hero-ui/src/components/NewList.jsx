@@ -34,12 +34,20 @@ export default function NewList({}) {
         
     }
 
-    const [chosenEmoji, setChosenEmoji] = useState(null);
+    const [chosenEmoji, setChosenEmoji] = useState({
+        activeSkinTone: "", 
+        emoji: "📓", 
+        names: [], 
+        originalUnified: "", 
+        unified: ""
+    });
 
     const onEmojiClick = (event, emojiObject) => {
       setChosenEmoji(emojiObject);
+      console.log(chosenEmoji)
     };
 
+    let emojiString = `&#x${chosenEmoji};`
     return (
         <div className='container mx-auto border rounded w-2/3 p-7 h-max flex flex-col justify-between'>
             <div className=''>
@@ -84,7 +92,7 @@ export default function NewList({}) {
                 <div className='flex flex-row items-center px-4'>
                     <p className="">List Emoji:</p>
                     <div className="ml-10 hover:bg-orange-200">
-                        <p className="text-6xl">&#128212;</p>
+                        <p className="text-6xl">{chosenEmoji?.emoji}</p>
                     </div>
                 </div>
                 </form>
