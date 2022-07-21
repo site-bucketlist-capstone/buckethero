@@ -8,7 +8,7 @@ import {useNavigate} from 'react-router-dom';
 
 
 export default function ListItems({}) {
-    const {selected, fetchListItems, blTitle, setModalOpen} = useDashContext();
+    const {selected, fetchListItems, blTitle, setModalOpen, modalOpen} = useDashContext();
     const [items, setItems] = useState([]);
     useEffect(() => {
         //fetch the list items for the given selected id
@@ -23,7 +23,7 @@ export default function ListItems({}) {
         getItems();
         console.log("use effect items", items);
         
-    }, [selected]);
+    }, [selected, modalOpen]);
 
     return (
         <div className='w-2/3 p-4 h-full'>
