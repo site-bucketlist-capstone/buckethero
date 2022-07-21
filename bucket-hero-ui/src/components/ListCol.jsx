@@ -12,7 +12,7 @@ export default function ListCol({}) {
     const {lists, selected, setSelected, setBlTitle, setModalOpen} = useDashContext();
 
     useEffect(() => {
-        if(!selected){
+        if(!selected || selected !== lists[0]?.id){
             setSelected(lists[0]?.id);
         }
     }, [])
