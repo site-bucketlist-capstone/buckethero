@@ -23,13 +23,13 @@ export default function NavBar({}) {
         <Popover>
             <div className="relative pt-6 px-4 sm:px-6 lg:px-8">
               <nav className="relative flex items-center justify-between sm:h-10 lg:justify-between" aria-label="Global">
-                <div className="flex items-center flex-grow flex-shrink-0 lg:flex-grow-0">
-                  <div className="flex items-center justify-between w-full md:w-auto">
-                    <a href="/">
+                <div className="flex items-center h-20 w-20">
+                  <div className="flex items-center justify-between h-20 w-20">
+                    <a href="/" className='w-full h-full'>
                       <span className="sr-only">Workflow</span>
                       <img
                         alt="Workflow"
-                        className="h-8 w-auto sm:h-10"
+                        className="w-full h-full"
                         src={Logo}
                       />
                     </a>
