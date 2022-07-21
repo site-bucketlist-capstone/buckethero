@@ -31,8 +31,6 @@ export const DashContextProvider = ({children}) => {
                 console.log(data)
                 await setComingUp(data.result);
             }
-            console.log("coming up")
-            console.log(data);
             if (error) setError(error);
         }
         const token = localStorage.getItem("buckethero-token");
