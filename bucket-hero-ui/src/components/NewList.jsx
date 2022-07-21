@@ -43,7 +43,7 @@ export default function NewList({}) {
       setChosenEmojiUnicode(emojiObject.unified)
       setForm((f) => ({ ...f, "emoji_unicode": chosenEmojiUnicode }))
       setOpenEmojiBoard(false)
-      console.log(chosenEmoji)
+      console.log(chosenEmojiUnicode)
     };
 
     const handleOnEmojiClick = () => {
