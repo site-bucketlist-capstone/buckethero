@@ -34,20 +34,24 @@ export default function NewList({}) {
         
     }
 
-    const [chosenEmoji, setChosenEmoji] = useState({
-        activeSkinTone: "", 
-        emoji: "📓", 
-        names: [], 
-        originalUnified: "", 
-        unified: ""
-    });
+    //transfer all this to dashcontext
+    const [chosenEmojiUnicode, setChosenEmojiUnicode] = useState("1f92f")
+
+    const [openEmojiBoard, setOpenEmojiBoard] = useState(false)
 
     const onEmojiClick = (event, emojiObject) => {
-      setChosenEmoji(emojiObject);
+      setChosenEmojiUnicode(emojiObject.unified)
+      setOpenEmojiBoard(false)
       console.log(chosenEmoji)
     };
 
-    let emojiString = `&#x${chosenEmoji};`
+    const handleOnEmojiClick = () => {
+        setOpenEmojiBoard(true)
+    }
+
+
+    let emojiString = `&#x${chosenEmojiUnicode};`
+
     return (
         <div className='container mx-auto border rounded w-2/3 p-7 h-max flex flex-col justify-between'>
             <div className=''>
@@ -71,34 +75,16 @@ export default function NewList({}) {
                     </div>
                     </div>
                 </div>
-                <div className='flex flex-row justify-between items-center px-4'>
-                    <p>List Icon:</p>
-                    <div className="rounded-md shadow-sm -space-y-px w-3/4">
-                    <div>
-                        
-                        <input
-                        id="emoji_unicode"
-                        name="emoji_unicode"
-                        type="text"
-                        value={form.emoji_unicode}
-                        onChange={handleOnInputChange}
-                        required
-                        className="appearance-none rounded relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-orange-500 focus:border-orange-500 focus:z-10 sm:text-sm"
-                        placeholder="Emoji Unicode"
-                        />
-                    </div>
-                    </div>
-                </div>
                 <div className='flex flex-row items-center px-4'>
-                    <p className="">List Emoji:</p>
-                    <div className="ml-10 hover:bg-orange-200">
-                        <p className="text-6xl">{chosenEmoji?.emoji}</p>
+                    <p className="">List Icon:</p>
+                    <div className="ml-28 hover:drop-shadow-xl" onClick={handleOnEmojiClick}>
+                        <p className="text-6xl cursor-pointer" dangerouslySetInnerHTML={{__html : emojiString}}></p>
                     </div>
                 </div>
                 </form>
             </div>
-            <Picker onEmojiClick={onEmojiClick} />
-            
+            {openEmojiBoard ? <Picker onEmojiClick={onEmojiClick}/> : null}
+
             <div className=' flex justify-end mt-8'>
               <button
                 type="submit"
