@@ -186,26 +186,8 @@ export default function Register({}) {
               </div>
             </div>
             {error?.confirmpassword ? <p className="mt-2 text-sm text-red-600 dark:text-red-500"><span className="font-medium">Passwords do not match</span></p> : <p className="mt-2 text-sm text-red-600 dark:text-red-500"><span className="font-medium"></span></p>}
-
-            {/* <div className="flex items-center justify-between">
-              <div className="flex items-center">
-                <input
-                  id="remember-me"
-                  name="remember-me"
-                  type="checkbox"
-                  className="h-4 w-4 text-orange-600 focus:ring-orange-500 border-gray-300 rounded"
-                />
-                <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
-                  Remember me
-                </label>
-              </div>
-
-              <div className="text-sm">
-                <a href="#" className="font-medium text-orange-600 hover:text-orange-500">
-                  Forgot your password?
-                </a>
-              </div>
-            </div> */}
+                
+           
 
             <div>
               <button
@@ -218,6 +200,9 @@ export default function Register({}) {
                 </span>
                 Sign Up
               </button>
+            </div>
+            <div className='my-2 flex items-center justify-center'>
+              <p >Already have an account? Sign In <a className='text-orange-500 underline ' href="/signin">Here</a> </p>
             </div>
           </form>
         </div>
