@@ -36,6 +36,7 @@ export const DashContextProvider = ({children}) => {
 
     const newList = async (form) => {
         //const {data, error} = await apiClient.newList(form);
+        console.log(form)
         setIsProcessing(true)
         setError((e) => ({ ...e, form: null }))
         const fetchNew = async () => {

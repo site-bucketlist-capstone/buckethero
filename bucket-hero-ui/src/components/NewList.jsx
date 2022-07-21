@@ -8,7 +8,7 @@ import Picker from 'emoji-picker-react';
 
 
 export default function NewList({}) {
-    const [form, setForm] = useState({'name': "", 'emoji_unicode': ""});
+    const [form, setForm] = useState({'name': "", 'emoji_unicode': "1f92f"});
     const navigate = useNavigate();
 
     const {lists, 
@@ -28,6 +28,8 @@ export default function NewList({}) {
 
     const handleOnSubmit = async (e) => {
         e.preventDefault();
+        console.log("emoji: ", chosenEmojiUnicode) 
+        console.log(form)
         const res = await newList(form);
         console.log("submitted");
         if (res) navigate("/");
@@ -41,8 +43,9 @@ export default function NewList({}) {
 
     const onEmojiClick = (event, emojiObject) => {
       setChosenEmojiUnicode(emojiObject.unified)
+      setForm((f) => ({ ...f, ["emoji_unicode"]: emojiObject.unified}))
       setOpenEmojiBoard(false)
-      console.log(chosenEmoji)
+      console.log(chosenEmojiUnicode)
     };
 
     const handleOnEmojiClick = () => {

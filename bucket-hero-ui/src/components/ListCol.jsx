@@ -31,7 +31,7 @@ export default function ListCol({}) {
                     </button>
                 </div>
             </div>
-            {lists?.map((list) => <div key={list.id}><ListColComp setSelected={setSelected} selected={selected} name={list.name} setBlTitle={setBlTitle} id={list.id}/></div>)}
+            {lists?.map((list) => <div key={list.id}><ListColComp setSelected={setSelected} selected={selected} name={list.name} emojiUnicode={list.emoji_unicode} setBlTitle={setBlTitle} id={list.id}/></div>)}
         </div>
     );
 }
