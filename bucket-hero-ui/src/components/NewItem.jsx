@@ -8,7 +8,7 @@ export default function NewItem() {
   //const [open, setOpen] = useState(true)
 
     const {modalOpen, setModalOpen, blTitle, newItem, selected} = useDashContext();
-    const [form, setForm] = useState({'name': "", 'location': "", 'due_date': "", 'category': "", 'price': "", "list_id": selected});
+    const [form, setForm] = useState({'name': "", 'location': "", 'due_date': "", 'category': "", 'price_point': 0, "list_id": selected});
 
     const cancelButtonRef = useRef(null);
 
@@ -126,10 +126,10 @@ export default function NewItem() {
                                 <CurrencyDollarIcon className='text-gray-500 h-6 w-6 mr-2'/>
                                 <div>
                                         <input
-                                        id="price"
-                                        name="price"
+                                        id="price_point"
+                                        name="price_point"
                                         type="number"
-                                        value={form.price}
+                                        value={form.price_point}
                                         onChange={handleOnInputChange}
                                         required
                                         className="appearance-none relative block w-full px-3 py-2 border-x-0 border-t-0 bg-gray-100 border-b-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-orange-500 focus:border-orange-500 focus:z-10 sm:text-sm"
