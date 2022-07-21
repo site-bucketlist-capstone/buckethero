@@ -6,6 +6,7 @@ const DashContext = createContext(null);
 
 export const DashContextProvider = ({children}) => {
     const [lists, setLists] = useState([]);
+    const [comingUp, setComingUp] = useState([]);
     const [initialized, setInitialized] = useState();
     const [isProcessing, setIsProcessing] = useState(false);
     const [error, setError] = useState();
@@ -21,17 +22,24 @@ export const DashContextProvider = ({children}) => {
                 await setLists(data.list);
                 setBlTitle(data.list[0]?.name);
             }
+
+            if (error) setError(error);
+        }
+        const fetchComingUp = async () => {
+            const {data, error} = await apiClient.fetchComingUpItems();
+            if (data) {
+                console.log(data)
+                await setComingUp(data.result);
+            }
             if (error) setError(error);
         }
         const token = localStorage.getItem("buckethero-token");
         if(token) {
             apiClient.setToken(token);
             fetchLists();
+            fetchComingUp();
         }
         console.log("useEffect", lists)
-        
-        
-
     }, []);
 
     const newList = async (form) => {
