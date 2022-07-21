@@ -45,8 +45,7 @@ class Items {
                        list_items.created_At,
                        users.first_name,
                        users.last_name,
-                       users.email, 
-                       users.password
+                       users.email
                 FROM list_items
                 JOIN users ON users.id = list_items.user_id
                 WHERE list_items.list_id = $1
@@ -77,8 +76,7 @@ class Items {
                         list_items.created_At,
                         users.first_name,
                         users.last_name,
-                        users.email, 
-                        users.password
+                        users.email
                 FROM list_items
                 JOIN users ON users.id = list_items.user_id
                 WHERE is_completed = true 
@@ -110,8 +108,7 @@ class Items {
                         list_items.created_At,
                         users.first_name,
                         users.last_name,
-                        users.email, 
-                        users.password
+                        users.email
                 FROM list_items
                 JOIN users ON users.id = list_items.user_id
                 WHERE users.email = $1 
