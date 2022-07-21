@@ -12,6 +12,7 @@ export default function ListCol({}) {
     const {lists, selected, setSelected, setBlTitle} = useDashContext();
 
     useEffect(() => {
+        // console.log(lists)
         if(!selected){
             setSelected(lists[0]?.id);
         }
@@ -31,7 +32,7 @@ export default function ListCol({}) {
                     </button>
                 </div>
             </div>
-            {lists?.map((list) => <div key={list.id}><ListColComp setSelected={setSelected} selected={selected} name={list.name} setBlTitle={setBlTitle} id={list.id}/></div>)}
+            {lists?.map((list) => <div key={list.id}><ListColComp setSelected={setSelected} selected={selected} name={list.name} emojiUnicode={list.emoji_unicode} setBlTitle={setBlTitle} id={list.id}/></div>)}
         </div>
     );
 }

@@ -6,21 +6,26 @@ import {useNavigate} from 'react-router-dom';
 
 
 
-export default function ListColComp({name, id, selected, setSelected, setBlTitle}) {
+export default function ListColComp({name, emojiUnicode, id, selected, setSelected, setBlTitle}) {
     function handleClick(event) {
         setSelected(id);
         setBlTitle(name);
         
     }
+    
+    let emojiString = ""
+    if (emojiUnicode){
+        emojiString = `&#x${emojiUnicode};`
+    } 
     return (
         <div onClick={handleClick}>
             {selected === id ? 
             <div className='bg-orange-400 p-4 my-2 rounded flex flex-row'>
-                <p className='mr-4'>&#128512;</p>
+                <p className='mr-4' dangerouslySetInnerHTML={{__html : emojiString}}></p>
                 <h4 className='text-lg text-white font-semibold'>{name}</h4>
             </div> : 
             <div className='bg-purple-400 hover:bg-orange-400 cursor-pointer p-4 my-2 rounded flex flex-row'>
-                <p className='mr-4'>&#128512;</p>
+                <p className='mr-4' dangerouslySetInnerHTML={{__html : emojiString}}></p>
                 <h4 className='text-lg text-white font-semibold'>{name}</h4>
             </div>}
         </div>
