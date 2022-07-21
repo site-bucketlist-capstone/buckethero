@@ -41,7 +41,7 @@ export default function ListItems({}) {
             </div>
             
             {items.length > 0 ? items.map((item) => {
-                return <div key={item.key}><ListItemComp item={item}/></div>
+                return <div key={item.id}><ListItemComp item={item}/></div>
             }) : blTitle ? <p>No items yet. Press the plus button to add some!</p> : <p>No lists yet. Press the plus button next to Your Lists to add some!</p>}
         </div>
     );
