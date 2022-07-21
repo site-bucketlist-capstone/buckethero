@@ -3,6 +3,7 @@ import apiClient from '../services/apiClient';
 import Logo from "../assets/BH.png";
 import { useDashContext } from "../contexts/dashboard";
 import {useNavigate} from 'react-router-dom';
+import Picker from 'emoji-picker-react';
 
 
 
@@ -32,6 +33,12 @@ export default function NewList({}) {
         if (res) navigate("/");
         
     }
+
+    const [chosenEmoji, setChosenEmoji] = useState(null);
+
+    const onEmojiClick = (event, emojiObject) => {
+      setChosenEmoji(emojiObject);
+    };
 
     return (
         <div className='container mx-auto border rounded w-2/3 p-7 h-max flex flex-col justify-between'>
@@ -74,8 +81,15 @@ export default function NewList({}) {
                     </div>
                     </div>
                 </div>
+                <div className='flex flex-row items-center px-4'>
+                    <p className="">List Emoji:</p>
+                    <div className="ml-10 hover:bg-orange-200">
+                        <p className="text-6xl">&#128212;</p>
+                    </div>
+                </div>
                 </form>
             </div>
+            <Picker onEmojiClick={onEmojiClick} />
             
             <div className=' flex justify-end mt-8'>
               <button
