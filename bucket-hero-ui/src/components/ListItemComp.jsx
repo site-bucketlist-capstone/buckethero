@@ -18,7 +18,7 @@ export default function ListItemComp({item}) {
     }
     return (
         <div className='rounded bg-slate-100 flex flex-row items-center justify-around p-2 mb-2 cursor-pointer'>
-            <div className='mr-8 text-xl font-semibold w-1/4 text-violet-800'>
+            <div className='mr-8 text-xl font-semibold w-1/4 text-purple-800'>
                 {item?.name}
             </div>
             <div className='flex flex-col w-1/2'>
