@@ -50,6 +50,7 @@ class Items {
                 JOIN users ON users.id = list_items.user_id
                 WHERE list_items.list_id = $1
                 AND users.email = $2
+                ORDER BY id DESC
             `, [listId , user.email]
         )
         const items = results.rows
