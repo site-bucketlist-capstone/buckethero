@@ -72,6 +72,9 @@ class ApiClient {
     }
 
     //fetch list items for a list id `user/items/duedate`
+    async fetchComingUpItems() {
+        return await this.request({endpoint: `list/items/due_date`, method: "GET"});
+    }
 
     async newItem(form) {
         console.log("in api client")
