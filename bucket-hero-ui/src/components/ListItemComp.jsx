@@ -14,7 +14,8 @@ export default function ListItemComp({item}) {
     }
 
     function formatDate(date) {
-        return new Date(date).toDateString();
+        if (date) return new Date(date).toDateString();
+        else return null;
     }
     return (
         <div className='rounded bg-slate-100 flex flex-row items-center justify-around p-2 mb-2 cursor-pointer'>

@@ -22,7 +22,7 @@ export default function NewList({}) {
         newList} = useDashContext();
 
     const handleOnInputChange = (event) => {
-    
+        
         setForm((f) => ({ ...f, [event.target.name]: event.target.value }))
     }
 
@@ -30,6 +30,7 @@ export default function NewList({}) {
         e.preventDefault();
         console.log("emoji: ", chosenEmojiUnicode) 
         console.log(form)
+
         const res = await newList(form);
         console.log("submitted");
         if (res) navigate("/");
@@ -59,7 +60,7 @@ export default function NewList({}) {
         <div className='container mx-auto border rounded w-2/3 p-7 h-max flex flex-col justify-between'>
             <div className=''>
                 <h2 className='text-xl font-bold'>New List</h2>
-                <form className="mt-8 space-y-6" >
+                <form className="mt-8 space-y-6" onSubmit={handleOnSubmit}>
                 <div className='flex flex-row justify-between items-center px-4'>
                     <p>List Name:</p>
                     <div className="rounded-md shadow-sm -space-y-px w-3/4">
@@ -84,20 +85,21 @@ export default function NewList({}) {
                         <p className="text-6xl cursor-pointer" dangerouslySetInnerHTML={{__html : emojiString}}></p>
                     </div>
                 </div>
+                <div className=' flex justify-end mt-8'>
+                    <button
+                        type="submit"
+                        className="group relative w-1/4 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
+                        
+                    >
+                
+                        {isProcessing ? "Loading..." : "Save"}
+                    </button>
+                </div>
                 </form>
             </div>
             {openEmojiBoard ? <Picker onEmojiClick={onEmojiClick}/> : null}
 
-            <div className=' flex justify-end mt-8'>
-              <button
-                type="submit"
-                className="group relative w-1/4 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
-                onClick={handleOnSubmit}
-              >
-                
-                {isProcessing ? "Loading..." : "Save"}
-              </button>
-            </div>
+            
         </div>
     );
 }
