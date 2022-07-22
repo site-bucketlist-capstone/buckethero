@@ -144,7 +144,13 @@ class Items {
         const price_point = resultInfo.rows[0].price_point
         const due_date  = resultInfo.rows[0].due_date
         const is_completed = resultInfo.rows[0].is_completed
-
+        let isCompleted = false;
+        if (itemUpdate.is_completed == null) {
+            isCompleted = is_completed;
+        } else {
+            isCompleted = itemUpdate.is_completed;
+        }
+        console.log(isCompleted);
         const result = await db.query(
             `
             UPDATE list_items
@@ -164,7 +170,7 @@ class Items {
                 itemUpdate.category || category,
                 itemUpdate.price_point || price_point,
                 itemUpdate.due_date || due_date,
-                itemUpdate.is_completed || is_completed,
+                isCompleted,
                 itemId
             ]
         )
