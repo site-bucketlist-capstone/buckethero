@@ -85,7 +85,9 @@ class ApiClient {
         return await this.request({endpoint: `list/${form.list_id}/newItem`, method: 'POST', data: form})
     }
 
-    
+    async editItem(form) {
+        return await this.request({endpoint: `list/${form.list_id}/item/${form.item_id}/edit`, method: 'PUT', data: form})
+    }    
 
 }
 

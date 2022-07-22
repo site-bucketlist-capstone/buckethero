@@ -136,25 +136,27 @@ class Items {
 
     static async editItem({ itemUpdate, listId, itemId }) {    
         const resultInfo = await db.query(
-            `SELECT name, location, category, price_point, due_date FROM list_items WHERE id = $1 `, [itemId]
+            `SELECT name, location, category, price_point, due_date, is_completed FROM list_items WHERE id = $1 `, [itemId]
         )
         const name = resultInfo.rows[0].name
         const location = resultInfo.rows[0].location
         const category = resultInfo.rows[0].category
         const price_point = resultInfo.rows[0].price_point
         const due_date  = resultInfo.rows[0].due_date
+        const is_completed = resultInfo.rows[0].is_completed
 
         const result = await db.query(
             `
             UPDATE list_items
-            SET name = $1, location = $2, category = $3, price_point = $4, due_date = $5       
-            WHERE id = $6
+            SET name = $1, location = $2, category = $3, price_point = $4, due_date = $5, is_completed = $6       
+            WHERE id = $7
             RETURNING id, 
                     name,
                     category,
                     location,
                     price_point,
-                    due_date::timestamp::DATE
+                    due_date::timestamp::DATE,
+                    is_completed
         `,
             [
                 itemUpdate.name || name,
@@ -162,6 +164,7 @@ class Items {
                 itemUpdate.category || category,
                 itemUpdate.price_point || price_point,
                 itemUpdate.due_date || due_date,
+                itemUpdate.is_completed || is_completed,
                 itemId
             ]
         )
