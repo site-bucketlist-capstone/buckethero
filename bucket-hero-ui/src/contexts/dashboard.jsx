@@ -124,6 +124,7 @@ export const DashContextProvider = ({children}) => {
 
     const editItem = async(form) => {
         //apiclient editItem, needs list_id and item_id
+        console.log("form", form);
         const {data, err} = await apiClient.editItem(form);
         if (data) {
             //fetch list items
