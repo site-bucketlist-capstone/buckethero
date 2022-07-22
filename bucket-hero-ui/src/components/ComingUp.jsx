@@ -2,6 +2,7 @@ import {useState} from 'react';
 import apiClient from '../services/apiClient';
 import Logo from "../assets/BH.png";
 import { useAuthContext } from "../contexts/auth";
+import { useDashContext } from '../contexts/dashboard';
 import {useNavigate} from 'react-router-dom';
 import { ExclamationIcon, ClockIcon, BookmarkIcon, LocationMarkerIcon, CurrencyDollarIcon } from '@heroicons/react/outline'
 
@@ -14,15 +15,18 @@ const tempData = [
 ]
 
 export default function ComingUp({}) {
+    const {comingUp} = useDashContext();
+    console.log(comingUp);
     function formatDate(date) {
-        return new Date(date).toDateString();
+        if(date) return new Date(date).toDateString();
+        else return null
     }
     return (
         <div className='rounded bg-slate-50 w-full p-2 h-full flex flex-row items-center pl-6'>
             <h1 className='text-3xl text-orange-500 drop-shadow-xl font-semibold w-1/4'>Coming Up</h1>
             <div className='grid grid-cols-2 w-3/4 gap-2'>
-                {tempData.map((item) => (
-                    <div key={item.name} className='border-2 border-purple-400 rounded flex flex-row justify-between p-2'>
+                {comingUp.map((item) => (
+                    <div key={item.id} className='border-2 border-purple-400 rounded flex flex-row justify-between p-2'>
                         <p className='font-medium'>{item.name}</p>
                         <div className='flex flex-row items-center'>
                             <ClockIcon className='text-gray-500 h-6 w-6 mr-2'/>
