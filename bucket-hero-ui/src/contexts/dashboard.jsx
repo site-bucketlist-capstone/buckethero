@@ -1,6 +1,7 @@
 import {createContext, useState, useContext, useEffect} from 'react'
 
 import apiClient from '../services/apiClient';
+import { useAuthContext } from './auth';
 
 const DashContext = createContext(null);
 
@@ -14,12 +15,15 @@ export const DashContextProvider = ({children}) => {
     const [blTitle, setBlTitle] = useState();
     const [modalOpen, setModalOpen] = useState(false);
 
+    const {user} = useAuthContext();
+
     useEffect(() => {
         //initialize lists? by fetching the lists?
         const fetchLists = async () => {
             const {data, error} = await apiClient.fetchLists();
             if (data) {
                 await setLists(data.list);
+                setSelected(data.list[0]?.id);
                 setBlTitle(data.list[0]?.name);
             }
 
@@ -40,7 +44,7 @@ export const DashContextProvider = ({children}) => {
             fetchComingUp();
         }
         console.log("useEffect", lists)
-    }, []);
+    }, [user]);
 
     const newList = async (form) => {
         //const {data, error} = await apiClient.newList(form);
@@ -50,6 +54,7 @@ export const DashContextProvider = ({children}) => {
         const fetchNew = async () => {
             const {data, err} = await apiClient.newList(form);
             if (data) {
+                
                 return true;
             } else if (err) {
                 return false;
@@ -60,6 +65,8 @@ export const DashContextProvider = ({children}) => {
             const {data, err} = await apiClient.fetchLists();
             if (data) {
                 setLists(data.list);
+                setBlTitle(data.list[0]?.name);
+                setSelected(data.list[0]?.id);
                 return true;
             };
             if (err) setError(err);

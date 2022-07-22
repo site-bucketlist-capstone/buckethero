@@ -22,7 +22,7 @@ export default function ComingUp({}) {
             <h1 className='text-3xl text-orange-500 drop-shadow-xl font-semibold w-1/4'>Coming Up</h1>
             <div className='grid grid-cols-2 w-3/4 gap-2'>
                 {tempData.map((item) => (
-                    <div className='border-2 border-purple-400 rounded flex flex-row justify-between p-2'>
+                    <div key={item.name} className='border-2 border-purple-400 rounded flex flex-row justify-between p-2'>
                         <p className='font-medium'>{item.name}</p>
                         <div className='flex flex-row items-center'>
                             <ClockIcon className='text-gray-500 h-6 w-6 mr-2'/>
