@@ -18,6 +18,7 @@ import Profile from './components/Profile';
 
 import { AuthContextProvider, useAuthContext } from "./contexts/auth";
 import { DashContextProvider, useDashContext } from "./contexts/dashboard";
+import { GallContextProvider, useGallContext } from './contexts/gallery';
 
 import apiClient from './services/apiClient';
 
@@ -27,7 +28,9 @@ export default function AppContainer() {
   return (
     <AuthContextProvider>
       <DashContextProvider>
+      <GallContextProvider>
         <App/>
+      </GallContextProvider>
       </DashContextProvider>
     </AuthContextProvider>
   )
