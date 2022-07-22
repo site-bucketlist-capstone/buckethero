@@ -76,6 +76,10 @@ class ApiClient {
         return await this.request({endpoint: `list/items/due_date`, method: "GET"});
     }
 
+    async fetchGallery() {
+        return await this.request({endpoint: `global/`, method: "GET"});
+    }
+
     async newItem(form) {
         console.log("in api client")
         return await this.request({endpoint: `list/${form.list_id}/newItem`, method: 'POST', data: form})
