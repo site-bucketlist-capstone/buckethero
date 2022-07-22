@@ -122,6 +122,18 @@ export const DashContextProvider = ({children}) => {
         return nav;
     }
 
+    const editItem = async(form) => {
+        //apiclient editItem, needs list_id and item_id
+        const {data, err} = await apiClient.editItem(form);
+        if (data) {
+            //fetch list items
+            const items = await fetchListItems(form.list_id);
+            return data
+        } else if (err) {
+            setError(error)
+        }
+    }
+
 
     const dashValue = {lists, 
         setLists, 
@@ -140,7 +152,8 @@ export const DashContextProvider = ({children}) => {
         modalOpen,
         setModalOpen,
         newItem,
-        comingUp
+        comingUp,
+        editItem
         
     }
 

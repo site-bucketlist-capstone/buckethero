@@ -9,13 +9,15 @@ import {useNavigate} from 'react-router-dom';
 
 
 export default function ListItemComp({item}) {
-    const {selected} = useDashContext();
+    const {selected, editItem} = useDashContext();
     
-    function handleClick(event) {
+    const handleClick = async (event) => {
         //edit item
         console.log("clciked check");
         event.stopPropagation();
-        
+        console.log(!item.is_completed)
+        const form = {list_id: selected, item_id: item.id, is_completed: !item.is_completed}
+        const data = await editItem(form);
     }
 
     function handleEdit(event) {
