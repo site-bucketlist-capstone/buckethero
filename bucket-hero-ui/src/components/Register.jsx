@@ -84,12 +84,12 @@ export default function Register({}) {
         <div className="max-w-md w-full space-y-8">
           <div>
             <img
-              className="mx-auto h-12 w-auto"
+              className="mx-auto h-20 w-auto"
               src={Logo}
               alt="Workflow"
             />
             <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Create a new account</h2>
-            
+            <p className="mt-4 text-center text-red-600">{error?.email}</p>
           </div>
           <form className="mt-8 space-y-6" onSubmit={handleOnSubmit}>
             <input type="hidden" name="remember" defaultValue="true" />

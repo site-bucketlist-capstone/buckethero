@@ -105,9 +105,18 @@ export const DashContextProvider = ({children}) => {
             }
 
         }
+        const fetchComingUp = async () => {
+            const {data, error} = await apiClient.fetchComingUpItems();
+            if (data) {
+                console.log(data)
+                await setComingUp(data.result);
+            }
+            if (error) setError(error);
+        }
         const nav = await fetchNew();
         console.log("have nav", nav);
         const items = await fetchListItems(form.list_id);
+        await fetchComingUp();
         setIsProcessing(false);
         console.log("list items after new", items);
         return nav;
@@ -130,7 +139,8 @@ export const DashContextProvider = ({children}) => {
         setBlTitle,
         modalOpen,
         setModalOpen,
-        newItem
+        newItem,
+        comingUp
         
     }
 

@@ -20,6 +20,11 @@ export default function NewItem() {
     const handleOnSubmit = async (e) => {
         console.log("in submit");
         e.preventDefault();
+        if (form.due_date === "") {
+            let copy = form;
+            delete copy["due_date"];
+            setForm(copy);
+        }
         const res = await newItem(form);
         console.log("submitted");
         if (res) setModalOpen(false);
@@ -59,7 +64,7 @@ export default function NewItem() {
                       <Dialog.Title as="h3" className="text-lg leading-6 font-medium text-gray-900">
                         New List Item for {blTitle}
                       </Dialog.Title>
-                      <form className="mt-8 space-y-6" >
+                      <form className="mt-8 space-y-6" onSubmit={(e) => handleOnSubmit(e)}>
                         <div className="shadow-sm -space-y-px w-3/4">
                             <div>
                                 <input
@@ -84,7 +89,6 @@ export default function NewItem() {
                                     type="date"
                                     value={form.due_date}
                                     onChange={handleOnInputChange}
-                                    required
                                     className="appearance-none pr-11 relative block w-full px-3 py-2 border-x-0 border-t-0 bg-gray-100 border-b-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-orange-500 focus:border-orange-500 focus:z-10 sm:text-sm"
                                     placeholder="Due Date"
                                     />
@@ -99,7 +103,6 @@ export default function NewItem() {
                                         type="text"
                                         value={form.category}
                                         onChange={handleOnInputChange}
-                                        required
                                         className="appearance-none relative block w-full px-3 py-2 border-x-0 border-t-0 bg-gray-100 border-b-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-orange-500 focus:border-orange-500 focus:z-10 sm:text-sm"
                                         placeholder="Category"
                                         />
@@ -116,7 +119,6 @@ export default function NewItem() {
                                     type="text"
                                     value={form.location}
                                     onChange={handleOnInputChange}
-                                    required
                                     className="appearance-none relative block w-full px-3 py-2 border-x-0 border-t-0 bg-gray-100 border-b-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-orange-500 focus:border-orange-500 focus:z-10 sm:text-sm"
                                     placeholder="Location"
                                     />
@@ -131,34 +133,34 @@ export default function NewItem() {
                                         type="number"
                                         value={form.price_point}
                                         onChange={handleOnInputChange}
-                                        required
                                         className="appearance-none relative block w-full px-3 py-2 border-x-0 border-t-0 bg-gray-100 border-b-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-orange-500 focus:border-orange-500 focus:z-10 sm:text-sm"
                                         placeholder="Price Point"
                                         />
                                 </div>
                             </div>
                         </div>
+                        <div className="px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                        <button
+                            type="submit"
+                            className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-orange-500 text-base font-medium text-white hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
+                            
+                        >
+                            Save
+                        </button>
+                        <button
+                            type="button"
+                            className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-violet-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+                            onClick={() => setModalOpen(false)}
+                            ref={cancelButtonRef}
+                        >
+                            Cancel
+                        </button>
+                        </div>
                     </form>
                     </div>
                   </div>
                 </div>
-                <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                  <button
-                    type="button"
-                    className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-orange-500 text-base font-medium text-white hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
-                    onClick={(e) => handleOnSubmit(e)}
-                  >
-                    Save
-                  </button>
-                  <button
-                    type="button"
-                    className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-violet-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-                    onClick={() => setModalOpen(false)}
-                    ref={cancelButtonRef}
-                  >
-                    Cancel
-                  </button>
-                </div>
+                
               </Dialog.Panel>
             </Transition.Child>
           </div>

@@ -30,7 +30,7 @@ export default function SignIn() {
         password: "",
     });
     const {user, setUser, error, setError, isProcessing, setIsProcessing, loginUser} = useAuthContext();
-
+    console.log("error", error);
     //const [error, setError] = useState({});
     //const [isLoading, setIsLoading] = useState(false)
 
@@ -75,7 +75,9 @@ export default function SignIn() {
               
             />
             <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Sign in to your account</h2>
-            
+            <p className="mt-4 text-center text-red-600">{error?.form}</p>
+            <p className="mt-4 text-center text-red-600">{error?.email}</p>
+
           </div>
           <form className="mt-8 space-y-6" onSubmit={handleOnSubmit}>
             <input type="hidden" name="remember" defaultValue="true" />
