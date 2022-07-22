@@ -1,5 +1,8 @@
 import { useAuthContext } from "../contexts/auth";
 import { useState } from "react";
+import { UserCircleIcon } from '@heroicons/react/outline'
+
+import Banner from '../assets/profile-banner.png';
 
 import apiClient from '../services/apiClient';
 
@@ -31,14 +34,18 @@ export default function Profile( ) {
    }
    return (
        <div>
-           <h4>Profile</h4> 
-           <div>
-            <span>{user.first_name}   {user.last_name}</span>
-           </div>  
+         <div className="flex flex-col">
+            <img src={Banner} alt="" className="h-60 w-full"/>
+            <h4>Profile</h4> 
+            <div>
+               <span>{user.first_name}   {user.last_name}</span>
+            </div>  
             <div>
                <span>Email</span>
                <span>   {user.email}</span>
             </div>
+         </div>
+         
             {
                !isShowing ? <button className="border" onClick={handleComplete}>Completed Items</button>
                : 
@@ -46,6 +53,6 @@ export default function Profile( ) {
             }
             {error ? <span>{error}</span> : "" }
             
-       </div>
+      </div>
    );
 }
