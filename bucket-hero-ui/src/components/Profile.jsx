@@ -1,6 +1,6 @@
 import { useAuthContext } from "../contexts/auth";
 import { useState } from "react";
-import { UserCircleIcon } from '@heroicons/react/outline'
+import { UserCircleIcon } from '@heroicons/react/solid'
 
 import Banner from '../assets/profile-banner.png';
 
@@ -12,6 +12,8 @@ export default function Profile( ) {
    const [complete, setComplete] = useState([]);
    const [isProcessing, setIsProcessing] = useState(false);
    const [error, setError] = useState();
+
+   const imgUrl = user?.pfp ? user.pfp : "https://c8.alamy.com/zooms/9/52c3ea49892f4e5789b31cadac8aa969/2gefnr1.jpg";
 
    async function showCompleted() {
       setIsProcessing(true)
@@ -29,29 +31,38 @@ export default function Profile( ) {
    }
 
    function handleComplete() {
-      setIsShowing(!isShowing);
+      setIsShowing(true);
       showCompleted();
    }
    return (
        <div>
          <div className="flex flex-col">
             <img src={Banner} alt="" className="h-60 w-full"/>
-            <h4>Profile</h4> 
-            <div>
-               <span>{user.first_name}   {user.last_name}</span>
-            </div>  
-            <div>
-               <span>Email</span>
-               <span>   {user.email}</span>
-            </div>
-         </div>
-         
-            {
-               !isShowing ? <button className="border" onClick={handleComplete}>Completed Items</button>
+            <div className="-mt-20 ml-12 pr-6 flex flex-row items-end justify-between">
+               <div className="flex flex-row">
+                  <div className=" h-40 w-40 rounded-full overflow-hidden">
+                     <img src={imgUrl} alt="" className="scale-150"/>
+                  </div>
+                  <div className="ml-4 flex flex-col justify-end mt-4">
+                     <span className="mb-6 ">   </span>
+                     <div className="mt-4">
+                        <span className="font-semibold text-lg">{user.first_name}   {user.last_name}</span>
+                     </div>  
+                     <div className="font-light text-slate-500">
+                        <span>Email: </span>
+                        <span>   {user.email}</span>
+                     </div>
+                  </div>
+               </div>
+               {
+               !isShowing ? <button className="rounded bg-purple-400 p-2 text-white hover:bg-white hover:border-2 hover:border-purple-400 hover:text-purple-400" onClick={handleComplete}>Completed Items</button>
                : 
-               <div>Completed</div>
+               <button className="bg-white border-2 border-purple-400 text-purple-400 rounded p-2 hover:bg-purple-400 hover:text-white" onClick={() => setIsShowing(false)}>Hide Completed</button>
             }
             {error ? <span>{error}</span> : "" }
+            </div>
+            
+         </div>
             
       </div>
    );
