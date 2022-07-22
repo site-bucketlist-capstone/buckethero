@@ -2,12 +2,15 @@ import {useState} from 'react';
 import apiClient from '../services/apiClient';
 import Logo from "../assets/BH.png";
 import { useAuthContext } from "../contexts/auth";
+import { useDashContext } from '../contexts/dashboard';
 import { ExclamationIcon, ClockIcon, BookmarkIcon, LocationMarkerIcon, CurrencyDollarIcon } from '@heroicons/react/outline'
 import {useNavigate} from 'react-router-dom';
 
 
 
 export default function ListItemComp({item}) {
+    const {selected} = useDashContext();
+    
     function handleClick(event) {
         //edit item
         console.log("clciked check");
@@ -15,12 +18,17 @@ export default function ListItemComp({item}) {
         
     }
 
+    function handleEdit(event) {
+        console.log("clicked item");
+
+    }
+
     function formatDate(date) {
         if (date) return new Date(date).toDateString();
         else return null;
     }
     return (
-        <div className='rounded bg-slate-100 flex flex-row items-center justify-around p-2 mb-2 cursor-pointer' onClick={() => console.log("clicked item")}>
+        <div className='rounded bg-slate-100 flex flex-row items-center justify-around p-2 mb-2 cursor-pointer' onClick={(e) => handleEdit(e)}>
             <div className='mr-8 text-xl font-semibold w-1/4 text-purple-800'>
                 {item?.name}
             </div>
