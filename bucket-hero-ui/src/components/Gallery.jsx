@@ -1,12 +1,8 @@
-import {useState} from 'react';
-import apiClient from '../services/apiClient';
-import Logo from "../assets/BH.png";
-import { useDashContext } from "../contexts/dashboard";
-import {useNavigate} from 'react-router-dom';
-
-
+import { useGallContext } from "../contexts/gallery";;
 
 export default function Gallery({}) {
+    const {gallery} = useGallContext();
+
     return (
         <div className=''>
             Gallery!
