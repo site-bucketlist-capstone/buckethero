@@ -15,12 +15,17 @@ export default function ListItems({}) {
         const getItems = async () => {
             const result = await fetchListItems(selected);
             if (result) {
-                await setItems(result.result);
-                console.log(result)
+                //await setItems(result.result);
+                //let itemsCopy = items;
+                const itemsCopy = result.result.sort((a, b) => (a.is_completed > b.is_completed) ? 1 : -1);
+                await setItems(itemsCopy);
+                console.log("itemsCopy", itemsCopy);
             }
             return result;
         }
         getItems();
+        //sort items by completed
+        
         console.log("use effect items", items);
         
     }, [selected, modalOpen, lists]);
