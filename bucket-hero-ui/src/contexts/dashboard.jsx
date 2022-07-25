@@ -14,6 +14,7 @@ export const DashContextProvider = ({children}) => {
     const [selected, setSelected] = useState();
     const [blTitle, setBlTitle] = useState();
     const [modalOpen, setModalOpen] = useState(false);
+    const [items, setItems] = useState([]);
 
     const {user} = useAuthContext();
 
@@ -124,11 +125,23 @@ export const DashContextProvider = ({children}) => {
 
     const editItem = async(form) => {
         //apiclient editItem, needs list_id and item_id
+        const fetchComingUp = async () => {
+            const {data, error} = await apiClient.fetchComingUpItems();
+            if (data) {
+                console.log(data)
+                await setComingUp(data.result);
+            }
+            if (error) setError(error);
+        } 
         console.log("form", form);
         const {data, err} = await apiClient.editItem(form);
         if (data) {
             //fetch list items
             const items = await fetchListItems(form.list_id);
+            await fetchComingUp();
+            const itemsCopy = items.result.sort((a, b) => (a.is_completed > b.is_completed) ? 1 : -1);
+            await setItems(itemsCopy);
+            //setItems(items);
             return data
         } else if (err) {
             setError(error)
@@ -154,7 +167,9 @@ export const DashContextProvider = ({children}) => {
         setModalOpen,
         newItem,
         comingUp,
-        editItem
+        editItem,
+        items,
+        setItems
         
     }
 

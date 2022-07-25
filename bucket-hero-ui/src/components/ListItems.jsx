@@ -8,19 +8,24 @@ import {useNavigate} from 'react-router-dom';
 
 
 export default function ListItems({}) {
-    const {selected, fetchListItems, blTitle, setModalOpen, modalOpen, lists} = useDashContext();
-    const [items, setItems] = useState([]);
+    const {selected, fetchListItems, blTitle, setModalOpen, modalOpen, lists, items, setItems} = useDashContext();
+    //const [items, setItems] = useState([]);
     useEffect(() => {
         //fetch the list items for the given selected id
         const getItems = async () => {
             const result = await fetchListItems(selected);
-            if (result) {
+            if (result.result !== items) {
                 await setItems(result.result);
-                console.log(result)
+                //let itemsCopy = items;
+                //const itemsCopy = result.result.sort((a, b) => (a.is_completed > b.is_completed) ? 1 : -1);
+                //await setItems(itemsCopy);
+                //console.log("itemsCopy", itemsCopy);
             }
             return result;
         }
         getItems();
+        //sort items by completed
+        
         console.log("use effect items", items);
         
     }, [selected, modalOpen, lists]);
