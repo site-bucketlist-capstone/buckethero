@@ -31,7 +31,32 @@ export default function ListItemComp({item}) {
     }
     return (
         <div className='rounded bg-slate-100 flex flex-row items-center justify-around p-2 mb-2 cursor-pointer' onClick={(e) => handleEdit(e)}>
-            <div className='mr-8 text-xl font-semibold w-1/4 text-purple-800'>
+            {item?.is_completed ? 
+            <><div className='mr-8 text-xl font-semibold w-1/4 text-slate-600'>
+            {item?.name}
+        </div>
+        <div className='flex flex-col w-1/2'>
+            <div className='flex flex-row'>
+                <div className='flex flex-row w-1/2 text-gray-400'>
+                    <ClockIcon className='text-gray-400 h-6 w-6 mr-2'/>
+                    {formatDate(item?.due_date)}
+                </div>
+                <div className='flex flex-row w-1/2 text-gray-400'>
+                    <BookmarkIcon className='text-gray-400 h-6 w-6 mr-2'/>
+                    {item?.category}
+                </div>
+            </div>
+            <div className='flex flex-row'>
+                <div className='flex flex-row w-1/2 text-gray-400'>
+                    <LocationMarkerIcon className='text-gray-400 h-6 w-6 mr-2'/>
+                    {item?.location}
+                </div>
+                <div className='flex flex-row w-1/2 text-gray-400'>
+                    <CurrencyDollarIcon className='text-gray-400 h-6 w-6 mr-2'/>
+                    {item?.price_point}
+                </div>
+            </div>
+        </div></> : <><div className='mr-8 text-xl font-semibold w-1/4 text-purple-800'>
                 {item?.name}
             </div>
             <div className='flex flex-col w-1/2'>
@@ -55,7 +80,7 @@ export default function ListItemComp({item}) {
                         {item?.price_point}
                     </div>
                 </div>
-            </div>
+            </div></>}
             <div onClick={(e) => handleClick(e)}>
                 {item?.is_completed ? <ion-icon name="checkbox-outline" style={{color: "#a855f7", "--ionicon-stroke-width": "44px"}} size="large" className='text-purple-400'></ion-icon> : <div className='border w-6 border-4 h-6 rounded border-purple-400 cursor-pointer'></div>}
             </div>
