@@ -7,6 +7,7 @@ const security = require("./middleware/security");
 const authRoutes = require("./routes/auth");
 const listRoutes = require("./routes/data");
 const gallRoutes = require("./routes/global");
+const profileRoutes = require("./routes/profile")
 
 const app = express();
 
@@ -25,6 +26,7 @@ app.use(security.extractUserFromJwt);
 app.use("/auth", authRoutes)
 app.use("/list", listRoutes) 
 app.use("/global", gallRoutes);
+app.use("/profile", profileRoutes)
 
 app.use((req, res, next) => {
    return next(new NotFoundError());

@@ -5,6 +5,7 @@ import { UserCircleIcon } from '@heroicons/react/solid'
 import Banner from '../assets/profile-banner.png';
 
 import apiClient from '../services/apiClient';
+import * as axios from 'axios';
 
 export default function Profile( ) {
    const {user} = useAuthContext();
@@ -34,6 +35,41 @@ export default function Profile( ) {
       setIsShowing(true);
       showCompleted();
    }
+
+   const [file, setFile] = useState()
+
+//    async function postProfilePic(data) {
+//       try {
+//           let config = {
+//               headers: {
+//                 "Content-Type": "application/json",
+//                 "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAZ21haWwuY29tIiwiaWF0IjoxNjU4Nzc0MzUxLCJleHAiOjE2NTg4NjA3NTF9.twBSmDMvqwy4lL2LCceSmup9s3wQfxrBezDoI2hBED4"
+//               }
+//             }
+//           console.log(data)
+//           let response = await axios.post("http://localhost:3001/profile", data, config)
+//           console.log(response.data)
+//       } catch(error) {
+//           console.error(error)
+//       }
+//   }   
+
+   const handleOnChangeImage = event => {
+      const file = event.target.files[0]
+      setFile(file)
+      console.log(file)
+   }
+
+   const handleOnSubmitImage = event => {
+      const data = new FormData()
+      data.append("name", user.first_name)
+      data.append("file", file)
+
+      //needs to be updated in apiClient and dashContext
+      axios.post("https://httpbin.org/anything", data).then(res => console.log(res.data.files.file)).catch(err => console.log(err)) 
+   }
+
+
    return (
        <div>
          <div className="flex flex-col">
@@ -62,6 +98,12 @@ export default function Profile( ) {
             {error ? <span>{error}</span> : "" }
             </div>
             
+            <div>
+               <label htmlFor="file">File</label>
+               <input type="file" id="file" onChange={handleOnChangeImage}/>
+            </div>
+            <button onClick={handleOnSubmitImage}>Send</button>
+
          </div>
             
       </div>
