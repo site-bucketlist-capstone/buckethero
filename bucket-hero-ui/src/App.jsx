@@ -54,7 +54,7 @@ function App() {
     }
   }, [])
   
-
+  
   return (
     <div className='container mx-auto mt-8 p-4 h-full'>
       <BrowserRouter>
@@ -66,7 +66,7 @@ function App() {
           <Route path='/gallery' element={<Gallery/>}/>
           <Route path='/newlist' element={<NewList/>}/>
           <Route path='/profile' element={<Profile/>}/>
-          <Route path='/list/edit' element={<EditList />}/>
+          <Route path='/list/:list_id/edit' element={<EditList />}/>
         </Routes>
       </BrowserRouter>
     </div>
