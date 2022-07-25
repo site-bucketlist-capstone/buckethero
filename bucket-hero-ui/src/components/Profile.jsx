@@ -3,6 +3,7 @@ import { useState } from "react";
 import { UserCircleIcon } from '@heroicons/react/solid'
 
 import Banner from '../assets/profile-banner.png';
+import Completed from "./Completed";
 
 import apiClient from '../services/apiClient';
 import * as axios from 'axios';
@@ -104,6 +105,7 @@ export default function Profile( ) {
             </div>
             <button onClick={handleOnSubmitImage}>Send</button>
 
+            {isShowing ? <Completed completed={complete}/> : null}
          </div>
             
       </div>
