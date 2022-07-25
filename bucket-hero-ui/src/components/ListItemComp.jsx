@@ -9,7 +9,7 @@ import {useNavigate} from 'react-router-dom';
 
 
 export default function ListItemComp({item}) {
-    const {selected, editItem} = useDashContext();
+    const {selected, editItem, setModalOpen, editItemModal, setEditItemModal} = useDashContext();
     
     const handleClick = async (event) => {
         //edit item
@@ -22,7 +22,8 @@ export default function ListItemComp({item}) {
 
     function handleEdit(event) {
         console.log("clicked item");
-
+        setEditItemModal({open: true, item: item});
+        //setModalOpen(true);
     }
 
     function formatDate(date) {

@@ -15,6 +15,7 @@ export const DashContextProvider = ({children}) => {
     const [blTitle, setBlTitle] = useState();
     const [modalOpen, setModalOpen] = useState(false);
     const [items, setItems] = useState([]);
+    const [editItemModal, setEditItemModal] = useState({open: false, item: {}});
 
     const {user} = useAuthContext();
 
@@ -169,7 +170,9 @@ export const DashContextProvider = ({children}) => {
         comingUp,
         editItem,
         items,
-        setItems
+        setItems,
+        setEditItemModal,
+        editItemModal
         
     }
 
