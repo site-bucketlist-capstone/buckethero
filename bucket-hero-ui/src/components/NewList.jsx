@@ -48,12 +48,9 @@ export default function NewList({}) {
       setOpenEmojiBoard(false)
       console.log(chosenEmojiUnicode)
     };
-
     const handleOnEmojiClick = () => {
         setOpenEmojiBoard(true)
     }
-
-
     let emojiString = `&#x${chosenEmojiUnicode};`
 
     return (

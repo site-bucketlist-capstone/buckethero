@@ -93,7 +93,7 @@ class ApiClient {
         return await this.request({endpoint: `list/${form.list_id}/edit`, method: 'PUT', data: form})
     }  
     
-    async deleteList() {
+    async deleteList(listId) {
         return await this.request({endpoint: `list/${listId}/delete`, method: 'DELETE'})
     } 
 
