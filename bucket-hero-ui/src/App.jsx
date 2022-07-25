@@ -15,6 +15,7 @@ import Dashboard from './components/Dashboard';
 import Gallery from './components/Gallery';
 import NewList from './components/NewList';
 import Profile from './components/Profile';
+import EditList from './components/EditList';
 
 import { AuthContextProvider, useAuthContext } from "./contexts/auth";
 import { DashContextProvider, useDashContext } from "./contexts/dashboard";
@@ -65,6 +66,7 @@ function App() {
           <Route path='/gallery' element={<Gallery/>}/>
           <Route path='/newlist' element={<NewList/>}/>
           <Route path='/profile' element={<Profile/>}/>
+          <Route path='/list/edit' element={<EditList />}/>
         </Routes>
       </BrowserRouter>
     </div>
