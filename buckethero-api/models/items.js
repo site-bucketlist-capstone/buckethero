@@ -112,7 +112,7 @@ class Items {
                         users.email
                 FROM list_items
                 JOIN users ON users.id = list_items.user_id
-                WHERE users.email = $1 
+                WHERE users.email = $1 AND list_items.is_completed = false 
                 ORDER BY due_date ASC
                 LIMIT 4
             `, [user.email]
