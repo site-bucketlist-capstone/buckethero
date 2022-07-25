@@ -13,7 +13,7 @@ export default function Gallery({}) {
             <div className="w-3/4 mt-4">
                 {
                     gallery.map((item) => {
-                    return <GalleryListItems item={item} />
+                    return <GalleryListItems key={item.id} item={item} />
                     })
                 }
             </div>
