@@ -3,6 +3,7 @@ import { useState } from "react";
 import { UserCircleIcon } from '@heroicons/react/solid'
 
 import Banner from '../assets/profile-banner.png';
+import Completed from "./Completed";
 
 import apiClient from '../services/apiClient';
 
@@ -61,7 +62,7 @@ export default function Profile( ) {
             }
             {error ? <span>{error}</span> : "" }
             </div>
-            
+            {isShowing ? <Completed completed={complete}/> : null}
          </div>
             
       </div>
