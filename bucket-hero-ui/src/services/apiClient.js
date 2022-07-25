@@ -34,7 +34,7 @@ class ApiClient {
             return {data: null, error: message || String(error)}
         }
     }
-
+//
 
 
     async loginUser(credentials) {
@@ -87,6 +87,10 @@ class ApiClient {
 
     async editItem(form) {
         return await this.request({endpoint: `list/${form.list_id}/item/${form.item_id}/edit`, method: 'PUT', data: form})
+    } 
+    
+    async editList(form) {
+        return await this.request({endpoint: `list/${form.list_id}/edit`, method: 'PUT', data: form})
     }    
 
 }
