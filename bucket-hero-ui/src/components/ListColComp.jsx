@@ -3,6 +3,8 @@ import apiClient from '../services/apiClient';
 import Logo from "../assets/BH.png";
 import { useAuthContext } from "../contexts/auth";
 import {useNavigate} from 'react-router-dom';
+import { PencilAltIcon } from '@heroicons/react/outline'
+
 
 
 
@@ -12,6 +14,11 @@ export default function ListColComp({name, emojiUnicode, id, selected, setSelect
         setBlTitle(name);
         
     }
+
+    function handleOnEditClick(event) {
+        event.stopPropagation();
+        console.log("clicked edit icon");
+    }
     
     let emojiString = ""
     if (emojiUnicode){
@@ -20,13 +27,24 @@ export default function ListColComp({name, emojiUnicode, id, selected, setSelect
     return (
         <div onClick={handleClick}>
             {selected === id ? 
-            <div className='bg-orange-400 p-4 my-2 rounded flex flex-row'>
-                <p className='mr-4' dangerouslySetInnerHTML={{__html : emojiString}}></p>
-                <h4 className='text-lg text-white font-semibold'>{name}</h4>
+            <div className='bg-orange-400 p-4 my-2 rounded flex flex-row items-center justify-between'>
+                <div className='flex flex-row items-center'>
+                    <p className='mr-4' dangerouslySetInnerHTML={{__html : emojiString}}></p>
+                    <h4 className='text-lg text-white font-semibold'>{name}</h4>
+                </div>
+                <div>
+                    <PencilAltIcon className='text-white h-6 w-6 mr-2'/>
+                </div>
+                
             </div> : 
-            <div className='bg-purple-400 hover:bg-orange-400 cursor-pointer p-4 my-2 rounded flex flex-row'>
-                <p className='mr-4' dangerouslySetInnerHTML={{__html : emojiString}}></p>
-                <h4 className='text-lg text-white font-semibold'>{name}</h4>
+            <div className='bg-purple-400 hover:bg-orange-400 cursor-pointer p-4 my-2 rounded flex flex-row items-center justify-between'>
+                <div className='flex flex-row items-center'>
+                    <p className='mr-4' dangerouslySetInnerHTML={{__html : emojiString}}></p>
+                    <h4 className='text-lg text-white font-semibold'>{name}</h4>
+                </div>
+                <div className='cursor-pointer' >
+                    <PencilAltIcon className='text-white h-6 w-6 mr-2'/>
+                </div>
             </div>}
         </div>
         
