@@ -19,7 +19,7 @@ export default function ListCol({}) {
     //const [selected, setSelected] = useState(lists[0].id);
 
     return (
-        <div className='w-1/3 mr-4 p-2 py-4 h-full p-2 border-r-2 bg-slate-50 rounded'>
+        <div className='sm:w-1/3 sm:mr-4 p-2 py-4 sm:h-full p-2 sm:border-r-2 bg-slate-50 rounded'>
             <div className='flex flex-row items-center w-full justify-between mb-4 mt-2'>
                 <h2 className='text-xl font-semibold'>Your Lists</h2>
                 <div className='justify-self-end flex items-center'>

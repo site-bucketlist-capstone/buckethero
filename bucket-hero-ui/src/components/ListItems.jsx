@@ -6,32 +6,29 @@ import { useDashContext } from "../contexts/dashboard";
 import {useNavigate} from 'react-router-dom';
 
 
-
+//Main container to display list items for the selected list
 export default function ListItems({}) {
     const {selected, fetchListItems, blTitle, setModalOpen, modalOpen, lists, items, setItems} = useDashContext();
-    //const [items, setItems] = useState([]);
+   
     useEffect(() => {
-        //fetch the list items for the given selected id
+        
         const getItems = async () => {
             const result = await fetchListItems(selected);
             if (result.result !== items) {
                 await setItems(result.result);
-                //let itemsCopy = items;
-                //const itemsCopy = result.result.sort((a, b) => (a.is_completed > b.is_completed) ? 1 : -1);
-                //await setItems(itemsCopy);
-                //console.log("itemsCopy", itemsCopy);
+                
             }
             return result;
         }
         getItems();
-        //sort items by completed
+        
         
         console.log("use effect items", items);
         
     }, [selected, modalOpen, lists]);
 
     return (
-        <div className='w-2/3 p-4 h-full'>
+        <div className='sm:w-2/3 p-4 h-full'>
             <div className='flex flex-row w-full my-2 items-center justify-between'>
                 <h2 className='text-xl font-semibold'>{blTitle}</h2>
                 {blTitle ? <div className='justify-self-end flex items-center'>
