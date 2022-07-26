@@ -67,6 +67,7 @@ function App() {
           <Route path='/newlist' element={<NewList/>}/>
           <Route path='/profile' element={<Profile/>}/>
           <Route path='/list/:list_id/edit' element={<EditList />}/>
+          <Route path='*' element={<div>Not Found: Page doesnt exist</div>}/>
         </Routes>
       </BrowserRouter>
     </div>

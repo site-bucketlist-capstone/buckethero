@@ -63,21 +63,23 @@ export const DashContextProvider = ({children}) => {
             }
 
         }
-        const fetchLists = async () => {
-            const {data, err} = await apiClient.fetchLists();
-            if (data) {
-                setLists(data.list);
-                setBlTitle(data.list[0]?.name);
-                setSelected(data.list[0]?.id);
-                return true;
-            };
-            if (err) setError(err);
-        }
+
         const nav = await fetchNew();
         await fetchLists();
         setIsProcessing(false);
         console.log("lists after new", lists);
         return nav;
+    }
+
+    const fetchLists = async () => {
+        const {data, err} = await apiClient.fetchLists();
+        if (data) {
+            setLists(data.list);
+            setBlTitle(data.list[0]?.name);
+            setSelected(data.list[0]?.id);
+            return true;
+        };
+        if (err) setError(err);
     }
 
     //function to fetch items for a given list
@@ -107,14 +109,6 @@ export const DashContextProvider = ({children}) => {
             }
 
         }
-        const fetchComingUp = async () => {
-            const {data, error} = await apiClient.fetchComingUpItems();
-            if (data) {
-                console.log(data)
-                await setComingUp(data.result);
-            }
-            if (error) setError(error);
-        }
         const nav = await fetchNew();
         console.log("have nav", nav);
         const items = await fetchListItems(form.list_id);
@@ -122,6 +116,14 @@ export const DashContextProvider = ({children}) => {
         setIsProcessing(false);
         console.log("list items after new", items);
         return nav;
+    }
+    const fetchComingUp = async () => {
+        const {data, error} = await apiClient.fetchComingUpItems();
+        if (data) {
+            console.log(data)
+            await setComingUp(data.result);
+        }
+        if (error) setError(error);
     }
 
     const editItem = async(form) => {
@@ -160,14 +162,14 @@ export const DashContextProvider = ({children}) => {
         setError,
         newList,
         selected,
-        setSelected,
+        setSelected, fetchLists,
         fetchListItems,
         blTitle,
         setBlTitle,
         modalOpen,
         setModalOpen,
         newItem,
-        comingUp,
+        comingUp, fetchComingUp,
         editItem,
         items,
         setItems,
