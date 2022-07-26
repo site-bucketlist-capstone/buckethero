@@ -8,8 +8,7 @@ import apiClient from "../services/apiClient";
 
 export default function EditList( ) {
    const { list_id } = useParams();
-   const { lists } = useDashContext();
-
+   const { lists, fetchLists } = useDashContext();
    const [form, setForm] = useState({'list_id': list_id, 'name': "", 'emoji_unicode': ""});
    const [isProcessingDelete, setIsProcessingDelete] = useState(false);
    const [isProcessing, setIsProcessing] = useState(false);
@@ -53,6 +52,7 @@ export default function EditList( ) {
       }
       setIsProcessing(false);
       const res = await editList(form);
+      await fetchLists();
       if (res) navigate("/");   
   }
 
@@ -72,6 +72,7 @@ export default function EditList( ) {
       }
       setIsProcessingDelete(false);
       const res = await deleteList();
+      await fetchLists();
       if (res) navigate("/");
    }
 
