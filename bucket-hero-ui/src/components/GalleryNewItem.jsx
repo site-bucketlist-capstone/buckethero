@@ -9,7 +9,7 @@ export default function GalleryNewItem({}) {
   //modal for adding a gallery item to user's bucket list
   //only displayed when user presses a list on the dropdown
 
-    const {gallModal, setGallModal} = useGallContext();
+    const {gallModal, setGallModal, success, setSuccess} = useGallContext();
     const {newItem} = useDashContext();
     const [form, setForm] = useState({'name': gallModal.item.name, 'location': gallModal.item.location, 'due_date': "", 'category': gallModal.item.category, 'price_point': 0, "list_id": gallModal.list_id});
 
@@ -30,7 +30,10 @@ export default function GalleryNewItem({}) {
         }
         const res = await newItem(form);
         
-        if (res) setGallModal((f) => ({...f, open: false}));
+        if (res) {
+            setGallModal((f) => ({...f, open: false}));
+            setSuccess("Successfully added item to list!");
+            }
         
     }
 

@@ -44,11 +44,11 @@ function classNames(...classes) {
 //dropdown component that is rendered dynamically for a user's list
 function Dropdown({item}) {
     const {lists} = useDashContext();
-    const {gallModal, setGallModal} = useGallContext();
+    const {gallModal, setGallModal, setSuccess} = useGallContext();
 
     function onClickDropdown(list_id, name) {
-        console.log('clicked:', list_id, item);
         setGallModal({open: true, list_id: list_id, item: item, name: name});
+        
     }
 
     //conditionally render menu items by lists. When an item is clicked, it will pull up the
