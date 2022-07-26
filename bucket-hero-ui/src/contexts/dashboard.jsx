@@ -63,21 +63,23 @@ export const DashContextProvider = ({children}) => {
             }
 
         }
-        const fetchLists = async () => {
-            const {data, err} = await apiClient.fetchLists();
-            if (data) {
-                setLists(data.list);
-                setBlTitle(data.list[0]?.name);
-                setSelected(data.list[0]?.id);
-                return true;
-            };
-            if (err) setError(err);
-        }
+
         const nav = await fetchNew();
         await fetchLists();
         setIsProcessing(false);
         console.log("lists after new", lists);
         return nav;
+    }
+
+    const fetchLists = async () => {
+        const {data, err} = await apiClient.fetchLists();
+        if (data) {
+            setLists(data.list);
+            setBlTitle(data.list[0]?.name);
+            setSelected(data.list[0]?.id);
+            return true;
+        };
+        if (err) setError(err);
     }
 
     //function to fetch items for a given list
@@ -160,7 +162,7 @@ export const DashContextProvider = ({children}) => {
         setError,
         newList,
         selected,
-        setSelected,
+        setSelected, fetchLists,
         fetchListItems,
         blTitle,
         setBlTitle,
