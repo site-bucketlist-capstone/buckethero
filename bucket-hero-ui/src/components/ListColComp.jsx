@@ -2,7 +2,7 @@ import {useState} from 'react';
 import apiClient from '../services/apiClient';
 import Logo from "../assets/BH.png";
 import { useAuthContext } from "../contexts/auth";
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, Link} from 'react-router-dom';
 import { PencilAltIcon } from '@heroicons/react/outline'
 
 
@@ -14,7 +14,7 @@ export default function ListColComp({name, emojiUnicode, id, selected, setSelect
         setBlTitle(name);
         
     }
-
+    
     function handleOnEditClick(event) {
         event.stopPropagation();
         console.log("clicked edit icon");
@@ -33,7 +33,7 @@ export default function ListColComp({name, emojiUnicode, id, selected, setSelect
                     <h4 className='text-lg text-white font-semibold'>{name}</h4>
                 </div>
                 <div>
-                    <PencilAltIcon className='text-white h-6 w-6 mr-2'/>
+                <Link to={`/list/${id}/edit`}><PencilAltIcon className='text-white h-6 w-6 mr-2'/></Link>
                 </div>
                 
             </div> : 
@@ -42,9 +42,13 @@ export default function ListColComp({name, emojiUnicode, id, selected, setSelect
                     <p className='mr-4' dangerouslySetInnerHTML={{__html : emojiString}}></p>
                     <h4 className='text-lg text-white font-semibold'>{name}</h4>
                 </div>
+                
+                
                 <div className='cursor-pointer' >
-                    <PencilAltIcon className='text-white h-6 w-6 mr-2'/>
+                    <PencilAltIcon className='text-white h-6 w-6 mr-2'/> 
                 </div>
+                
+                
             </div>}
         </div>
         
