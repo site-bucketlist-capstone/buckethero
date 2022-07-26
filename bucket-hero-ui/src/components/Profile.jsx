@@ -62,7 +62,7 @@ export default function Profile( ) {
                //need to properly fetch user 
                // setUser(apiClient.fetchUserFromToken())
             })
-         .catch(err => console.log(err)) 
+         .catch(err => console.error(err)) 
    }
 
 
