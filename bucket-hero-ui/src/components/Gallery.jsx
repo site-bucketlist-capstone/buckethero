@@ -7,7 +7,7 @@ import { useState } from 'react'
 
 export default function Gallery({}) {
     const {gallery, gallModal, setGallModal, success} = useGallContext();
-
+    //gallery page renders items for user to add to their bucket lists
     return (
         <div className='flex flex-col items-center'>
             <div className="w-full px-12 flex flex-row items-end justify-between">
