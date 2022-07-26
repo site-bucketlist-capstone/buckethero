@@ -70,7 +70,7 @@ export default function Profile( ) {
        <div>
          <div className="flex flex-col">
             <img src={Banner} alt="" className="h-60 w-full"/>
-            <div className="-mt-20 ml-12 pr-6 flex flex-row items-end justify-between">
+            <div className="-mt-20 ml-12 pr-6 flex flex-col items-center sm:flex-row sm:items-end sm:justify-between">
                <div className="flex flex-row">
                   <div className="h-40 w-40 rounded-full overflow-hidden hover:drop-shadow-xl">
                      <label htmlFor="file">
@@ -90,9 +90,9 @@ export default function Profile( ) {
                   </div>
                </div>
                {
-               !isShowing ? <button className="rounded bg-purple-400 p-2 text-white hover:bg-white hover:border-2 hover:border-purple-400 hover:text-purple-400" onClick={handleComplete}>Completed Items</button>
+               !isShowing ? <button className="mt-4 sm:mt-0 self-center rounded bg-purple-400 p-2 text-white hover:bg-white hover:border-2 hover:border-purple-400 hover:text-purple-400" onClick={handleComplete}>Completed Items</button>
                : 
-               <button className="bg-white border-2 border-purple-400 text-purple-400 rounded p-2 hover:bg-purple-400 hover:text-white" onClick={() => setIsShowing(false)}>Hide Completed</button>
+               <button className="mt-4 sm:mt-0 self-center bg-white border-2 border-purple-400 text-purple-400 rounded p-2 hover:bg-purple-400 hover:text-white" onClick={() => setIsShowing(false)}>Hide Completed</button>
             }
             {error ? <span>{error}</span> : "" }
             </div>
