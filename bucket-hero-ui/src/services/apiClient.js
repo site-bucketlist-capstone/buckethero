@@ -101,6 +101,10 @@ class ApiClient {
         return await this.request({endpoint: `list/${listId}/item/${itemId}/delete`, method: 'DELETE'})
     } 
 
+    async addProfilePicture(imageString) {
+        return await this.request({endpoint: `profile`, method: 'PUT', data: imageString})
+    } 
+
 }
 
 export default new ApiClient(API_BASE_URL)
