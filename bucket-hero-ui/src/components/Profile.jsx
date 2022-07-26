@@ -39,29 +39,15 @@ export default function Profile( ) {
 
    const [file, setFile] = useState()
 
-//    async function postProfilePic(data) {
-//       try {
-//           let config = {
-//               headers: {
-//                 "Content-Type": "application/json",
-//                 "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAZ21haWwuY29tIiwiaWF0IjoxNjU4Nzc0MzUxLCJleHAiOjE2NTg4NjA3NTF9.twBSmDMvqwy4lL2LCceSmup9s3wQfxrBezDoI2hBED4"
-//               }
-//             }
-//           console.log(data)
-//           let response = await axios.post("http://localhost:3001/profile", data, config)
-//           console.log(response.data)
-//       } catch(error) {
-//           console.error(error)
-//       }
-//   }   
-
-   const handleOnChangeImage = event => {
-      const file = event.target.files[0]
-      setFile(file)
-      console.log(file)
-   }
+   // const handleOnChangeImage = event => {
+   //    const file = event.target.files[0]
+   //    setFile(file)
+   //    console.log(file)
+   // }
 
    const handleOnSubmitImage = async (event) => {
+      const file = event.target.files[0]
+      setFile(file)
       let imageString = ""
       const data = new FormData()
       data.append("name", user.first_name)
@@ -75,10 +61,8 @@ export default function Profile( ) {
                let response = apiClient.addProfilePicture({"imageString" : imageString})
                //need to properly fetch user 
                // setUser(apiClient.fetchUserFromToken())
-               console.log(response)
             })
-         .catch(err => console.log(err)) 
-      // console.log(response)
+         .catch(err => console.error(err)) 
    }
 
 
@@ -88,8 +72,11 @@ export default function Profile( ) {
             <img src={Banner} alt="" className="h-60 w-full"/>
             <div className="-mt-20 ml-12 pr-6 flex flex-row items-end justify-between">
                <div className="flex flex-row">
-                  <div className=" h-40 w-40 rounded-full overflow-hidden">
-                     <img src={imgUrl} alt="" className="scale-150"/>
+                  <div className="h-40 w-40 rounded-full overflow-hidden hover:drop-shadow-xl">
+                     <label htmlFor="file">
+                        <img src={user.profile_image ? user.profile_image : imgUrl} alt="" className="scale-150 cursor-pointer"/>
+                     </label>
+                     <input type="file" id="file" onChange={handleOnSubmitImage}/>
                   </div>
                   <div className="ml-4 flex flex-col justify-end mt-4">
                      <span className="mb-6 ">   </span>
@@ -109,17 +96,8 @@ export default function Profile( ) {
             }
             {error ? <span>{error}</span> : "" }
             </div>
-            
-            <div>
-               <label htmlFor="file">File</label>
-               <input type="file" id="file" onChange={handleOnChangeImage}/>
-            </div>
-            <button onClick={handleOnSubmitImage}>Send</button>
-
             {isShowing ? <Completed completed={complete}/> : null}
-         </div>
-         <img src={user.profile_image} alt="Red dot" />
-            
+         </div>            
       </div>
    );
 }
