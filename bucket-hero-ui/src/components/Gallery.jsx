@@ -1,8 +1,9 @@
 import GalleryListItems from "./GalleryListItems";
+import GalleryNewItem from "./GalleryNewItem";
 import { useGallContext } from "../contexts/gallery";
 
 export default function Gallery({}) {
-    const {gallery} = useGallContext();
+    const {gallery, gallModal, setGallModal} = useGallContext();
 
     return (
         <div className='flex flex-col items-center'>
@@ -17,6 +18,7 @@ export default function Gallery({}) {
                     })
                 }
             </div>
+            {gallModal.open ? <GalleryNewItem/> : <>closed</>}
             
         </div>
     );

@@ -3,6 +3,7 @@ import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/solid'
 import { useDashContext } from '../contexts/dashboard'
+import { useGallContext } from '../contexts/gallery'
 
 
 
@@ -40,11 +41,14 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
+//dropdown component that is rendered dynamically for a user's list
 function Dropdown({item}) {
     const {lists} = useDashContext();
+    const {gallModal, setGallModal} = useGallContext();
 
-    function onClickDropdown(list_id) {
+    function onClickDropdown(list_id, name) {
         console.log('clicked:', list_id, item);
+        setGallModal({open: true, list_id: list_id, item: item, name: name});
     }
 
     //conditionally render menu items by lists. When an item is clicked, it will pull up the
@@ -52,7 +56,7 @@ function Dropdown({item}) {
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
-        <Menu.Button className="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500 z-10">
+        <Menu.Button className="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-orange-500 z-10">
           Add to
           <ChevronDownIcon className="-mr-1 ml-2 h-5 w-5" aria-hidden="true" />
         </Menu.Button>
@@ -75,7 +79,7 @@ function Dropdown({item}) {
               {({ active }) => (
                 <a
                 list_id={list.id}
-                  onClick={() => onClickDropdown(list.id)}
+                  onClick={() => onClickDropdown(list.id, list.name)}
                   className={classNames(
                     active ? 'bg-gray-100 text-gray-900 flex flex-row' : 'text-gray-700',
                     'block px-4 py-2 text-sm flex flex-row'
