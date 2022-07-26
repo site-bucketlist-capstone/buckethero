@@ -9,7 +9,7 @@ import apiClient from '../services/apiClient';
 import * as axios from 'axios';
 
 export default function Profile( ) {
-   const {user} = useAuthContext();
+   const {user, setUser} = useAuthContext();
    const [isShowing, setIsShowing] = useState(false);
    const [complete, setComplete] = useState([]);
    const [isProcessing, setIsProcessing] = useState(false);
@@ -61,13 +61,24 @@ export default function Profile( ) {
       console.log(file)
    }
 
-   const handleOnSubmitImage = event => {
+   const handleOnSubmitImage = async (event) => {
+      let imageString = ""
       const data = new FormData()
       data.append("name", user.first_name)
       data.append("file", file)
 
-      //needs to be updated in apiClient and dashContext
-      axios.post("https://httpbin.org/anything", data).then(res => console.log(res.data.files.file)).catch(err => console.log(err)) 
+      //post request to httpbin.org returns the base64 encoded string for the image 
+      axios.post("https://httpbin.org/anything", data)
+         .then(res => 
+            {
+               imageString = res.data.files.file
+               let response = apiClient.addProfilePicture({"imageString" : imageString})
+               //need to properly fetch user 
+               // setUser(apiClient.fetchUserFromToken())
+               console.log(response)
+            })
+         .catch(err => console.log(err)) 
+      // console.log(response)
    }
 
 
@@ -107,6 +118,7 @@ export default function Profile( ) {
 
             {isShowing ? <Completed completed={complete}/> : null}
          </div>
+         <img src={user.profile_image} alt="Red dot" />
             
       </div>
    );

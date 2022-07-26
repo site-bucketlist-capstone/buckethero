@@ -10,6 +10,7 @@ class User {
       first_name: user.first_name,
       last_name: user.last_name,
       email: user.email,
+      profile_image: user.profile_image
     }
   }
 
@@ -55,7 +56,7 @@ class User {
     const userResult = await db.query(
       `INSERT INTO users (first_name, last_name, email, password)
        VALUES ($1, $2, $3, $4)
-       RETURNING id, first_name, last_name, email, password;
+       RETURNING id, first_name, last_name, email, password, profile_picture;
       `,
       [credentials.first_name, credentials.last_name, normalizedEmail, hashedPassword]
     )
