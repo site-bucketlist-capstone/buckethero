@@ -2,9 +2,13 @@ import { ExclamationIcon, ClockIcon, BookmarkIcon, LocationMarkerIcon, CurrencyD
 import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/solid'
+import { useDashContext } from '../contexts/dashboard'
+
+
 
 export default function GalleryListItems({item}) {
-
+// being imported into the Gallery page
+// User will add gallery list item via the dropdown component
    return (
       <div className='rounded bg-slate-100 flex flex-row items-center justify-around p-2 mb-2 cursor-pointer'>
       <div className='mr-8 text-xl font-semibold w-1/4 text-purple-800'>
@@ -24,7 +28,7 @@ export default function GalleryListItems({item}) {
               </div>
           </div>
       </div>
-      <Dropdown></Dropdown>
+      <Dropdown item={item}></Dropdown>
       
   </div>
    )
@@ -36,7 +40,13 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-function Dropdown() {
+function Dropdown({item}) {
+    const {lists} = useDashContext();
+
+    function onClickDropdown(list_id) {
+        console.log('clicked:', list_id, item);
+    }
+
     //conditionally render menu items by lists. When an item is clicked, it will pull up the
     //new item modal with the infomation and the list name
   return (
@@ -59,46 +69,25 @@ function Dropdown() {
       >
         <Menu.Items className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-40">
           <div className="py-1">
-            <Menu.Item>
+            
+            {lists?.map((list) => <div key={list.id}>
+                <Menu.Item>
               {({ active }) => (
                 <a
-                  href="#"
+                list_id={list.id}
+                  onClick={() => onClickDropdown(list.id)}
                   className={classNames(
-                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                    'block px-4 py-2 text-sm'
+                    active ? 'bg-gray-100 text-gray-900 flex flex-row' : 'text-gray-700',
+                    'block px-4 py-2 text-sm flex flex-row'
                   )}
                 >
-                  Account settings
+                    <p className='mr-4' dangerouslySetInnerHTML={{__html : `&#x${list.emoji_unicode};`}}></p>
+                    {list.name}
                 </a>
               )}
             </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <a
-                  href="#"
-                  className={classNames(
-                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                    'block px-4 py-2 text-sm'
-                  )}
-                >
-                  Support
-                </a>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <a
-                  href="#"
-                  className={classNames(
-                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                    'block px-4 py-2 text-sm'
-                  )}
-                >
-                  License
-                </a>
-              )}
-            </Menu.Item>
-            <form method="POST" action="#">
+            </div>)}
+            {/* <form method="POST" action="#">
               <Menu.Item>
                 {({ active }) => (
                   <button
@@ -112,7 +101,7 @@ function Dropdown() {
                   </button>
                 )}
               </Menu.Item>
-            </form>
+            </form> */}
           </div>
         </Menu.Items>
       </Transition>
