@@ -16,7 +16,6 @@ import Gallery from './components/Gallery';
 import NewList from './components/NewList';
 import Profile from './components/Profile';
 import EditList from './components/EditList';
-import Footer from './components/Footer';
 
 import { AuthContextProvider, useAuthContext } from "./contexts/auth";
 import { DashContextProvider, useDashContext } from "./contexts/dashboard";
@@ -70,7 +69,6 @@ function App() {
           <Route path='/list/:list_id/edit' element={<EditList />}/>
           <Route path='*' element={<div>Not Found: Page doesnt exist</div>}/>
         </Routes>
-        <Footer/>
       </BrowserRouter>
     </div>
       

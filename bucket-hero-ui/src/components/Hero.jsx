@@ -2,6 +2,7 @@
 import { Fragment } from 'react'
 import { Popover, Transition } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
+import Footer from './Footer'
 import heroExtra from '../assets/heroextra.png'
 
 const navigation = [
@@ -50,7 +51,7 @@ export default function Hero() {
         </div>
         <img src={heroExtra} alt="" className='h-auto w-1/2 md:w-1/3 md:h-full hidden sm:hidden md:block lg:block'/>
       </div>
-      
+      <Footer/>
     </div>
   )
 }
