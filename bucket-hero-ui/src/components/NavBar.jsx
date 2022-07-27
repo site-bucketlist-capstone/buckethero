@@ -21,7 +21,7 @@ export default function NavBar({}) {
       
     
   return (
-    <div className="fixed top-0 left-0 right-0 bg-white ">
+    <div className="fixed z-50 top-0 left-0 right-0 bg-white ">
         <Popover>
             <div className="relative pt-6 px-4 sm:px-6 lg:px-8">
               <nav className="relative flex items-center justify-between sm:h-10 lg:justify-between" aria-label="Global">
