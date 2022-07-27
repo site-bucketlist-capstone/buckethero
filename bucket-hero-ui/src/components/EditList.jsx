@@ -77,6 +77,8 @@ export default function EditList( ) {
       setIsProcessing(false);
       const res = await editList(form);
       await fetchLists();
+      await fetchComingUp();
+      await fetchListItems(list_id);
       if (res) navigate("/");   
   }
 
@@ -99,9 +101,8 @@ export default function EditList( ) {
       setIsProcessingDelete(false);  
       const res = await deleteList();
       await fetchLists()
-      // await fetchComingUp();
-      // await fetchListItems(list_id);
-      console.log("responseeeeeee", res)
+      await fetchComingUp();
+      await fetchListItems(list_id);
       if (res) navigate("/");
    }
 
