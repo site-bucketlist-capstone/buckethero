@@ -54,14 +54,14 @@ export default function NewList({}) {
     let emojiString = `&#x${chosenEmojiUnicode};`
 
     return (
-        <div className='container mx-auto border rounded w-2/3 p-7 h-max flex flex-col justify-between'>
+        <div className='container mx-auto border rounded sm:w-2/3 p-7 h-max flex flex-col justify-between'>
             <div className=''>
                 <h2 className='text-xl font-bold'>New List</h2>
                 <form className="mt-8 space-y-6" onSubmit={handleOnSubmit}>
-                <div className='flex flex-row justify-between items-center px-4'>
+                <div className='sm:flex sm:flex-row justify-between items-center px-4'>
                     <p>List Name:</p>
-                    <div className="rounded-md shadow-sm -space-y-px w-3/4">
-                    <div>
+                    <div className="z-50 rounded-md -space-y-px w-3/4">
+                    <div className=''>
                         
                         <input
                         id="name"
@@ -70,13 +70,13 @@ export default function NewList({}) {
                         value={form.name}
                         onChange={handleOnInputChange}
                         required
-                        className="appearance-none rounded relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-orange-500 focus:border-orange-500 focus:z-10 sm:text-sm"
+                        className="appearance-none rounded  block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-orange-500 focus:border-orange-500 focus:z-10 sm:text-sm"
                         placeholder="My Bucket List"
                         />
                     </div>
                     </div>
                 </div>
-                <div className='flex flex-row items-center px-4'>
+                <div className='sm:flex sm:flex-row items-center px-4'>
                     <p className="">List Icon:</p>
                     <div className="ml-28 hover:drop-shadow-xl" onClick={handleOnEmojiClick}>
                         <p className="text-6xl cursor-pointer" dangerouslySetInnerHTML={{__html : emojiString}}></p>

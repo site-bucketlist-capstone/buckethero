@@ -123,7 +123,7 @@ export default function EditList( ) {
    let emojiString = `&#x${chosenEmojiUnicode};`;
   
   return (
-      <div className='container mx-auto border rounded w-2/3 p-7 h-max flex flex-col justify-between'>
+      <div className='container mx-auto border rounded sm:w-2/3 p-7 h-max flex flex-col justify-between'>
          { open ? <Modal handleOnDelete={handleOnDelete} open={open} setOpen={setOpen}/> :
          <div className=''>
             <h2 className='text-xl font-bold'>Edit List</h2>
@@ -162,13 +162,13 @@ export default function EditList( ) {
                     <button
                         
                         onClick={openModal}
-                        className="group relative w-1/4 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-red-500 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"   >
+                        className="group relative mr-4 w-1/4 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-red-500 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"   >
                         {isProcessingDelete ? "Loading..." : "Delete"}
                     </button>
                     <br />
                     <button
                         type="submit"
-                        className="group relative w-1/4 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-orange-400 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"         >
+                        className="group relative mr-4 w-1/4 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-orange-400 hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"         >
                         {isProcessing ? "Loading..." : "Save"}
                     </button>
             </div>       
