@@ -16,7 +16,7 @@ const tempData = [
 
 export default function ComingUp({}) {
     const {comingUp} = useDashContext();
-    console.log(comingUp);
+    //console.log(comingUp);
     function formatDate(date) {
         if(date) return new Date(date).toDateString();
         else return null

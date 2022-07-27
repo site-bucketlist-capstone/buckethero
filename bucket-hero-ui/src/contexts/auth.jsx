@@ -11,7 +11,7 @@ export const AuthContextProvider = ({children}) => {
     const [error, setError] = useState();
 
     useEffect(() => {
-        console.log("useEffect", user)
+        //console.log("useEffect", user)
     }, [])
 
     async function loginUser(form) {
@@ -67,7 +67,7 @@ export const AuthContextProvider = ({children}) => {
     }
 
     async function fetchUserFromToken() {
-        console.log("fetch context");
+        //console.log("fetch context");
         return await apiClient.fetchUserFromToken();
 
     }

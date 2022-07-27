@@ -23,7 +23,7 @@ export default function ListItems({}) {
         getItems();
         
         
-        console.log("use effect items", items);
+        //console.log("use effect items", items);
         
     }, [selected, modalOpen, lists]);
 

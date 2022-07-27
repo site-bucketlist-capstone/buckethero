@@ -70,10 +70,8 @@ export default function EditList( ) {
           if (data) {     
               return true;
           } else if (err) {
-              return false;
-          }
-          if (error) {
             setError((e) => ({ ...e, form: error }))
+            return false;
           }
       }
       setIsProcessing(false);
@@ -83,24 +81,27 @@ export default function EditList( ) {
   }
 
    // handles when user clicks delete
-   const handleOnDelete = async ( ) => {
+   const handleOnDelete = async (e) => {
+      e.preventDefault();
       setIsProcessingDelete(true)
       setError((e) => ({ ...e, form: null }))
       const deleteList = async () => {
-         const {data, err} = await apiClient.deleteList(list_id);
-         if (data) {     
-            return true;
-         } else if (err) {
-            return false;
-         }
-         if (error) {
-            setError((e) => ({ ...e, form: error }))
-         }
+        const {data, err} = await apiClient.deleteList(list_id);
+        if (data) {     
+          return true
+        } else if (err) {
+          console.log(err);
+          setError((e) => ({ ...e, form: err }))
+          return false;
+        }
+        console.log("INSIDEEEEE")
       }
-      setIsProcessingDelete(false);
+      setIsProcessingDelete(false);  
       const res = await deleteList();
-      await fetchLists();
-      await fetchComingUp();
+      await fetchLists()
+      // await fetchComingUp();
+      // await fetchListItems(list_id);
+      console.log("responseeeeeee", res)
       if (res) navigate("/");
    }
 
@@ -183,7 +184,7 @@ export default function EditList( ) {
 function Modal({handleOnDelete, open, setOpen}) {
 
    const cancelButtonRef = useRef(null);
- 
+    
    return (
      <Transition.Root show={open} as={Fragment}>
        <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={setOpen}>
@@ -233,14 +234,14 @@ function Modal({handleOnDelete, open, setOpen}) {
                    <button
                      type="button"
                      className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
-                     onClick={() =>  handleOnDelete()}
+                     onClick={(e) => handleOnDelete(e)}
                    >
                      Delete
                    </button>
                    <button
                      type="button"
                      className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-                     onClick={() => setOpen(false)}
+                     onClick={() => setOpen(!open)}
                      // onClick={() =>  handleOnDelete()}
                      ref={cancelButtonRef}
                    >

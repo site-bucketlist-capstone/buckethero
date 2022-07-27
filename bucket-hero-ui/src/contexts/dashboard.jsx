@@ -34,7 +34,6 @@ export const DashContextProvider = ({children}) => {
         const fetchComingUp = async () => {
             const {data, error} = await apiClient.fetchComingUpItems();
             if (data) {
-                console.log(data)
                 await setComingUp(data.result);
             }
             if (error) setError(error);
@@ -45,12 +44,11 @@ export const DashContextProvider = ({children}) => {
             fetchLists();
             fetchComingUp();
         }
-        console.log("useEffect", lists)
+        
     }, [user]);
 
     const newList = async (form) => {
         //const {data, error} = await apiClient.newList(form);
-        console.log(form)
         setIsProcessing(true)
         setError((e) => ({ ...e, form: null }))
         const fetchNew = async () => {
@@ -67,7 +65,7 @@ export const DashContextProvider = ({children}) => {
         const nav = await fetchNew();
         await fetchLists();
         setIsProcessing(false);
-        console.log("lists after new", lists);
+        //console.log("lists after new", lists);
         return nav;
     }
 
@@ -88,7 +86,7 @@ export const DashContextProvider = ({children}) => {
         
         const {data, err} = await apiClient.fetchItemsById(id);
         if (data) {
-            console.log("fetched list item data", data)
+            //console.log("fetched list item data", data)
             return data;
         }
         if (err) return false;
@@ -98,11 +96,11 @@ export const DashContextProvider = ({children}) => {
     const newItem = async (form) => {
         setIsProcessing(true)
         setError((e) => ({ ...e, form: null }))
-        console.log("in new item")
+        //console.log("in new item")
         const fetchNew = async () => {
             const {data, err} = await apiClient.newItem(form);
             if (data) {
-                console.log("got data")
+                //console.log("got data")
                 return true;
             } else if (err) {
                 return false;
@@ -110,11 +108,11 @@ export const DashContextProvider = ({children}) => {
 
         }
         const nav = await fetchNew();
-        console.log("have nav", nav);
+        //console.log("have nav", nav);
         const items = await fetchListItems(form.list_id);
         await fetchComingUp();
         setIsProcessing(false);
-        console.log("list items after new", items);
+        //console.log("list items after new", items);
         return nav;
     }
     const fetchComingUp = async () => {
@@ -131,12 +129,12 @@ export const DashContextProvider = ({children}) => {
         const fetchComingUp = async () => {
             const {data, error} = await apiClient.fetchComingUpItems();
             if (data) {
-                console.log(data)
+                //console.log(data)
                 await setComingUp(data.result);
             }
             if (error) setError(error);
         } 
-        console.log("form", form);
+        //console.log("form", form);
         const {data, err} = await apiClient.editItem(form);
         if (data) {
             //fetch list items
