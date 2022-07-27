@@ -79,8 +79,8 @@ export default function NewItem() {
                                 />
                             </div>
                         </div>
-                        <div className='flex flex-row'>
-                            <div className=" -space-y-px w-3/4 mr-4 flex flex-row items-center">
+                        <div className='sm:flex sm:flex-row'>
+                            <div className=" sm: -space-y-px w-3/4 sm:mr-4 flex flex-row items-center">
                                 <ClockIcon className='text-gray-500 h-6 w-6 mr-2'/>
                                 <div>
                                     <input
@@ -94,7 +94,7 @@ export default function NewItem() {
                                     />
                                 </div>
                             </div>
-                            <div className="-space-y-px w-3/4 flex flex-row items-center">
+                            <div className="sm:-space-y-px w-3/4 flex flex-row items-center">
                                 <BookmarkIcon className='text-gray-500 h-6 w-6 mr-2'/>
                                 <div>
                                         <input
@@ -109,7 +109,7 @@ export default function NewItem() {
                                 </div>
                             </div>
                         </div>
-                        <div className='flex flex row'>
+                        <div className='sm:flex sm:flex row'>
                             <div className="-space-y-px w-3/4 mr-4 flex flex-row items-center">
                                 <LocationMarkerIcon className='text-gray-500 h-6 w-6 mr-2'/>
                                 <div>

@@ -54,11 +54,11 @@ export default function NewList({}) {
     let emojiString = `&#x${chosenEmojiUnicode};`
 
     return (
-        <div className='container mx-auto border rounded w-2/3 p-7 h-max flex flex-col justify-between'>
+        <div className='container mx-auto border rounded sm:w-2/3 p-7 h-max flex flex-col justify-between'>
             <div className=''>
                 <h2 className='text-xl font-bold'>New List</h2>
                 <form className="mt-8 space-y-6" onSubmit={handleOnSubmit}>
-                <div className='flex flex-row justify-between items-center px-4'>
+                <div className='sm:flex sm:flex-row justify-between items-center px-4'>
                     <p>List Name:</p>
                     <div className="rounded-md shadow-sm -space-y-px w-3/4">
                     <div>
@@ -76,7 +76,7 @@ export default function NewList({}) {
                     </div>
                     </div>
                 </div>
-                <div className='flex flex-row items-center px-4'>
+                <div className='sm:flex sm:flex-row items-center px-4'>
                     <p className="">List Icon:</p>
                     <div className="ml-28 hover:drop-shadow-xl" onClick={handleOnEmojiClick}>
                         <p className="text-6xl cursor-pointer" dangerouslySetInnerHTML={{__html : emojiString}}></p>
