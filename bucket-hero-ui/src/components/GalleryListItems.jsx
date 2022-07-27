@@ -11,27 +11,30 @@ export default function GalleryListItems({item}) {
 // being imported into the Gallery page
 // User will add gallery list item via the dropdown component
    return (
-      <div className='rounded bg-slate-100 flex flex-row items-center justify-around p-2 mb-2 cursor-pointer'>
-      <div className='mr-8 text-xl font-semibold w-1/4 text-purple-800'>
-          {item?.name}
-      </div>
-      <div className='flex flex-col w-1/2'>
-          <div className='flex flex-row'>
-              <div className='flex flex-row w-1/2'>
-                  <BookmarkIcon className='text-gray-500 h-6 w-6 mr-2'/>
-                  {item?.category}
-              </div>
-          </div>
-          <div className='flex flex-row'>
-              <div className='flex flex-row w-1/2'>
-                  <LocationMarkerIcon className='text-gray-500 h-6 w-6 mr-2'/>
-                  {item?.location}
-              </div>
-          </div>
-      </div>
+    <div className='rounded bg-slate-100 flex flex-row items-center justify-around p-2 mb-2 cursor-pointer'>
+        <div className='sm:flex sm:justify-between w-5/6 sm:w-3/4'>
+            <div className='mr-8 text-xl font-semibold sm:w-1/4 text-purple-800'>
+                {item?.name}
+            </div>
+            <div className='flex flex-col sm:w-1/2'>
+                <div className='flex flex-row'>
+                    <div className='flex flex-row sm:w-1/2'>
+                        <BookmarkIcon className='text-gray-500 h-6 w-6 mr-2'/>
+                        {item?.category}
+                    </div>
+                </div>
+                <div className='flex flex-row'>
+                    <div className='flex flex-row sm:w-1/2'>
+                        <LocationMarkerIcon className='text-gray-500 h-6 w-6 mr-2'/>
+                        {item?.location}
+                    </div>
+                </div>
+            </div>
+        </div>
+        
       <Dropdown item={item}></Dropdown>
       
-  </div>
+    </div>
    )
 }
 
@@ -54,7 +57,7 @@ function Dropdown({item}) {
     //conditionally render menu items by lists. When an item is clicked, it will pull up the
     //new item modal with the infomation and the list name
   return (
-    <Menu as="div" className="relative inline-block text-left">
+    <Menu as="div" className=" inline-block text-left">
       <div>
         <Menu.Button className="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-orange-500 z-10">
           Add to

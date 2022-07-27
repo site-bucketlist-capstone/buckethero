@@ -80,7 +80,7 @@ export default function NewItem() {
                             </div>
                         </div>
                         <div className='sm:flex sm:flex-row'>
-                            <div className=" sm: -space-y-px w-3/4 sm:mr-4 flex flex-row items-center">
+                            <div className=" sm:-space-y-px sm:w-3/4 flex flex-row items-center">
                                 <ClockIcon className='text-gray-500 h-6 w-6 mr-2'/>
                                 <div>
                                     <input
@@ -89,12 +89,12 @@ export default function NewItem() {
                                     type="date"
                                     value={form.due_date}
                                     onChange={handleOnInputChange}
-                                    className="appearance-none pr-11 relative block w-full px-3 py-2 border-x-0 border-t-0 bg-gray-100 border-b-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-orange-500 focus:border-orange-500 focus:z-10 sm:text-sm"
+                                    className="appearance-none pr-14 sm:pr-11 relative block w-full px-3 py-2 border-x-0 border-t-0 bg-gray-100 border-b-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-orange-500 focus:border-orange-500 focus:z-10 sm:text-sm"
                                     placeholder="Due Date"
                                     />
                                 </div>
                             </div>
-                            <div className="sm:-space-y-px w-3/4 flex flex-row items-center">
+                            <div className="sm:-space-y-px sm:w-3/4 flex flex-row items-center">
                                 <BookmarkIcon className='text-gray-500 h-6 w-6 mr-2'/>
                                 <div>
                                         <input
@@ -110,7 +110,7 @@ export default function NewItem() {
                             </div>
                         </div>
                         <div className='sm:flex sm:flex row'>
-                            <div className="-space-y-px w-3/4 mr-4 flex flex-row items-center">
+                            <div className="-space-y-px sm:w-3/4 mr-4 flex flex-row items-center">
                                 <LocationMarkerIcon className='text-gray-500 h-6 w-6 mr-2'/>
                                 <div>
                                     <input
@@ -124,7 +124,7 @@ export default function NewItem() {
                                     />
                                 </div>
                             </div>
-                            <div className="-space-y-px w-3/4 flex flex-row items-center">
+                            <div className="-space-y-px sm:w-3/4 flex flex-row items-center">
                                 <CurrencyDollarIcon className='text-gray-500 h-6 w-6 mr-2'/>
                                 <div>
                                         <input
