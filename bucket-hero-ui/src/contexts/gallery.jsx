@@ -6,7 +6,9 @@ const GallContext = createContext(null);
 
 export const GallContextProvider = ({children}) => {
    const [gallery, setGallery] = useState([]);
+   const [gallModal, setGallModal] = useState({open: false, item: {}, list_id: "", name: ""});
    const [isProcessing, setIsProcessing] = useState(false);
+   const [success, setSuccess] = useState("");
    const [error, setError] = useState();
    
    useEffect(() => {
@@ -21,7 +23,11 @@ export const GallContextProvider = ({children}) => {
    }, []);
    
    const gallValue = {
-      gallery
+      gallery,
+      gallModal,
+      setGallModal,
+      success,
+      setSuccess
    }
 
   return (

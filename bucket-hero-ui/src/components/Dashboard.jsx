@@ -15,14 +15,14 @@ import EditItem from './EditItem';
 export default function Dashboard({}) {
     const {modalOpen, setModalOpen, editItemModal} = useDashContext();
     return (
-        <div className='container mx-auto h-full'>
+        <div className='container mx-auto h-full mt-4'>
             {modalOpen ? <NewItem></NewItem> : null}
             {editItemModal?.open ? <EditItem item={editItemModal?.item}></EditItem> : null}
-            <div className='flex flex-row items-center justify-center h-1/4'>
+            <div className='flex flex-row items-center justify-center sm:h-1/4'>
                 <ComingUp></ComingUp>
             </div>
             
-            <div className='flex flex-row items-center justify-center mt-4 h-3/4'>
+            <div className='sm:flex sm:flex-row sm:items-center sm:justify-center mt-4 h-3/4'>
                 <ListCol></ListCol>
                 <ListItems></ListItems>
             </div>

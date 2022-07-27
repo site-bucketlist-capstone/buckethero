@@ -2,13 +2,16 @@ import { Fragment, useRef, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { ExclamationIcon, ClockIcon, BookmarkIcon, LocationMarkerIcon, CurrencyDollarIcon } from '@heroicons/react/outline'
 import { useDashContext } from '../contexts/dashboard'
+import { useGallContext } from '../contexts/gallery';
 
 
-export default function NewItem() {
-  //const [open, setOpen] = useState(true)
+export default function GalleryNewItem({}) {
+  //modal for adding a gallery item to user's bucket list
+  //only displayed when user presses a list on the dropdown
 
-    const {modalOpen, setModalOpen, blTitle, newItem, selected} = useDashContext();
-    const [form, setForm] = useState({'name': "", 'location': "", 'due_date': "", 'category': "", 'price_point': 0, "list_id": selected});
+    const {gallModal, setGallModal, success, setSuccess} = useGallContext();
+    const {newItem} = useDashContext();
+    const [form, setForm] = useState({'name': gallModal.item.name, 'location': gallModal.item.location, 'due_date': "", 'category': gallModal.item.category, 'price_point': 0, "list_id": gallModal.list_id});
 
     const cancelButtonRef = useRef(null);
 
@@ -18,7 +21,7 @@ export default function NewItem() {
     }
     
     const handleOnSubmit = async (e) => {
-        console.log("in submit");
+        
         e.preventDefault();
         if (form.due_date === "") {
             let copy = form;
@@ -26,14 +29,17 @@ export default function NewItem() {
             setForm(copy);
         }
         const res = await newItem(form);
-        console.log("submitted");
-        if (res) setModalOpen(false);
+        
+        if (res) {
+            setGallModal((f) => ({...f, open: false}));
+            setSuccess("Successfully added item to list!");
+            }
         
     }
 
   return (
-    <Transition.Root show={modalOpen} as={Fragment}>
-      <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={setModalOpen}>
+    <Transition.Root show={gallModal.open} as={Fragment}>
+      <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={() => setGallModal((f) => ({...f, open: false}))}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -62,7 +68,7 @@ export default function NewItem() {
                   <div className="sm:flex sm:items-start">
                     <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                       <Dialog.Title as="h3" className="text-lg leading-6 font-medium text-gray-900">
-                        New List Item for {blTitle}
+                        New List Item for {gallModal.name}
                       </Dialog.Title>
                       <form className="mt-8 space-y-6" onSubmit={(e) => handleOnSubmit(e)}>
                         <div className="shadow-sm -space-y-px w-3/4">
@@ -80,7 +86,7 @@ export default function NewItem() {
                             </div>
                         </div>
                         <div className='sm:flex sm:flex-row'>
-                            <div className=" sm:-space-y-px sm:w-3/4 flex flex-row items-center">
+                            <div className=" sm:-space-y-px sm:w-3/4 mr-4 flex flex-row items-center">
                                 <ClockIcon className='text-gray-500 h-6 w-6 mr-2'/>
                                 <div>
                                     <input
@@ -150,7 +156,7 @@ export default function NewItem() {
                         <button
                             type="button"
                             className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-violet-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-                            onClick={() => setModalOpen(false)}
+                            onClick={() => setGallModal((f) => ({...f, open: false}))}
                             ref={cancelButtonRef}
                         >
                             Cancel

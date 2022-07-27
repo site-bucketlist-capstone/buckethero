@@ -97,7 +97,7 @@ class ApiClient {
         return await this.request({endpoint: `list/${listId}/delete`, method: 'DELETE'})
     } 
 
-    async deleteItem() {
+    async deleteItem(listId, itemId) {
         return await this.request({endpoint: `list/${listId}/item/${itemId}/delete`, method: 'DELETE'})
     } 
 

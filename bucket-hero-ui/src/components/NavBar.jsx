@@ -25,8 +25,8 @@ export default function NavBar({}) {
         <Popover>
             <div className="relative pt-6 px-4 sm:px-6 lg:px-8">
               <nav className="relative flex items-center justify-between sm:h-10 lg:justify-between" aria-label="Global">
-                <div className="flex items-center h-20 w-20">
-                  <div className="flex items-center justify-between h-20 w-20">
+                <div className="flex items-center h-20 w-auto">
+                  <div className="flex items-center justify-between h-20 w-auto">
                     <a href="/" className='w-full h-full'>
                       <span className="sr-only">Workflow</span>
                       <img
@@ -74,13 +74,13 @@ export default function NavBar({}) {
             >
               <Popover.Panel
                 focus
-                className="absolute z-10 top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden"
+                className="absolute z-50 top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden"
               >
-                <div className="rounded-lg shadow-md bg-white ring-1 ring-black ring-opacity-5 overflow-hidden">
+                <div className="z-50 rounded-lg shadow-md bg-white ring-1 ring-black ring-opacity-5 overflow-hidden">
                   <div className="px-5 pt-4 flex items-center justify-between">
                     <div>
                       <img
-                        className="h-8 w-auto"
+                        className="h-20 w-auto"
                         src={Logo}
                         alt=""
                       />
@@ -92,7 +92,7 @@ export default function NavBar({}) {
                       </Popover.Button>
                     </div>
                   </div>
-                  <div className="px-2 pt-2 pb-3 space-y-1">
+                  <div className="z-50 px-2 pt-2 pb-3 space-y-1">
                     {navigation.map((item) => (
                       <a
                         key={item.name}
@@ -103,12 +103,17 @@ export default function NavBar({}) {
                       </a>
                     ))}
                   </div>
-                  <a
-                    href="#"
-                    className="block w-full px-5 py-3 text-center font-medium text-orange-600 bg-gray-50 hover:bg-gray-100"
-                  >
-                    Log in
+                  
+                  {user?.email ? 
+                  <a href="/" onClick={logoutUser} className="block w-full px-5 py-3 text-center font-medium text-orange-600 bg-gray-50 hover:bg-gray-100">
+                    Logout
+                  </a> : <><a href="/register" className="block w-full px-5 py-3 text-center font-medium text-orange-600 bg-gray-50 hover:bg-gray-100">
+                    Register
                   </a>
+                  <a href="/signin" className="block w-full px-5 py-3 text-center font-medium text-orange-600 bg-gray-50 hover:bg-gray-100">
+                    Log in
+                  </a></>
+                  }
                 </div>
               </Popover.Panel>
             </Transition>
