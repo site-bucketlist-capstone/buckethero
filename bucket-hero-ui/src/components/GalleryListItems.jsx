@@ -57,7 +57,7 @@ function Dropdown({item}) {
     //conditionally render menu items by lists. When an item is clicked, it will pull up the
     //new item modal with the infomation and the list name
   return (
-    <Menu as="div" className=" inline-block text-left">
+    <Menu as="div" className=" sm:relative inline-block text-left">
       <div>
         <Menu.Button className="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-orange-500 z-10">
           Add to

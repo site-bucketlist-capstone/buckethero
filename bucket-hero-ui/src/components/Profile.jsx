@@ -70,7 +70,7 @@ export default function Profile( ) {
        <div>
          <div className="flex flex-col">
             <img src={Banner} alt="" className="-z-20 h-60 w-full"/>
-            <div className="-mt-20 ml-12 pr-6 flex flex-col items-center sm:flex-row sm:items-end sm:justify-between">
+            <div className="-mt-20 pl-2 sm:pl-0 sm:ml-12 pr-6 flex flex-col items-center sm:flex-row sm:items-end sm:justify-between">
                <div className="flex flex-row">
                   <div className="-z-10 h-40 w-40 rounded-full overflow-hidden hover:drop-shadow-xl">
                      <label htmlFor="file">
