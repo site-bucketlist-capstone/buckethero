@@ -52,11 +52,11 @@ export default function NavBar({}) {
                   {user?.email ? 
                   <a href="/" onClick={logoutUser} className="font-medium text-orange-600 hover:text-orange-500">
                     Logout
-                  </a> : <><a href="/register" className="font-medium text-orange-600 hover:text-orange-500">
+                  </a> : <><a href="/register" className="font-medium hover:text-orange-100 hover:bg-orange-700 text-white bg-orange-600 p-3 px-4 rounded">
                     Register
                   </a>
-                  <a href="/signin" className="font-medium text-orange-600 hover:text-orange-500">
-                    Log in
+                  <a href="/signin" className="font-medium text-orange-700 bg-orange-100 hover:bg-orange-200 rounded p-3 px-4 hover:text-orange-500">
+                    Sign in
                   </a></>
                   }
                 </div>

@@ -1,6 +1,6 @@
 import apiClient from '../services/apiClient';
 import { useDashContext } from '../contexts/dashboard';
-import { MinusIcon, ExclamationIcon, ClockIcon, BookmarkIcon, LocationMarkerIcon, CurrencyDollarIcon } from '@heroicons/react/outline'
+import { MinusIcon, TrashIcon, XIcon, ExclamationIcon, ClockIcon, BookmarkIcon, LocationMarkerIcon, CurrencyDollarIcon } from '@heroicons/react/outline'
 
 export default function EditListItem({item, getItems}) {
    const {selected, editItem, setModalOpen, editItemModal, setEditItemModal, setItems } = useDashContext();
@@ -35,7 +35,7 @@ export default function EditListItem({item, getItems}) {
     return (
         <div className='rounded bg-slate-100 flex flex-row items-center justify-around p-2 mb-2 cursor-pointer' > {/* onClick={(e) => handleEdit(e)} */}
             <div className='rounded border-2 border-red-600'>
-               <MinusIcon className='h-5 w-5 text-red-600' onClick={handleOnDeleteItem}/>
+               <XIcon className='h-5 w-5 text-red-600' onClick={handleOnDeleteItem}/>
             </div>
             {item?.is_completed ? 
             <div className='w-3/4 sm:flex  sm:w-3/4 sm:justify-between'><div className=' self-center mr-4 text-xl font-semibold sm:w-1/3 text-slate-600'>
