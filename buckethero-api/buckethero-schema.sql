@@ -35,6 +35,7 @@ CREATE TABLE gallery_items (
   id          SERIAL PRIMARY KEY,
   name        TEXT NOT NULL,
   location    TEXT,
-  category    TEXT
+  category    TEXT,
+  username   TEXT
 );
 
