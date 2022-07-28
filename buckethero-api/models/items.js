@@ -10,7 +10,6 @@ class Items {
             throw new BadRequestError(`Require field - ${field} - missing from request body`)
         }  
 
-
         const results = await db.query(
             `
                 INSERT INTO list_items (name, location, category, price_point, due_date, user_id, list_id)
@@ -26,6 +25,20 @@ class Items {
                           created_at
             `, [item.name, item.location, item.category, item.price_point, item.due_date, user.email, listId]
         )
+
+        const galleryItem = await db.query(
+            `
+            INSERT INTO gallery_items (name, location, category, username)
+            SELECT list_items.name, list_items.location, list_items.category, users.first_name
+            FROM list_items
+                JOIN users ON users.id = list_items.user_id
+            WHERE list_items.name != (
+                SELECT name FROM gallery_items WHERE name = $1
+            );
+            `, [item.name]
+        )
+
+        console.log(galleryItem.rows[0]);
 
         return results.rows[0]
     } 
@@ -182,27 +195,19 @@ class Items {
 
 module.exports = Items;
 
-    // static async fetchItemById(itemId) {
-    //     const results = await db.query(
-    //     `
-    //         SELECT list_items.id,
-    //                list_items.name, 
-    //                list_items.due_date, 
-    //                list_items.category, 
-    //                list_items.location, 
-    //                list_items.price_point, 
-    //                list_items.is_completed, 
-    //                list_items.rating
-    //         FROM list_items 
-    //         WHERE list_items.
-    //     `, [itemId]
-    //     )
-
-    //     const item = results.rows[0]
-
-    //     if (!item) {
-    //         throw new NotFoundError() 
-    //     }
-
-    //     return item 
-    // }
+// const galleryItem = await db.query(
+//     `
+//         INSERT INTO gallery_items (name, location, category, username)
+//         VALUES ($1, $2, $3, (SELECT first_name FROM users WHERE email = $4)
+//         WHERE name != (
+//             SELECT name 
+//             FROM gallery_items 
+//             WHERE name = $1
+//         )
+//         RETURNING id, 
+//                   name,
+//                   location, 
+//                   category, 
+//                   username
+//     `, [item.name, item.location, item.category, user.email]
+// )
