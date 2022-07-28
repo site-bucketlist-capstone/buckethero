@@ -5,7 +5,9 @@ const router = express.Router()
 
 router.get("/", security.requireAuthenticatedUser, async (req, res, next) => {
    try {
+      //const { user } = res.locals;
       const list = await Gallery.getGallery();
+      // const items = await Gallery.fetchItemsNotOwnedByUser({user});
       return res.status(200).json({ list });
    } catch(error) {
       next(error);
