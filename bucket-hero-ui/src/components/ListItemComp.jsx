@@ -33,7 +33,7 @@ export default function ListItemComp({item}) {
     return (
         <div className='rounded bg-slate-100 flex flex-row items-center justify-around p-2 mb-2 cursor-pointer' onClick={(e) => handleEdit(e)}>
             {item?.is_completed ? 
-            <div className='w-5/6 sm:flex  sm:w-3/4 sm:justify-between'><div className=' elf-center mr-4 text-xl font-semibold sm:w-1/3 text-slate-600'>
+            <div className='w-5/6 sm:flex  sm:w-3/4 sm:justify-between'><div className=' self-center mr-4 text-xl font-semibold sm:w-1/3 text-slate-600'>
             {item?.name}
         </div>
         <div className='flex flex-col sm:w-1/2 sm:justify-center'>

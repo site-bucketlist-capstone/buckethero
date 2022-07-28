@@ -22,9 +22,10 @@ export default function ComingUp({}) {
         else return null
     }
     return (
-        <div className='rounded bg-slate-50 w-full p-2 h-full sm:flex sm:flex-row sm:items-center sm:pl-6'>
+        <div className='rounded bg-slate-50 w-full p-2 h-full sm:flex sm:flex-row sm:items-center sm:justify-between sm:pl-6'>
             <h1 className='text-xl mt-2 mb-2 sm:mb-0 sm:text-3xl text-center sm:text-left text-orange-500 font-semibold sm:w-1/4'>Coming Up</h1>
-            <div className='sm:grid sm:grid-cols-2 sm:w-3/4 sm:gap-2'>
+            {comingUp.length > 0 ? 
+                <div className='sm:grid sm:grid-cols-2 sm:w-3/4 sm:gap-2'>
                 {comingUp.map((item) => (
                     <div key={item.id} className='border-2 border-purple-400 rounded flex flex-row justify-between p-2 w-full'>
                         <p className='font-medium'>{item.name}</p>
@@ -34,7 +35,9 @@ export default function ComingUp({}) {
                         </div>
                     </div>
                 ))}
-            </div>
+                </div>
+            :   <p className='sm:mr-12'>Add more list items to see what's coming up!</p>}
+            
             
         </div>
     );

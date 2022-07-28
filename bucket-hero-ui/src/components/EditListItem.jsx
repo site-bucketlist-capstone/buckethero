@@ -38,7 +38,7 @@ export default function EditListItem({item, getItems}) {
                <MinusIcon className='h-5 w-5 text-red-600' onClick={handleOnDeleteItem}/>
             </div>
             {item?.is_completed ? 
-            <div className='w-3/4 sm:flex  sm:w-3/4 sm:justify-between'><div className=' elf-center mr-4 text-xl font-semibold sm:w-1/3 text-slate-600'>
+            <div className='w-3/4 sm:flex  sm:w-3/4 sm:justify-between'><div className=' self-center mr-4 text-xl font-semibold sm:w-1/3 text-slate-600'>
             {item?.name}
         </div>
         <div className='flex flex-col sm:w-1/2 sm:justify-center'>
