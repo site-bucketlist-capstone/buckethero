@@ -33,7 +33,7 @@ CREATE TABLE list_items (
 
 CREATE TABLE gallery_items (
   id          SERIAL PRIMARY KEY,
-  name        TEXT NOT NULL,
+  name        TEXT UNIQUE NOT NULL,
   location    TEXT,
   category    TEXT,
   username   TEXT
