@@ -18,7 +18,7 @@ export default function Gallery({}) {
                 <p className="text-lime-500 font-semibold text-center sm:text-left">{success}</p>
             </div>
             <div className="sm:w-3/4 mt-4">
-                {
+                { 
                     gallery.map((item) => {
                     return <GalleryListItems key={item.id} item={item} />
                     })
