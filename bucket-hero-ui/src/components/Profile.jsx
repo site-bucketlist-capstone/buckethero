@@ -71,13 +71,17 @@ export default function Profile( ) {
          <div className="flex flex-col">
             <img src={Banner} alt="" className="-z-20 h-60 w-full"/>
             <div className="-mt-20 pl-2 sm:pl-0 sm:ml-12 pr-6 flex flex-col items-center sm:flex-row sm:items-end sm:justify-between">
-               <div className="flex flex-row">
-                  <div className="h-40 w-40 rounded-full overflow-hidden hover:drop-shadow-xl">
-                     <label htmlFor="file">
-                        <img src={user.profile_image ? user.profile_image : imgUrl} alt="" className="scale-150 cursor-pointer"/>
-                     </label>
-                     <input type="file" id="file" onChange={handleOnSubmitImage}/>
+               <div className="flex flex-row items-center">
+                  <div>
+                     <div className="h-40 w-40 rounded-full overflow-hidden hover:drop-shadow-xl">
+                        <label htmlFor="file">
+                           <img src={user.profile_image ? user.profile_image : imgUrl} alt="profile picture" className="scale-150 cursor-pointer"/>
+                        </label>
+                        <input type="file" id="file" onChange={handleOnSubmitImage}/>
+                     </div>
+                     <p className="text-gray-400">Click profile pic to edit</p>
                   </div>
+                  
                   <div className="ml-4 flex flex-col justify-end mt-4">
                      <span className="mb-6 ">   </span>
                      <div className="mt-4">

@@ -59,7 +59,7 @@ export default function NewList({}) {
                 <h2 className='text-xl font-bold'>New List</h2>
                 <form className="mt-8 space-y-6" onSubmit={handleOnSubmit}>
                 <div className='sm:flex sm:flex-row justify-between items-center px-4'>
-                    <p>List Name:</p>
+                    <p className='sm:w-1/4'>List Name:</p>
                     <div className="z-50 rounded-md -space-y-px w-3/4">
                     <div className=''>
                         
@@ -77,8 +77,8 @@ export default function NewList({}) {
                     </div>
                 </div>
                 <div className='sm:flex sm:flex-row items-center px-4'>
-                    <p className="">List Icon:</p>
-                    <div className="ml-28 hover:drop-shadow-xl" onClick={handleOnEmojiClick}>
+                    <p className="sm:w-1/4">List Icon:</p>
+                    <div className="hover:drop-shadow-xl" onClick={handleOnEmojiClick}>
                         <p className="text-6xl cursor-pointer" dangerouslySetInnerHTML={{__html : emojiString}}></p>
                     </div>
                 </div>

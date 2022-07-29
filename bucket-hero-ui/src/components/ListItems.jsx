@@ -32,7 +32,7 @@ export default function ListItems({}) {
             <div className='flex flex-row w-full my-2 items-center justify-between'>
                 <h2 className='text-xl font-semibold'>{blTitle}</h2>
                 {blTitle ? <div className='justify-self-end flex items-center'>
-                    <button className='flex bg-purple-400 rounded p-1' onClick={() => setModalOpen(true)}>
+                    <button className='flex bg-purple-400 rounded p-1 pl-2' onClick={() => setModalOpen(true)}>
                         <p className='text-white'>Add</p>
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="white" strokeWidth="2">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
@@ -44,7 +44,7 @@ export default function ListItems({}) {
             
             {items.length > 0 ? items.map((item) => {
                 return <div key={item.id}><ListItemComp item={item}/></div>
-            }) : blTitle ? <p>No items yet. Press the plus button to add some!</p> : <p>No lists yet. Press the plus button next to Your Lists to add some!</p>}
+            }) : blTitle ? <p>No items yet. Press the plus button to add some! Check out the Inspo board for ideas.</p> : <p>No lists yet. Press the plus button next to Your Lists to add some!</p>}
         </div>
     );
 }

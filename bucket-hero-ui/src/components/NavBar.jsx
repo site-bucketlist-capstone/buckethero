@@ -6,7 +6,7 @@ import Logo from "../assets/BH.png";
 import { useAuthContext } from "../contexts/auth";
 
 
-export default function NavBar({}) {
+export default function NavBar({setLogoutOpen}) {
     const {user, logoutUser} = useAuthContext();
     const navigation = user?.email ? [
         { name: 'Dashboard', href: '/'},
@@ -25,9 +25,9 @@ export default function NavBar({}) {
         <Popover>
             <div className="relative pt-6 px-4 sm:px-6 lg:px-8">
               <nav className="relative flex items-center justify-between sm:h-10 lg:justify-between" aria-label="Global">
-                <div className="flex items-center h-20 w-auto">
-                  <div className="flex items-center justify-between h-20 w-auto">
-                    <a href="/" className='w-full h-full'>
+                <div className="flex items-center justify-between h-20 w-full md:w-auto">
+                  <div className="flex items-center justify-between h-20 w-full md:w-auto">
+                    <a href="/" className='w-auto md:w-full h-full'>
                       <span className="sr-only">Workflow</span>
                       <img
                         alt="Workflow"
@@ -50,13 +50,13 @@ export default function NavBar({}) {
                     </a>
                   ))}
                   {user?.email ? 
-                  <a href="/" onClick={logoutUser} className="font-medium text-orange-600 hover:text-orange-500">
+                  <a onClick={(e) => {console.log("logout"); setLogoutOpen(true)}} className="cursor-pointer font-medium text-orange-600 hover:text-orange-500">
                     Logout
-                  </a> : <><a href="/register" className="font-medium text-orange-600 hover:text-orange-500">
+                  </a> : <><a href="/register" className="font-medium hover:text-orange-100 hover:bg-orange-700 text-white bg-orange-600 p-3 px-4 rounded">
                     Register
                   </a>
-                  <a href="/signin" className="font-medium text-orange-600 hover:text-orange-500">
-                    Log in
+                  <a href="/signin" className="font-medium text-orange-700 bg-orange-100 hover:bg-orange-200 rounded p-3 px-4 hover:text-orange-500">
+                    Sign in
                   </a></>
                   }
                 </div>

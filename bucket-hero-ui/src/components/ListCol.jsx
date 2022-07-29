@@ -23,7 +23,7 @@ export default function ListCol({}) {
             <div className='flex flex-row items-center w-full justify-between mb-4 mt-2'>
                 <h2 className='text-xl font-semibold'>Your Lists</h2>
                 <div className='justify-self-end flex items-center'>
-                    <button className='flex bg-orange-400 rounded p-1' onClick={() => navigate('/newlist')}>
+                    <button className='flex bg-orange-400 rounded p-1 pl-2' onClick={() => navigate('/newlist')}>
                         <p className='text-white'>Add</p>
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="white" strokeWidth="2">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
