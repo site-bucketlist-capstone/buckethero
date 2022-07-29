@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import apiClient from "../services/apiClient";
 import EditListItem from "./EditListItem";
 import { ExclamationIcon } from '@heroicons/react/outline'
+import { useAuthContext } from "../contexts/auth";
 import { Dialog, Transition } from '@headlessui/react'
 
 // takes user to seperate page that 
@@ -14,6 +15,7 @@ export default function EditList( ) {
    // parameters to fetch Id and needed variable from dashboard context
    const { list_id } = useParams();
    const { lists, fetchLists, fetchComingUp, fetchListItems } = useDashContext();
+   const { fetchUserFromToken } = useAuthContext();
    const [itemsList, setItemsList] = useState([]);
    //form to send to apiclient to edit list
    const [form, setForm] = useState({'list_id': list_id, 'name': "", 'emoji_unicode': ""});
@@ -103,6 +105,7 @@ export default function EditList( ) {
       await fetchLists()
       await fetchComingUp();
       await fetchListItems(list_id);
+      await fetchUserFromToken();
       if (res) navigate("/");
    }
 
