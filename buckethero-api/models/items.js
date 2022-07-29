@@ -5,10 +5,20 @@ const { BadRequestError, NotFoundError } = require("../utils/errors")
 class Items {
 
     static async createNewListItem({item, user, listId}) {
-        //checks to make sure item at least has "name"
         if (!item.hasOwnProperty("name")) {
             throw new BadRequestError(`Require field - ${field} - missing from request body`)
-        }  
+        }   
+        // const galleryItem = await db.query(
+        //     `
+        //     IF NOT EXISTS (SELECT name FROM gallery_items WHERE name = $1)
+        //     INSERT INTO gallery_items (name, location, category)
+        //     VALUES($1, $2, $3)
+        //     RETURNING id,
+        //                 name, location, category
+        // `, [item.name, item.location, item.category]
+            
+        // )
+        // console.log(galleryItem.rows);
 
         const results = await db.query(
             `
@@ -25,20 +35,6 @@ class Items {
                           created_at
             `, [item.name, item.location, item.category, item.price_point, item.due_date, user.email, listId]
         )
-
-        const galleryItem = await db.query(
-            `
-            INSERT INTO gallery_items (name, location, category, username)
-            SELECT list_items.name, list_items.location, list_items.category, users.first_name
-            FROM list_items
-                JOIN users ON users.id = list_items.user_id
-            WHERE list_items.name != (
-                SELECT name FROM gallery_items WHERE name = $1
-            );
-            `, [item.name]
-        )
-
-        console.log(galleryItem.rows[0]);
 
         return results.rows[0]
     } 
@@ -125,7 +121,7 @@ class Items {
                         users.email
                 FROM list_items
                 JOIN users ON users.id = list_items.user_id
-                WHERE users.email = $1 AND list_items.is_completed = false 
+                WHERE users.email = $1 AND list_items.is_completed = false
                 ORDER BY due_date ASC
                 LIMIT 4
             `, [user.email]

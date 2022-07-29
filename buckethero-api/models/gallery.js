@@ -2,7 +2,8 @@ const db = require("../db")
 const { NotFoundError } = require("../utils/errors")
 
 class Gallery {
-   static async getGallery() {
+   static async getGallery({user}) {
+      //this.createNewGallery({user});
       const results = await db.query (
          `
          SELECT g.id,
@@ -29,15 +30,31 @@ class Gallery {
               WHERE users.email != $1
           `, [user.email]
       )
-
       const items = results.rows;
-
       if (!items) {
           throw new NotFoundError()
       }
-
       return items;
   }
+
+   static async createNewGallery({user}) {
+      const items = await this.fetchItemsNotOwnedByUser({user});
+      console.log(items);
+      items.map(async (item) => {
+         let result = await db.query(
+            `
+               IF NOT EXISTS (SELECT name FROM gallery_items WHERE name = $1)
+                INSERT INTO gallery_items (name, location, category)
+                VALUES($1, $2, $3)
+                RETURNING id,
+                            name, location, category
+            `, [item.name, item.location, item.category]
+         )
+         console.log(result.rows);
+      })
+      ///console.log(results.rows[0]);
+      
+   }
 }
 
 module.exports = Gallery;
