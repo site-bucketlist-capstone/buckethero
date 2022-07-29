@@ -33,62 +33,64 @@ export default function EditListItem({item, getItems}) {
       else return null;
    }
     return (
-        <div className='rounded bg-slate-100 flex flex-row items-center justify-around p-2 mb-2 cursor-pointer' > {/* onClick={(e) => handleEdit(e)} */}
-            <div className='rounded border-2 border-red-600'>
-               <XIcon className='h-5 w-5 text-red-600' onClick={handleOnDeleteItem}/>
+        <div className='rounded bg-slate-100 flex flex-row sm:items-center justify-around p-2 mb-2' > {/* onClick={(e) => handleEdit(e)} */}
+            <div className='rounded border-2 border-red-600 h-full'>
+               <XIcon className='h-5 w-5 text-red-600 cursor-pointer' onClick={handleOnDeleteItem}/>
             </div>
             {item?.is_completed ? 
-            <div className='w-3/4 sm:flex  sm:w-3/4 sm:justify-between'><div className=' self-center mr-4 text-xl font-semibold sm:w-1/3 text-slate-600'>
+            <div className='w-3/4 sm:flex sm:w-3/4 sm:justify-between'><div className=' w-full self-center flex flex-row mr-4 text-xl font-semibold sm:w-1/3 text-slate-600'>
+            
             {item?.name}
-        </div>
+            </div>
         <div className='flex flex-col sm:w-1/2 sm:justify-center'>
-            <div className='flex flex-row'>
-                <div className='flex flex-row w-1/2 text-gray-400'>
+            <div className='sm:flex sm:flex-row'>
+                <div className='flex flex-row sm:w-1/2 text-gray-400 mb-2 sm:mb-0'>
                     <ClockIcon className='text-gray-400 h-6 w-6 mr-2'/>
                     {formatDate(item?.due_date)}
                 </div>
-                <div className='flex flex-row w-1/2 text-gray-400'>
+                <div className='flex flex-row sm:w-1/2 text-gray-400 mb-2 sm:mb-0'>
                     <BookmarkIcon className='text-gray-400 h-6 w-6 mr-2'/>
                     {item?.category}
                 </div>
             </div>
-            <div className='flex flex-row'>
-                <div className='flex flex-row w-1/2 text-gray-400'>
+            <div className='sm:flex sm:flex-row'>
+                <div className='flex flex-row sm:w-1/2 text-gray-400 mb-2 sm:mb-0'>
                     <LocationMarkerIcon className='text-gray-400 h-6 w-6 mr-2'/>
                     {item?.location}
                 </div>
-                <div className='flex flex-row w-1/2 text-gray-400'>
+                <div className='flex flex-row sm:w-1/2 text-gray-400 mb-2 sm:mb-0'>
                     <CurrencyDollarIcon className='text-gray-400 h-6 w-6 mr-2'/>
                     {item?.price_point}
                 </div>
             </div>
-        </div></div> : <div className='w-3/4 sm:flex sm:w-3/4 sm:justify-between'><div className=' self-center mr-4 text-xl font-semibold sm:w-1/3 text-purple-800'>
+        </div></div> : <div className='w-3/4 sm:flex sm:w-3/4 sm:justify-between'><div className=' w-full self-center flex flex-row mr-4 text-xl font-semibold sm:w-1/3 text-purple-800'>
+                
                 {item?.name}
             </div>
             <div className='flex flex-col sm:w-1/2  sm:justify-center'>
-                <div className='flex flex-row'>
-                    <div className='flex flex-row w-1/2 text-gray-600'>
+                <div className='sm:flex sm:flex-row'>
+                    <div className='flex flex-row sm:w-1/2 text-gray-600 mb-2 sm:mb-0'>
                         <ClockIcon className='text-gray-500 h-6 w-6 mr-2'/>
                         {formatDate(item?.due_date)}
                     </div>
-                    <div className='flex flex-row w-1/2 text-gray-600'>
+                    <div className='flex flex-row sm:w-1/2 text-gray-600 mb-2 sm:mb-0'>
                         <BookmarkIcon className='text-gray-500 h-6 w-6 mr-2'/>
                         {item?.category}
                     </div>
                 </div>
-                <div className='flex flex-row'>
-                    <div className='flex flex-row w-1/2 text-gray-600'>
+                <div className='sm:flex sm:flex-row'>
+                    <div className='flex flex-row sm:w-1/2 text-gray-600 mb-2 sm:mb-0'>
                         <LocationMarkerIcon className='text-gray-500 h-6 w-6 mr-2'/>
                         {item?.location}
                     </div>
-                    <div className='flex flex-row w-1/2 text-gray-600'>
+                    <div className='flex flex-row sm:w-1/2 text-gray-600 mb-2 sm:mb-0'>
                         <CurrencyDollarIcon className='text-gray-500 h-6 w-6 mr-2'/>
                         {item?.price_point}
                     </div>
                 </div>
             </div></div>}
-            <div onClick={(e) => handleClick(e)}>
-                {item?.is_completed ? <ion-icon name="checkbox-outline" style={{color: "#a855f7", "--ionicon-stroke-width": "44px"}} size="large" className='text-purple-400'></ion-icon> : <div className='border w-6 border-4 h-6 rounded border-purple-400 cursor-pointer'></div>}
+            <div className='' onClick={(e) => handleClick(e)}>
+                {item?.is_completed ? <ion-icon name="checkbox-outline" style={{color: "#a855f7", "--ionicon-stroke-width": "44px", cursor: "pointer"}} size="large" className='text-purple-400'></ion-icon> : <div className='border w-7 border-4 h-7 mb-1 mr-1 rounded border-purple-400 cursor-pointer'></div>}
             </div>
             
         </div>

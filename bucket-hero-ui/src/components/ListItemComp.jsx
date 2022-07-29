@@ -83,7 +83,7 @@ export default function ListItemComp({item}) {
                 </div>
             </div></div>}
             <div onClick={(e) => handleClick(e)}>
-                {item?.is_completed ? <ion-icon name="checkbox-outline" style={{color: "#a855f7", "--ionicon-stroke-width": "44px"}} size="large" className='text-purple-400'></ion-icon> : <div className='border w-6 border-4 h-6 rounded border-purple-400 cursor-pointer'></div>}
+                {item?.is_completed ? <ion-icon name="checkbox-outline" style={{color: "#a855f7", "--ionicon-stroke-width": "44px"}} size="large" className='text-purple-400'></ion-icon> : <div className='border w-7 border-4 h-7 mb-1 mr-1 rounded border-purple-400 cursor-pointer'></div>}
             </div>
             
         </div>
