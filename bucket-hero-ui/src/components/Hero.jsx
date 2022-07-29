@@ -15,8 +15,8 @@ const navigation = [
 export default function Hero() {
   return (
     <div className="-z-50 mt-24 bg-white h-full ">
-      <div className="-z-50 w-full flex flex-row items-center p-4">
-        <div className=" -z-2  pb-8 bg-white sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32">
+      <div className="-z-50 w-full flex flex-row items-center justify-around p-4">
+        <div className=" -z-2 pb-8 bg-white sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32">
 
           <main className=" -z-50 mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28 ">
             <div className="sm:text-center lg:text-left">
@@ -49,7 +49,7 @@ export default function Hero() {
             
           </main>
         </div>
-        <img src={heroExtra} alt="" className='h-auto w-1/2 md:w-1/3 md:h-full hidden sm:hidden md:block lg:block'/>
+        <img src={heroExtra} alt="" className='h-auto w-1/2 md:w-1/3 md:h-full hidden sm:hidden md:hidden lg:block'/>
       </div>
       <Footer/>
     </div>

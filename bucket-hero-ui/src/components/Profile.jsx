@@ -68,8 +68,8 @@ export default function Profile( ) {
 
    return (
        <div>
-         <div className="flex flex-col">
-            <img src={Banner} alt="" className="-z-20 h-60 w-full"/>
+         <div className="flex flex-col p-4">
+            <img src={Banner} alt="" className="-z-20 h-60 w-full rounded"/>
             <div className="-mt-20 pl-2 sm:pl-0 sm:ml-12 pr-6 flex flex-col items-center sm:flex-row sm:items-end sm:justify-between">
                <div className="flex flex-row items-center">
                   <div>
@@ -94,9 +94,9 @@ export default function Profile( ) {
                   </div>
                </div>
                {
-               !isShowing ? <button className="mt-4 sm:mt-0 self-center rounded bg-purple-400 p-2 text-white hover:bg-white hover:border-2 hover:border-purple-400 hover:text-purple-400" onClick={handleComplete}>Completed Items</button>
+               !isShowing ? <button className="mt-4 sm:mt-12 self-center rounded bg-purple-400 p-2 text-white hover:bg-white hover:border-2 hover:border-purple-400 hover:text-purple-400" onClick={handleComplete}>Completed Items</button>
                : 
-               <button className="mt-4 sm:mt-0 self-center bg-white border-2 border-purple-400 text-purple-400 rounded p-2 hover:bg-purple-400 hover:text-white" onClick={() => setIsShowing(false)}>Hide Completed</button>
+               <button className="mt-4 sm:mt-12 self-center bg-white border-2 border-purple-400 text-purple-400 rounded p-2 hover:bg-purple-400 hover:text-white" onClick={() => setIsShowing(false)}>Hide Completed</button>
             }
             {error ? <span>{error}</span> : "" }
             </div>
