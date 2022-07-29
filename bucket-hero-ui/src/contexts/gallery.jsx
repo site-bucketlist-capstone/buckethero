@@ -9,6 +9,8 @@ export const GallContextProvider = ({children}) => {
    const [gallModal, setGallModal] = useState({open: false, item: {}, list_id: "", name: ""});
    const [isProcessing, setIsProcessing] = useState(false);
    const [success, setSuccess] = useState("");
+   const [searchCategory, setSearchCategory] = useState("name");
+   const [searchValue, setSearchValue] = useState("");
    const [error, setError] = useState();
    
    useEffect(() => {
@@ -27,7 +29,11 @@ export const GallContextProvider = ({children}) => {
       gallModal,
       setGallModal,
       success,
-      setSuccess
+      setSuccess,
+      searchValue, 
+      setSearchValue,
+      searchCategory,
+      setSearchCategory
    }
 
   return (

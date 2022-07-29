@@ -26,17 +26,15 @@ class Items {
             `, [item.name, item.location, item.category, item.price_point, item.due_date, user.email, listId]
         )
 
-        const galleryItem = await db.query(
-            `
-            INSERT INTO gallery_items (name, location, category, username)
-            SELECT list_items.name, list_items.location, list_items.category, users.first_name
-            FROM list_items
-                JOIN users ON users.id = list_items.user_id
-            WHERE list_items.name != (
-                SELECT name FROM gallery_items WHERE name = $1
-            );
-            `, [item.name]
-        )
+        // const galleryItem = await db.query(
+        //     `
+        //     INSERT INTO gallery_items (name, location, category, username)
+        //     SELECT list_items.name, list_items.location, list_items.category, users.first_name
+        //     FROM list_items
+        //         JOIN users ON users.id = list_items.user_id
+        //     WHERE NOT (($1 IN (SELECT name FROM gallery_items)) AND (list_items.name IN (SELECT name FROM gallery_items)));
+        //     `, [item.name]
+        // )
 
         console.log(galleryItem.rows[0]);
 
