@@ -47,7 +47,6 @@ class Items {
                 `, 
             
         )
-        console.log(galleryItem);
 
         return results.rows[0]
     } 
