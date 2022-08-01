@@ -60,7 +60,6 @@ class List {
       const resultInfo = await db.query(
          `SELECT name, emoji_unicode FROM lists WHERE id = $1 `, [listId]
       )
-      console.log(resultInfo.rows);
       const name = resultInfo.rows[0].name
       const emoji_unicode = resultInfo.rows[0].emoji_unicode
       const result = await db.query(
