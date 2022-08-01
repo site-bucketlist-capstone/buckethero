@@ -10,7 +10,7 @@ export default function NavBar({setLogoutOpen}) {
     const {user, logoutUser} = useAuthContext();
     const navigation = user?.email ? [
         { name: 'Dashboard', href: '/'},
-        { name: 'Gallery', href: '/gallery' },
+        { name: 'Inspo', href: '/inspo' },
         { name: 'New List', href: '/newlist' },
         { name: 'Profile', href: '/profile' },
         

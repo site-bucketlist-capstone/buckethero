@@ -46,7 +46,7 @@ export default function ListItems({}) {
             
             {items.length > 0 ? items.map((item) => {
                 return <div key={item.id}><ListItemComp item={item}/></div>
-            }) : blTitle ? <p>No items yet. Press the plus button to add some! Check out the Inspo board for ideas.</p> : <p>No lists yet. Press the plus button next to Your Lists to add one!</p>}
+            }) : blTitle ? <p>No items yet. Press the plus button to add some! Check out the Inspo Board for ideas.</p> : <p>No lists yet. Press the plus button next to Your Lists to add one!</p>}
         </div>
     );
 }
