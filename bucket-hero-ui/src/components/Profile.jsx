@@ -4,6 +4,7 @@ import { UserCircleIcon } from '@heroicons/react/solid'
 
 import Banner from '../assets/profile-banner.png';
 import Completed from "./Completed";
+import ProfileEditForm from "./ProfileEditForm";
 
 import apiClient from '../services/apiClient';
 import * as axios from 'axios';
@@ -100,7 +101,7 @@ export default function Profile( ) {
             }
             {error ? <span>{error}</span> : "" }
             </div>
-            {isShowing ? <Completed completed={complete}/> : null}
+            {isShowing ? <Completed completed={complete}/> : <ProfileEditForm info={user}/>}
          </div>            
       </div>
    );
