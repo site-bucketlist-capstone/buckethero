@@ -13,7 +13,7 @@ export default function ListItemComp({item}) {
     
     const handleClick = async (event) => {
         //edit item
-        console.log("clciked check");
+        
         event.stopPropagation();
         console.log(!item.is_completed)
         const form = {list_id: selected, item_id: item.id, is_completed: !item.is_completed}
@@ -21,7 +21,7 @@ export default function ListItemComp({item}) {
     }
 
     function handleEdit(event) {
-        console.log("clicked item");
+        
         setEditItemModal({open: true, item: item});
         //setModalOpen(true);
     }
@@ -49,12 +49,12 @@ export default function ListItemComp({item}) {
             </div>
             <div className='flex flex-row'>
                 <div className='flex flex-row w-1/2 text-gray-400'>
-                    <LocationMarkerIcon className='text-gray-400 h-6 w-6 mr-2'/>
+                    <div className='sm:w-6 sm:mr-2'><LocationMarkerIcon className='text-gray-400 h-6 w-6 mr-2'/></div>
                     {item?.location}
                 </div>
                 <div className='flex flex-row w-1/2 text-gray-400 sm:pl-4'>
                     <CurrencyDollarIcon className='text-gray-400 h-6 w-6 mr-2'/>
-                    {item?.price_point}
+                    ${item?.price_point.toFixed(2)}
                 </div>
             </div>
         </div></div> : <div className='w-5/6 sm:flex sm:w-5/6 sm:justify-between '><div className='self-center text-xl font-semibold sm:w-1/3 text-purple-800'>
@@ -73,12 +73,12 @@ export default function ListItemComp({item}) {
                 </div>
                 <div className='flex flex-row'>
                     <div className='flex flex-row w-1/2 text-gray-600'>
-                        <LocationMarkerIcon className='text-gray-500 h-6 w-6 mr-2'/>
+                        <div className='sm:w-6 sm:mr-2'><LocationMarkerIcon className='text-gray-500 h-6 w-6 mr-2'/></div>
                         {item?.location}
                     </div>
                     <div className='flex flex-row w-1/2 text-gray-600 sm:pl-4'>
                         <CurrencyDollarIcon className='text-gray-500 h-6 w-6 mr-2'/>
-                        {item?.price_point}
+                        ${item?.price_point.toFixed(2)}
                     </div>
                 </div>
             </div></div>}

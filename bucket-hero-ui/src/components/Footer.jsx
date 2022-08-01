@@ -2,7 +2,7 @@ import Logo from "../assets/BH.png";
 
 export default function Footer() {
     return (
-        <div className="w-full py-4 sm:py-0 sm:flex sm:flex-row sm:justify-around bg-orange-500 sm:h-36">
+        <div className="w-full mt-24 py-4 sm:py-0 sm:flex sm:flex-row sm:justify-around bg-orange-500 sm:h-36">
             <div className=" sm:w-1/3  flex flex-col my-auto">
                 <p className="text-center text-white">@ 2022 BucketHero, Inc.</p>
                 <p className="text-center text-white">All Rights Reserved</p>

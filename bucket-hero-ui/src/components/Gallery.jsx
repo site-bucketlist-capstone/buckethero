@@ -38,10 +38,10 @@ export default function Gallery({}) {
 
     //gallery page renders items for user to add to their bucket lists
     return (
-        <div className='flex flex-col items-center mt-6'>
+        <div className='flex flex-col items-center mt-16 sm:mt-6 p-4 sm:p-0'>
             <div className="w-full px-12 sm:flex sm:flex-row items-end justify-between">
                 <div className="text-center sm:text-left">
-                    <h3 className="text-2xl font-semibold">Gallery</h3>
+                    <h3 className="text-2xl font-semibold">Inspo Board</h3>
                     <p>Gain items to put on your own list and gain inspiration!</p>
                 </div>
                 <p className="text-lime-500 font-semibold text-center sm:text-left">{success}</p>

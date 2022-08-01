@@ -11,23 +11,23 @@ export default function GalleryListItems({item}) {
 // being imported into the Gallery page
 // User will add gallery list item via the dropdown component
    return (
-    <div className='rounded bg-slate-100 flex flex-row items-center justify-around p-2 mb-2 cursor-pointer'>
+    <div className='rounded bg-slate-100 flex flex-row items-center justify-around p-2 mb-2'>
         <div className='sm:flex sm:justify-between w-5/6 sm:w-3/4'>
-            <div className='mr-8 text-xl font-semibold sm:w-1/4 text-purple-800'>
+            <div className='mr-8 text-xl font-semibold sm:w-1/4 text-purple-800 sm:flex sm:items-center'>
                 {item?.name}
             </div>
-            <div className='flex flex-col sm:w-1/2'>
-                <div className='flex flex-row'>
-                    <div className='flex flex-row sm:w-1/2'>
+            <div className='flex flex-col sm:w-1/2 sm:flex sm:flex-col sm:justify-center'>
+                <div className='flex flex-row '>
+                    {/* <div className='flex flex-row sm:w-1/2 '> */}
                         <BookmarkIcon className='text-gray-500 h-6 w-6 mr-2'/>
                         {item?.category}
-                    </div>
+                    {/* </div> */}
                 </div>
-                <div className='flex flex-row'>
-                    <div className='flex flex-row sm:w-1/2'>
-                        <LocationMarkerIcon className='text-gray-500 h-6 w-6 mr-2'/>
+                <div className='flex flex-row '>
+                    {/* <div className='flex flex-row '> */}
+                        <div className='sm:w-6 sm:mr-2'><LocationMarkerIcon className='text-gray-500 h-6 w-6 mr-2'/></div>
                         {item?.location}
-                    </div>
+                    {/* </div> */}
                 </div>
             </div>
         </div>
@@ -77,7 +77,7 @@ function Dropdown({item}) {
         <Menu.Items className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-40">
           <div className="py-1">
             
-            {lists?.map((list) => <div key={list.id}>
+            {lists.length > 0 ? lists?.map((list) => <div key={list.id}>
                 <Menu.Item>
               {({ active }) => (
                 <a
@@ -93,7 +93,18 @@ function Dropdown({item}) {
                 </a>
               )}
             </Menu.Item>
-            </div>)}
+            </div>) : <Menu.Item>{({ active }) => (
+                <a
+                
+                  href="/"
+                  className={classNames(
+                    active ? 'bg-orange-200 border border-orange-300 text-gray-900 flex flex-row' : 'bg-orange-100 border border-orange-200 text-gray-700',
+                    'block px-4 py-2 text-sm flex flex-row'
+                  )}
+                >
+                    Add a list in the dashboard to get started!
+                </a>
+              )}</Menu.Item>}
           </div>
         </Menu.Items>
       </Transition>

@@ -73,7 +73,7 @@ function App() {
           <Route path='/' element={user?.email ? <Dashboard/>: <Hero/>}/>
           <Route path='/signin' element={<SignIn setUser={setUser}/>}/>
           <Route path='/register' element={<Register setUser={setUser}/>}/>
-          <Route path='/gallery' element={<Gallery/>}/>
+          <Route path='/inspo' element={<Gallery/>}/>
           <Route path='/newlist' element={<NewList/>}/>
           <Route path='/profile' element={<Profile/>}/>
           <Route path='/list/:list_id/edit' element={<EditList />}/>
