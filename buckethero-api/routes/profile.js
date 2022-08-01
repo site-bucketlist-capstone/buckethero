@@ -25,6 +25,16 @@ router.put("/edit", security.requireAuthenticatedUser, async (req, res, next) =>
   }
 });
 
+router.put("/edit/password", security.requireAuthenticatedUser, async (req, res, next) => {
+    try {
+        const { user } = res.locals;  
+        const result = await Profile.checkPassword({ profileUpdate: req.body, user})  
+        return res.status(201).json(result);
+    } catch(error) {
+       next(error);
+    }
+  });
+
   
 
 module.exports = router;

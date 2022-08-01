@@ -76,9 +76,18 @@ export const AuthContextProvider = ({children}) => {
             }
         }
         await edit();
-        // if (form.password || form.email) {
-        //     await logoutUser();
-        // }
+    }
+
+    const updatePassword = async(form) => {
+        const editPass = async () => {
+            const {data, err} = await apiClient.editPassword(form);
+            if (data) {
+                await fetchUserFromToken();
+            } else if (err) {
+                setError(error)
+            }
+        }
+        await editPass();
     }
 
     async function fetchUserFromToken() {

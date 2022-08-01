@@ -20,26 +20,16 @@ class Profile {
 
     static async updateProfile({ profileUpdate, user }) {
         const resultInfo = await db.query(
-            `SELECT first_name, last_name, email, password FROM users WHERE email = $1 `, [user.email]
+            `SELECT first_name, last_name, email FROM users WHERE email = $1 `, [user.email]
         )    
         const first_name = resultInfo.rows[0].first_name;
         const last_name = resultInfo.rows[0].last_name;
         const email = resultInfo.rows[0].email;
-        const password = resultInfo.rows[0].password;
-
-        // check to see if current password is same 
-        if (profileUpdate.password) {
-            const isValid = await bcrypt.compare(currentPassword, user.password);
-            if (isValid) {
-                throw new BadRequestError("Current password must be same as old password");
-            }
-        }
-        const hashedPassword = await bcrypt.hash(profileUpdate.password, BCRYPT_WORK_FACTOR)
-
+        
         const results = await db.query(
             `
             UPDATE users
-            SET first_name = $2, last_name = $3, email = $4, password = $5    
+            SET first_name = $2, last_name = $3, email = $4  
             WHERE email = $1
             RETURNING first_name,
                       last_name,
@@ -49,26 +39,22 @@ class Profile {
             user.email,
             profileUpdate.first_name || first_name ,
             profileUpdate.last_name || last_name,
-            profileUpdate.email || email,
-            hashedPassword || password
+            profileUpdate.email || email
             ]
         )
 
         return results.rows[0]
     }
 
-    static async checkPassword({ profileUpdate, password, user }) {
+    static async checkPassword({ profileUpdate, user }) {
         const resultInfo = await db.query(
             `SELECT password FROM users WHERE email = $1 `, [user.email]
         )    
         const password = resultInfo.rows[0].password;
 
-        // check to see if current password is same 
-        if (profileUpdate.password) {
-            const isValid = await bcrypt.compare(currentPassword, user.password);
-            if (isValid) {
-                throw new BadRequestError("Current password must be same as old password");
-            }
+        const isValid = await bcrypt.compare(profileUpdate.old_password, password);
+        if (!isValid || !profileUpdate.old_password) {
+            throw new BadRequestError("Current password is not correct.");
         }
         const hashedPassword = await bcrypt.hash(profileUpdate.password, BCRYPT_WORK_FACTOR)
 
