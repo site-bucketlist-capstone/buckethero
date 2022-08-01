@@ -36,6 +36,7 @@ CREATE TABLE gallery_items (
   name        TEXT UNIQUE NOT NULL,
   location    TEXT,
   category    TEXT,
-  username   TEXT
+  first_name   TEXT, 
+  last_name   TEXT
 );
 

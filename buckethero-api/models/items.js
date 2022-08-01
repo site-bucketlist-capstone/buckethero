@@ -26,22 +26,17 @@ class Items {
         )
 
         const galleryItem = await db.query(
-            //     `
-            //     IF NOT EXISTS (SELECT name FROM gallery_items WHERE name = $1)
-            //     INSERT INTO gallery_items (name, location, category)
-            //     VALUES($1, $2, $3)
-            //     RETURNING id,
-            //                 name, location, category
-            // `
-            `
-            INSERT INTO gallery_items (name, location, category) 
-            SELECT name, location, category
-            FROM list_items
-            WHERE NOT(name IN (SELECT name FROM gallery_items)) AND id = $1
-            `, [item.id]
-                
-            )
-        console.log(galleryItem.rows);
+                `
+                    INSERT INTO gallery_items (name, location, category, first_name, last_name)
+                    SELECT list_items.name, list_items.location, list_items.category, users.first_name, users.last_name FROM list_items 
+                    JOIN users ON users.id = list_items.user_id
+                    WHERE list_items.name NOT IN (SELECT name FROM gallery_items)
+                    ORDER BY list_items.created_at DESC 
+                    LIMIT 1 
+                `, 
+            
+        )
+        console.log(galleryItem);
 
         return results.rows[0]
     } 
@@ -197,20 +192,3 @@ class Items {
 }
 
 module.exports = Items;
-
-// const galleryItem = await db.query(
-//     `
-//         INSERT INTO gallery_items (name, location, category, username)
-//         VALUES ($1, $2, $3, (SELECT first_name FROM users WHERE email = $4)
-//         WHERE name != (
-//             SELECT name 
-//             FROM gallery_items 
-//             WHERE name = $1
-//         )
-//         RETURNING id, 
-//                   name,
-//                   location, 
-//                   category, 
-//                   username
-//     `, [item.name, item.location, item.category, user.email]
-// )
