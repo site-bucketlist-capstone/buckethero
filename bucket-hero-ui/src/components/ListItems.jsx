@@ -15,7 +15,9 @@ export default function ListItems({}) {
         const getItems = async () => {
             const result = await fetchListItems(selected);
             if (result.result !== items) {
-                await setItems(result.result);
+                let itemsCopy = result.result.sort((a, b) => (a.is_completed > b.is_completed) ? 1 : -1);
+                await setItems(itemsCopy);
+                //await setItems(result.result);
                 
             }
             return result;
@@ -44,7 +46,7 @@ export default function ListItems({}) {
             
             {items.length > 0 ? items.map((item) => {
                 return <div key={item.id}><ListItemComp item={item}/></div>
-            }) : blTitle ? <p>No items yet. Press the plus button to add some! Check out the Inspo board for ideas.</p> : <p>No lists yet. Press the plus button next to Your Lists to add some!</p>}
+            }) : blTitle ? <p>No items yet. Press the plus button to add some! Check out the Inspo board for ideas.</p> : <p>No lists yet. Press the plus button next to Your Lists to add one!</p>}
         </div>
     );
 }
