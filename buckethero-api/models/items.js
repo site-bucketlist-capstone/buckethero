@@ -8,17 +8,6 @@ class Items {
         if (!item.hasOwnProperty("name")) {
             throw new BadRequestError(`Require field - ${field} - missing from request body`)
         }   
-        // const galleryItem = await db.query(
-        //     `
-        //     IF NOT EXISTS (SELECT name FROM gallery_items WHERE name = $1)
-        //     INSERT INTO gallery_items (name, location, category)
-        //     VALUES($1, $2, $3)
-        //     RETURNING id,
-        //                 name, location, category
-        // `, [item.name, item.location, item.category]
-            
-        // )
-        // console.log(galleryItem.rows);
 
         const results = await db.query(
             `
@@ -35,6 +24,24 @@ class Items {
                           created_at
             `, [item.name, item.location, item.category, item.price_point, item.due_date, user.email, listId]
         )
+
+        const galleryItem = await db.query(
+            //     `
+            //     IF NOT EXISTS (SELECT name FROM gallery_items WHERE name = $1)
+            //     INSERT INTO gallery_items (name, location, category)
+            //     VALUES($1, $2, $3)
+            //     RETURNING id,
+            //                 name, location, category
+            // `
+            `
+            INSERT INTO gallery_items (name, location, category) 
+            SELECT name, location, category
+            FROM list_items
+            WHERE NOT(name IN (SELECT name FROM gallery_items)) AND id = $1
+            `, [item.id]
+                
+            )
+        console.log(galleryItem.rows);
 
         return results.rows[0]
     } 

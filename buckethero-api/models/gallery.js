@@ -4,6 +4,8 @@ const { NotFoundError } = require("../utils/errors")
 class Gallery {
    static async getGallery({user}) {
       //this.createNewGallery({user});
+      //const items = await this.fetchItemsNotOwnedByUser(user);
+      //console.log(items);
       const results = await db.query (
          `
          SELECT g.id,
@@ -13,10 +15,11 @@ class Gallery {
          FROM gallery_items AS g
          `
       )  
+      console.log(results.rows);
       return results.rows;
    }
 
-   static async fetchItemsNotOwnedByUser({user}) {
+   static async fetchItemsNotOwnedByUser(user) {
       const results = await db.query(
           `
               SELECT  list_items.id,
@@ -25,8 +28,8 @@ class Gallery {
                       list_items.location, 
                       users.first_name,
                       users.last_name
-              FROM list_items
-              JOIN users ON users.id = list_items.user_id
+              FROM list_items 
+               JOIN users 
               WHERE users.email != $1
           `, [user.email]
       )
