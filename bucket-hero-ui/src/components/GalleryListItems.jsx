@@ -32,6 +32,7 @@ export default function GalleryListItems({item}) {
             </div>
         </div>
       <div className="flex flex-col items-center">
+        {/* added first name last name of user */}
         <Dropdown item={item}></Dropdown>
         {item.first_name ? 
           <p className="mt-2">{`Added by ${item.first_name} ${item.last_name}`}</p> 
