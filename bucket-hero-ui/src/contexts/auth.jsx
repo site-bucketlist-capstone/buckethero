@@ -76,6 +76,9 @@ export const AuthContextProvider = ({children}) => {
             }
         }
         await edit();
+        // if (form.password || form.email) {
+        //     await logoutUser();
+        // }
     }
 
     async function fetchUserFromToken() {
@@ -103,7 +106,7 @@ export const AuthContextProvider = ({children}) => {
         signupUser,
         fetchUserFromToken,
         logoutUser,
-        updateProfile
+        updateProfile, updatePassword
     }
 
     return (

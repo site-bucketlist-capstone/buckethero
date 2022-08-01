@@ -8,7 +8,9 @@ class Gallery {
          SELECT g.id,
                 g.name,
                 g.location,
-                g.category
+                g.category,
+                g.first_name,
+                g.last_name
          FROM gallery_items AS g
          `
       )  
