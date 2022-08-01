@@ -66,6 +66,30 @@ export const AuthContextProvider = ({children}) => {
         setIsProcessing(false);
     }
 
+    const updateProfile = async(form) => {
+        const edit = async () => {
+            const {data, err} = await apiClient.editProfile(form);
+            if (data) {
+                await fetchUserFromToken();
+            } else if (err) {
+                setError(error)
+            }
+        }
+        await edit();
+    }
+
+    const updatePassword = async(form) => {
+        const editPass = async () => {
+            const {data, err} = await apiClient.editPassword(form);
+            if (data) {
+                await fetchUserFromToken();
+            } else if (err) {
+                setError(error)
+            }
+        }
+        await editPass();
+    }
+
     async function fetchUserFromToken() {
         //console.log("fetch context");
         return await apiClient.fetchUserFromToken();
@@ -90,7 +114,8 @@ export const AuthContextProvider = ({children}) => {
         loginUser,
         signupUser,
         fetchUserFromToken,
-        logoutUser
+        logoutUser,
+        updateProfile, updatePassword
     }
 
     return (
