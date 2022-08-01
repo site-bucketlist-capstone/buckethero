@@ -17,7 +17,6 @@ class List {
    }
 
    static async createNewList({ list, user }) {
-      console.log(list.name);
       if (!list.name) {
          throw new BadRequestError("Missing name of list in request.");
       }
