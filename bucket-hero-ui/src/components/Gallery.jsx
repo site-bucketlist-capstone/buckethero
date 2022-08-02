@@ -28,16 +28,6 @@ export default function Gallery({}) {
 
     const currentItems = gallery.filter((item) => {
         try {
-        //   let itemCategory = searchCategory.toLowerCase()
-        //   let itemFilter = ""
-        //   if (itemCategory == "name") {
-        //     itemFilter = item.name
-        //   } else if (itemCategory == "category"){
-        //     itemFilter = item.category
-        //   } else if (itemCategory == "location"){
-        //     itemFilter = item.location
-        //   } 
-            
           if (item.name.toLowerCase().match(itemInfo.name) !== null && item.category.toLowerCase().match(itemInfo.category) !== null && item.location.toLowerCase().match(itemInfo.location) !== null) {
             return true
           } else {
@@ -52,10 +42,6 @@ export default function Gallery({}) {
         event.preventDefault()      
     }
 
-    const deleteFilter = (event) => {
-        
-    }
-
     //gallery page renders items for user to add to their bucket lists
     return (
         <div className='flex flex-col items-center mt-16 sm:mt-6 p-4 sm:p-0'>
@@ -66,28 +52,32 @@ export default function Gallery({}) {
                 </div>
                 <p className="text-lime-500 font-semibold text-center sm:text-left">{success}</p>
                 {/* search bar */}
-                <form onSubmit={handleOnSubmit} className="flex flex-row">   
-                    <SearchDropdown setSearchValue={setSearchValue}/>
-                    <label for="search-dropdown" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300">Your Email</label>
-                    <div class="relative w-full">
-                        <input onChange={handleOnTextChange} value={searchValue} type="search" id="search-dropdown" class="block p-2.5 w-64 z-20 text-sm text-gray-900 bg-gray-50 rounded-r-lg border-l-gray-50 border-l-2 border border-gray-300 focus:ring-purple-500 focus:border-purple-500 dark:bg-gray-700 dark:border-l-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-purple-500" placeholder={"Search by " + searchCategory.toLowerCase()} required/>
-                        <button type="submit" class="absolute top-0 right-0 p-2.5 text-sm font-medium text-white bg-purple-700 rounded-r-lg border border-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">
-                            <svg aria-hidden="true" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                            <span class="sr-only">Search</span>
-                        </button>
-                    </div>
-                </form>
-                {/* loops through itemInfo object to display all filters*/}
-                {Object.keys(itemInfo).map(key => {
-                    if (itemInfo[key] != "")
-                        return (
-                            <div className="flex flex-row items-center">
-                                {/* onClick updates form and deletes filter */}
-                                <XIcon className="h-4 w-4 text-slate-500" onClick={() => setItemInfo((f) => ({ ...f, [key]: ""}))}/>
-                                <p>{`${key}: ${itemInfo[key]}`}</p>
-                            </div>
-                        )
-                })}
+                <div className="flex flex-col">
+                    <form onSubmit={handleOnSubmit} className="flex flex-row">   
+                        <SearchDropdown setSearchValue={setSearchValue}/>
+                        <label for="search-dropdown" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300">Your Email</label>
+                        <div class="relative w-full">
+                            <input onChange={handleOnTextChange} value={searchValue} type="search" id="search-dropdown" class="block p-2.5 w-64 z-20 text-sm text-gray-900 bg-gray-50 rounded-r-lg border-l-gray-50 border-l-2 border border-gray-300 focus:ring-purple-500 focus:border-purple-500 dark:bg-gray-700 dark:border-l-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-purple-500" placeholder={"Search by " + searchCategory.toLowerCase()} required/>
+                            <button type="submit" class="absolute top-0 right-0 p-2.5 text-sm font-medium text-white bg-purple-700 rounded-r-lg border border-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">
+                                <svg aria-hidden="true" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                                <span class="sr-only">Search</span>
+                            </button>
+                        </div>
+                    </form>
+                    {/* loops through itemInfo object to display all filters*/}
+                    <div className="flex flex-row flex-wrap mt-2">
+                        {Object.keys(itemInfo).map(key => {
+                            if (itemInfo[key] != "")
+                                return (
+                                    <div className="flex flex-row items-center mr-2">
+                                        {/* onClick updates form and deletes filter */}
+                                        <XIcon className="h-4 w-4 text-slate-400 cursor-pointer" onClick={() => setItemInfo((f) => ({ ...f, [key]: ""}))}/>
+                                        <p>{`${key}: ${itemInfo[key]}`}</p>
+                                    </div>
+                                )
+                        })}
+                     </div>
+                </div>
             </div>
             <div className="sm:w-3/4 mt-4">
                 {
@@ -96,6 +86,7 @@ export default function Gallery({}) {
                     })
                 }
             </div>
+
             {gallModal.open ? <GalleryNewItem/> : null}
             
         </div>

@@ -27,8 +27,8 @@ class Items {
 
         const galleryItem = await db.query(
                 `
-                    INSERT INTO gallery_items (name, location, category, first_name, last_name)
-                    SELECT list_items.name, list_items.location, list_items.category, users.first_name, users.last_name FROM list_items 
+                    INSERT INTO gallery_items (name, location, category, first_name, last_name, user_id)
+                    SELECT list_items.name, list_items.location, list_items.category, users.first_name, users.last_name, list_items.user_id FROM list_items 
                     JOIN users ON users.id = list_items.user_id
                     WHERE list_items.name NOT IN (SELECT name FROM gallery_items)
                     ORDER BY list_items.created_at DESC 

@@ -4,12 +4,14 @@ import { Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/solid'
 import { useDashContext } from '../contexts/dashboard'
 import { useGallContext } from '../contexts/gallery'
+import { Link } from 'react-router-dom'
 
 
 
 export default function GalleryListItems({item}) {
 // being imported into the Gallery page
 // User will add gallery list item via the dropdown component
+
    return (
     <div className='rounded bg-slate-100 flex flex-row items-center justify-around p-2 mb-2'>
         <div className='sm:flex sm:justify-between w-5/6 sm:w-3/4'>
@@ -35,7 +37,7 @@ export default function GalleryListItems({item}) {
         {/* added first name last name of user */}
         <Dropdown item={item}></Dropdown>
         {item.first_name ? 
-          <p className="mt-2">{`Added by ${item.first_name} ${item.last_name}`}</p> 
+          <Link to={`user/${item.user_id}`}><p className="mt-2">{`Added by ${item.first_name} ${item.last_name}`}</p> </Link>
           : 
           <p className="mt-2">{`Added by BucketHero`}</p> 
         }
