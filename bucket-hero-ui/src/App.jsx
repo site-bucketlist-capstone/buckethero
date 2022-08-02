@@ -78,6 +78,7 @@ function App() {
           <Route path='/profile' element={<Profile/>}/>
           <Route path='/list/:list_id/edit' element={<EditList />}/>
           <Route path='*' element={<div>Not Found: Page doesnt exist</div>}/>
+          <Route path='/inspo/user/:userId' element={<div>COming soon other user's page</div>}></Route>
         </Routes>
       </BrowserRouter>
     </div>

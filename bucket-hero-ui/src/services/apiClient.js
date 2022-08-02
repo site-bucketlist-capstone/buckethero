@@ -114,7 +114,7 @@ class ApiClient {
     } 
 
     async addProfilePicture(userId) {
-        return await this.request({endpoint: `profile/user/${userId}`, method: 'GET'})
+        return await this.request({endpoint: `global/user/${userId}`, method: 'GET'})
     } 
 
 }
