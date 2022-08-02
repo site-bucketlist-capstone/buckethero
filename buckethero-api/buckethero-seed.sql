@@ -1,44 +1,54 @@
-INSERT INTO gallery_items (name, category, location)
+INSERT INTO gallery_items (name, category, location, user_id)
 VALUES ('Jumping into a lake',
   'Swimming',
-  'Any Lake Near You!'
+  'Any Lake Near You!',
+  0
   ), 
   ('Wearing a dinosaur costume to a party',
   'Party',
-  'Any Party Near You!'
+  'Any Party Near You!',
+  0
   ),
   ('Having a picnic on a building on campus',
   'Food',
-  'Your campus!'
+  'Your campus!',
+  0
   ),
   ('Attending a rivalry football game while wearing your gear',
   'Sports',
-  'Opponents football stadium!'
+  'Opponents football stadium!',
+  0
   ),
   ('Entering a eating contest',
   'Food',
-  'Look for some near you!'
+  'Look for some near you!',
+  0
 ),
 ('Rent a house with friends',
   'Social',
-  'Whatever place you find!'
+  'Whatever place you find!',
+  0
 ),(
  'Book a trip to a different continent w/ friends',
   'Social',
-  'Whatever place you want!'  
+  'Whatever place you want!',
+  0
 ),(
  'Go to a frat party',
   'Social',
-  'Whichever frat you can find!'  
+  'Whichever frat you can find!',
+  0  
 ),
 (
  'Eat 10 hotdogs in a row',
   'Food',
-  'Nearest market!'  
+  'Nearest market!',
+  0  
 ),(
  'Borrow somebodys car for a joyride',
   'Social',
-  'Whichever frat you can find!'  
+  'Whichever frat you can find!',
+  0  
 );
 
 

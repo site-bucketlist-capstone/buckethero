@@ -33,7 +33,7 @@ router.put("/edit/password", security.requireAuthenticatedUser, async (req, res,
     } catch(error) {
        next(error);
     }
-  });
+});
 
   
 
