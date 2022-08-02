@@ -113,7 +113,7 @@ class ApiClient {
         return await this.request({endpoint: `profile`, method: 'PUT', data: imageString})
     } 
 
-    async gallery(userId) {
+    async getViewerInfo(userId) {
         return await this.request({endpoint: `global/user/${userId}`, method: 'GET'})
     } 
 
