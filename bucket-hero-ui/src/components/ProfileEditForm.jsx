@@ -1,10 +1,12 @@
 import { useAuthContext } from "../contexts/auth";
+import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { UserCircleIcon } from '@heroicons/react/solid'
 
 
 //this component is used to edit a user's profile information and save any changes
-export default function ProfileEditForm({info}) {
+export default function ProfileEditForm({info, profileChangeOpen, setProfileChangeOpen}) {
+    const navigate = useNavigate();
     const [form, setForm] = useState({'first_name': "", 'last_name': "", 'email': "", 'password': ""})
     const [error, setError] = useState({});
 
@@ -31,10 +33,15 @@ export default function ProfileEditForm({info}) {
         setForm((f) => ({ ...f, [event.target.name]: event.target.value }))
       }
 
-    const handleOnSubmit = (event) => {
+    const handleOnSubmit = async (event) => {
       event.preventDefault();
       console.log("submitted", form);
-      updateProfile(form);
+      const nav = await updateProfile(form);
+      //if nav show modal
+      console.log("nav", nav);
+      if (nav) {
+        setProfileChangeOpen(true);
+      }
     }
       
     return (
@@ -48,8 +55,8 @@ export default function ProfileEditForm({info}) {
       <div className="mt-10 sm:mt-0 ">
         
           <div className="mt-5 md:mt-0 flex flex-col items-center">
-            <form className=" flex flex-col items-center w-1/2" onSubmit={handleOnSubmit}>
-              <div className="shadow overflow-hidden sm:rounded-md  w-full">
+            <form className=" flex flex-col items-center w-full sm:w-1/2" onSubmit={handleOnSubmit}>
+              <div className="shadow overflow-hidden sm:rounded-md w-full">
                 <div className="px-4 py-5 bg-white sm:p-6 ">
                   <div className="grid grid-cols-6 gap-6">
                     <div className="col-span-6 sm:col-span-3">
@@ -97,10 +104,16 @@ export default function ProfileEditForm({info}) {
                         className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                       />
                     </div>
+                    <div className="col-span-6 sm:col-span-4">
+                      <p onClick={() => {console.log("clicked")}} className="block text-sm font-medium text-purple-500 underline hover:text-purple-400 cursor-pointer">
+                        Update password
+                      </p>
+                    </div>
 
                     
                   </div>
                 </div>
+                
                 <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
                   <button
                     type="submit"

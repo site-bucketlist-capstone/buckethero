@@ -1,10 +1,12 @@
 import {createContext, useState, useContext, useEffect} from 'react'
+import { useNavigate } from 'react-router-dom';
 
 import apiClient from '../services/apiClient';
 
 const AuthContext = createContext(null);
 
 export const AuthContextProvider = ({children}) => {
+    
     const [user, setUser] = useState({});
     const [initialized, setInitialized] = useState();
     const [isProcessing, setIsProcessing] = useState(false);
@@ -69,16 +71,28 @@ export const AuthContextProvider = ({children}) => {
     const updateProfile = async(form) => {
         const edit = async () => {
             const {data, err} = await apiClient.editProfile(form);
+            console.log("user", user, data);
+
             if (data) {
+                if(data.email !== user.email){
+                    
+                    return true;
+                    //navigate
+                }
+                else {
+                    const user = await fetchUserFromToken();
+                    setUser(user.data.user);
+                    console.log("user after update", user.data.user);
+                    return false;
+                    
+                }
                 //logout before this if email changed
-                const user = await fetchUserFromToken();
-                setUser(user.data.user);
-                console.log("user after update", user.data.user);
+                
             } else if (err) {
                 setError(error)
             }
         }
-        await edit();
+        return await edit();
     }
 
     const updatePassword = async(form) => {
