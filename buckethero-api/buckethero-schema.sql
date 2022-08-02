@@ -37,6 +37,7 @@ CREATE TABLE gallery_items (
   location    TEXT,
   category    TEXT,
   first_name   TEXT, 
-  last_name   TEXT
+  last_name   TEXT,
+  user_id     INTEGER
 );
 
