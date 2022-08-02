@@ -101,7 +101,7 @@ export default function Profile( ) {
             }
             {error ? <span>{error}</span> : "" }
             </div>
-            {isShowing ? <Completed completed={complete}/> : <ProfileEditForm info={user}/>}
+            {!isShowing ? <ProfileEditForm info={user}/> : <Completed completed={complete}/>}
          </div>            
       </div>
    );

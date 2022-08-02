@@ -31,7 +31,7 @@ export default function EditItem({item}) {
         if (res) setEditItemModal((e) => ({...e, open: false}));
         
     }
-
+    
   return (
     <Transition.Root show={editItemModal.open} as={Fragment}>
       <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={() => setEditItemModal((e) => ({...e, open: false}))}>

@@ -36,6 +36,7 @@ export default function GalleryNewItem({}) {
             }
         
     }
+    
 
   return (
     <Transition.Root show={gallModal.open} as={Fragment}>

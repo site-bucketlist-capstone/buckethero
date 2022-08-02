@@ -70,7 +70,10 @@ export const AuthContextProvider = ({children}) => {
         const edit = async () => {
             const {data, err} = await apiClient.editProfile(form);
             if (data) {
-                await fetchUserFromToken();
+                //logout before this if email changed
+                const user = await fetchUserFromToken();
+                setUser(user.data.user);
+                console.log("user after update", user.data.user);
             } else if (err) {
                 setError(error)
             }
