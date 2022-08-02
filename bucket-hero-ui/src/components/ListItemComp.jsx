@@ -78,7 +78,7 @@ export default function ListItemComp({item}) {
                     </div>
                     <div className='flex flex-row w-1/2 text-gray-600 sm:pl-4'>
                         <CurrencyDollarIcon className='text-gray-500 h-6 w-6 mr-2'/>
-                        ${item?.price_point.toFixed(2)}
+                        ${item?.price_point?.toFixed(2)}
                     </div>
                 </div>
             </div></div>}
