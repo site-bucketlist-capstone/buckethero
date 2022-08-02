@@ -113,6 +113,10 @@ class ApiClient {
         return await this.request({endpoint: `profile`, method: 'PUT', data: imageString})
     } 
 
+    async addProfilePicture(userId) {
+        return await this.request({endpoint: `profile/user/${userId}`, method: 'GET'})
+    } 
+
 }
 
 export default new ApiClient(API_BASE_URL)

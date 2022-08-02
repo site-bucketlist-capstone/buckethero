@@ -78,6 +78,16 @@ class User {
 
     return user
   }
+
+  static async fetchUserById(id) {
+    if (!id) {
+      throw new BadRequestError("No id provided")
+    }
+    const query = `SELECT * FROM users WHERE id = $1`
+    const result = await db.query(query, [id])
+    const user = result.rows[0]
+    return user
+  }
 }
 
 module.exports = User

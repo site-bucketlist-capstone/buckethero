@@ -10,7 +10,8 @@ class Gallery {
                 g.location,
                 g.category,
                 g.first_name,
-                g.last_name
+                g.last_name,
+                g.user_id
          FROM gallery_items AS g
          `
       )  
