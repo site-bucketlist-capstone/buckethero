@@ -49,6 +49,7 @@ export default function AppContainer() {
 function App() {
   const {user, setUser, fetchUserFromToken, logoutUser} = useAuthContext();
   const [logoutOpen, setLogoutOpen] = useState(false);
+  
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -70,6 +71,7 @@ function App() {
       <BrowserRouter>
         <NavBar user={user} setLogoutOpen={setLogoutOpen}/>
         {logoutOpen ? <LogoutConfirm logoutOpen={logoutOpen} setLogoutOpen={setLogoutOpen}></LogoutConfirm>: null}
+        
         <Routes>
           <Route path='/' element={user?.email ? <Dashboard/>: <Hero/>}/>
           <Route path='/signin' element={<SignIn setUser={setUser}/>}/>
@@ -167,5 +169,7 @@ function LogoutConfirm({setLogoutOpen, logoutOpen}) {
     </Transition.Root>
   )
 }
+
+
 
 

@@ -1,21 +1,23 @@
 import {createContext, useState, useContext, useEffect} from 'react'
+import { useNavigate } from 'react-router-dom';
 
 import apiClient from '../services/apiClient';
 
 const AuthContext = createContext(null);
 
 export const AuthContextProvider = ({children}) => {
+    
     const [user, setUser] = useState({});
     const [initialized, setInitialized] = useState();
     const [isProcessing, setIsProcessing] = useState(false);
     const [error, setError] = useState();
 
     useEffect(() => {
-        //console.log("useEffect", user)
+        
     }, [])
 
     async function loginUser(form) {
-        console.log("login context");
+        
         setIsProcessing(true)
         setError((e) => ({ ...e, form: null }))
 
@@ -37,7 +39,7 @@ export const AuthContextProvider = ({children}) => {
     }
 
     async function signupUser(form) {
-        console.log("signup context");
+        
         setIsProcessing(true)
         setError((e) => ({ ...e, form: null }))
 
@@ -69,13 +71,28 @@ export const AuthContextProvider = ({children}) => {
     const updateProfile = async(form) => {
         const edit = async () => {
             const {data, err} = await apiClient.editProfile(form);
+            
+
             if (data) {
-                await fetchUserFromToken();
+                if(data.email !== user.email){
+                    
+                    return true;
+                    //navigate
+                }
+                else {
+                    const user = await fetchUserFromToken();
+                    setUser(user.data.user);
+                    
+                    return false;
+                    
+                }
+                //logout before this if email changed
+                
             } else if (err) {
                 setError(error)
             }
         }
-        await edit();
+        return await edit();
     }
 
     const updatePassword = async(form) => {
@@ -84,20 +101,21 @@ export const AuthContextProvider = ({children}) => {
             if (data) {
                 await fetchUserFromToken();
             } else if (err) {
-                setError(error)
+                
+                setError((e) => ({ ...e, updatePassword: err }))
             }
         }
         await editPass();
     }
 
     async function fetchUserFromToken() {
-        //console.log("fetch context");
+       
         return await apiClient.fetchUserFromToken();
 
     }
 
     async function logoutUser() {
-        console.log("logout context");
+        
         await apiClient.logoutUser();
         setUser({});
         setError(null);
