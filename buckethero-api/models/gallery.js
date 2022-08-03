@@ -15,6 +15,7 @@ class Gallery {
          FROM gallery_items AS g
          `
       )  
+      console.log("uSER FROM GALLERy",user);
       return results.rows;
    }
 

@@ -22,6 +22,7 @@ import Gallery from './components/Gallery';
 import NewList from './components/NewList';
 import Profile from './components/Profile';
 import EditList from './components/EditList';
+import PublicProfile from './components/PublicProfile';
 
 
 
@@ -80,7 +81,7 @@ function App() {
           <Route path='/profile' element={<Profile/>}/>
           <Route path='/list/:list_id/edit' element={<EditList />}/>
           <Route path='*' element={<div>Not Found: Page doesnt exist</div>}/>
-          <Route path='/inspo/user/:userId' element={<div>COming soon other user's page</div>}></Route>
+          <Route path='/inspo/user/:userId' element={<PublicProfile />}></Route>
         </Routes>
       </BrowserRouter>
     </div>
