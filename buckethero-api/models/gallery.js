@@ -1,5 +1,6 @@
 const db = require("../db")
 const { NotFoundError } = require("../utils/errors")
+const { User } = require("./user")
 
 class Gallery {
    static async getGallery({user}) {
