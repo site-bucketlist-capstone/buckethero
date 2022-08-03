@@ -35,10 +35,10 @@ export default function ProfileEditForm({info, profileChangeOpen, setProfileChan
 
     const handleOnSubmit = async (event) => {
       event.preventDefault();
-      console.log("submitted", form);
+      
       const nav = await updateProfile(form);
       //if nav show modal
-      console.log("nav", nav);
+      
       if (nav) {
         setProfileChangeOpen(true);
       }
@@ -105,7 +105,7 @@ export default function ProfileEditForm({info, profileChangeOpen, setProfileChan
                       />
                     </div>
                     <div className="col-span-6 sm:col-span-4">
-                      <p onClick={() => {console.log("clicked"); setPasswordOpen(true);}} className="block text-sm font-medium text-purple-500 underline hover:text-purple-400 cursor-pointer">
+                      <p onClick={() => {setPasswordOpen(true);}} className="block text-sm font-medium text-purple-500 underline hover:text-purple-400 cursor-pointer">
                         Update password
                       </p>
                     </div>

@@ -48,7 +48,7 @@ export default function Profile( ) {
    // const handleOnChangeImage = event => {
    //    const file = event.target.files[0]
    //    setFile(file)
-   //    console.log(file)
+   
    // }
 
    const handleOnSubmitImage = async (event) => {
@@ -121,7 +121,7 @@ function ProfileChange({profileChangeOpen, setProfileChangeOpen}) {
  
    //logout handler
    const {user, setUser, fetchUserFromToken, logoutUser} = useAuthContext();
-   console.log("logout modal")
+   
    return (
      <Transition.Root show={profileChangeOpen} as={Fragment}>
        <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={(e) => {logoutUser(); setProfileChangeOpen(!profileChangeOpen); navigate('/')}}>
@@ -215,10 +215,10 @@ function ProfileChange({profileChangeOpen, setProfileChangeOpen}) {
    
    const handleOnSubmit = (event) => {
       event.preventDefault();
-      console.log("submit clicked", form);
+      
       //check that the new passwords match
       if (!errors?.confirmpassword) {
-         console.log("no error w password");
+         
          const passwordForm = {old_password: form.oldPassword, password: form.newPassword};
          updatePassword(passwordForm);
          //then pull up logout modal

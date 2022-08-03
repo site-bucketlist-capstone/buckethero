@@ -13,11 +13,11 @@ export const AuthContextProvider = ({children}) => {
     const [error, setError] = useState();
 
     useEffect(() => {
-        //console.log("useEffect", user)
+        
     }, [])
 
     async function loginUser(form) {
-        console.log("login context");
+        
         setIsProcessing(true)
         setError((e) => ({ ...e, form: null }))
 
@@ -39,7 +39,7 @@ export const AuthContextProvider = ({children}) => {
     }
 
     async function signupUser(form) {
-        console.log("signup context");
+        
         setIsProcessing(true)
         setError((e) => ({ ...e, form: null }))
 
@@ -71,7 +71,7 @@ export const AuthContextProvider = ({children}) => {
     const updateProfile = async(form) => {
         const edit = async () => {
             const {data, err} = await apiClient.editProfile(form);
-            console.log("user", user, data);
+            
 
             if (data) {
                 if(data.email !== user.email){
@@ -82,7 +82,7 @@ export const AuthContextProvider = ({children}) => {
                 else {
                     const user = await fetchUserFromToken();
                     setUser(user.data.user);
-                    console.log("user after update", user.data.user);
+                    
                     return false;
                     
                 }
@@ -101,7 +101,7 @@ export const AuthContextProvider = ({children}) => {
             if (data) {
                 await fetchUserFromToken();
             } else if (err) {
-                console.log("err", err);
+                
                 setError((e) => ({ ...e, updatePassword: err }))
             }
         }
@@ -109,13 +109,13 @@ export const AuthContextProvider = ({children}) => {
     }
 
     async function fetchUserFromToken() {
-        //console.log("fetch context");
+       
         return await apiClient.fetchUserFromToken();
 
     }
 
     async function logoutUser() {
-        console.log("logout context");
+        
         await apiClient.logoutUser();
         setUser({});
         setError(null);
