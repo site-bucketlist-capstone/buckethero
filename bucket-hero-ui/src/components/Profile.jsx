@@ -108,7 +108,7 @@ export default function Profile( ) {
             }
             {error ? <span>{error}</span> : "" }
             </div>
-            {!isShowing ? <ProfileEditForm passwordOpen={passwordOpen} setPasswordOpen={setPasswordOpen} profileChangeOpen={profileChangeOpen} setProfileChangeOpen={setProfileChangeOpen} info={user}/> : <Completed completed={complete}/>}
+            {!isShowing ? <ProfileEditForm passwordOpen={passwordOpen} setPasswordOpen={setPasswordOpen} profileChangeOpen={profileChangeOpen} setProfileChangeOpen={setProfileChangeOpen} info={user}/> : <Completed completed={complete} isPublic={false}/>}
          </div>            
       </div>
    );

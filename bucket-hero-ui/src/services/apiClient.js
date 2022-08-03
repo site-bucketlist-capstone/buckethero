@@ -76,6 +76,10 @@ class ApiClient {
         return await this.request({endpoint: `list/items/due_date`, method: "GET"});
     }
 
+    async fetchAllUserListItems(userId) {
+        return await this.request({endpoint: `list/items/${userId}/all`, method: "GET"});
+    }
+
     async fetchGallery() {
         return await this.request({endpoint: `global/`, method: "GET"});
     }
