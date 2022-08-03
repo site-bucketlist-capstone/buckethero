@@ -101,7 +101,8 @@ export const AuthContextProvider = ({children}) => {
             if (data) {
                 await fetchUserFromToken();
             } else if (err) {
-                setError(error)
+                console.log("err", err);
+                setError((e) => ({ ...e, updatePassword: err }))
             }
         }
         await editPass();

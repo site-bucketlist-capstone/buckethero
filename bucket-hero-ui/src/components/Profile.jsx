@@ -75,6 +75,7 @@ export default function Profile( ) {
    return (
        <div>
           {profileChangeOpen ? <ProfileChange profileChangeOpen={profileChangeOpen} setProfileChangeOpen={setProfileChangeOpen}></ProfileChange>: null}
+          {passwordOpen ? <PasswordChange passwordOpen={passwordOpen} setPasswordOpen={setPasswordOpen}></PasswordChange>: null}
          <div className="flex flex-col p-4">
             <img src={Banner} alt="" className="-z-20 h-60 w-full rounded"/>
             <div className="-mt-20 pl-2 sm:pl-0 sm:ml-12 pr-6 flex flex-col items-center sm:flex-row sm:items-end sm:justify-between">
@@ -189,11 +190,46 @@ function ProfileChange({profileChangeOpen, setProfileChangeOpen}) {
    const navigate = useNavigate();
  
    //logout handler
-   const {user, setUser, fetchUserFromToken, logoutUser} = useAuthContext();
-   console.log("logout modal")
+   const {user, setUser, fetchUserFromToken, logoutUser, updatePassword, error} = useAuthContext();
+   const [form, setForm] = useState({oldPassword: "", newPassword: "", confirmNewPassword: ""});
+   const [errors, setErrors] = useState({});
+
+   const handleOnInputChange = (event) => {
+      if (event.target.name === "newPassword") {
+        if (form.confirmNewPassword && form.confirmNewPassword !== event.target.value) {
+          setErrors((e) => ({ ...e, confirmpassword: "Password's do not match" }))
+        } else {
+          setErrors((e) => ({ ...e, confirmpassword: null }))
+        }
+      }
+      if (event.target.name === "confirmNewPassword") {
+        if (form.newPassword && form.newPassword !== event.target.value) {
+          setErrors((e) => ({ ...e, confirmpassword: "Password's do not match" }))
+        } else {
+          setErrors((e) => ({ ...e, confirmpassword: null }))
+        }
+      }
+  
+      setForm((f) => ({ ...f, [event.target.name]: event.target.value }))
+    }
+   
+   const handleOnSubmit = (event) => {
+      event.preventDefault();
+      console.log("submit clicked", form);
+      //check that the new passwords match
+      if (!errors?.confirmpassword) {
+         console.log("no error w password");
+         const passwordForm = {old_password: form.oldPassword, password: form.newPassword};
+         updatePassword(passwordForm);
+         //then pull up logout modal
+      }
+
+   }
+
+   
    return (
      <Transition.Root show={passwordOpen} as={Fragment}>
-       <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={(e) => {logoutUser(); setPasswordOpen(!passwordOpen); navigate('/')}}>
+       <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={(e) => {setPasswordOpen(!passwordOpen); navigate('/')}}>
          <Transition.Child
            as={Fragment}
            enter="ease-out duration-300"
@@ -206,8 +242,8 @@ function ProfileChange({profileChangeOpen, setProfileChangeOpen}) {
            <div className="fixed inset-x-0 bottom-0 h-full bg-gray-500 bg-opacity-75 transition-opacity" />
          </Transition.Child>
  
-         <div className="fixed z-10 inset-0 overflow-y-auto ">
-           <div className="flex items-end sm:items-center justify-center min-h-full p-4 text-center sm:p-0">
+         <div className="fixed z-10 inset-0 overflow-y-auto">
+           <div className="flex items-center sm:items-end sm:items-center justify-center min-h-full p-4 text-center sm:p-0">
              <Transition.Child
                as={Fragment}
                enter="ease-out duration-300"
@@ -220,28 +256,55 @@ function ProfileChange({profileChangeOpen, setProfileChangeOpen}) {
                <Dialog.Panel className="relative bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:max-w-lg sm:w-full">
                  <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                    <div className="sm:flex sm:items-start">
-                     <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
-                       <ExclamationIcon className="h-6 w-6 text-red-600" aria-hidden="true" />
-                     </div>
                      <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                        <Dialog.Title as="h3" className="text-lg leading-6 font-medium text-gray-900">
                          Change password
                        </Dialog.Title>
+                       {errors?.confirmpassword ? <p className="text-red-500">{errors.confirmpassword}</p> : null}
+                       {error?.updatePassword ? <p className="text-red-500">{errors.updatePassword}</p> : null}
                        <form>
                         <div className="shadow-sm -space-y-px w-3/4">
                               <div>
                                  <input
-                                 id="name"
-                                 name="name"
-                                 type="text"
-                                 value={form.name}
+                                 id="oldPassword"
+                                 name="oldPassword"
+                                 type="password"
+                                 value={form.oldPassword}
                                  onChange={handleOnInputChange}
                                  required
                                  className="appearance-none relative block w-full px-3 py-2 border-x-0 border-t-0 bg-gray-100 border-b-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-orange-500 focus:border-orange-500 focus:z-10 sm:text-sm"
-                                 placeholder="Item Name"
+                                 placeholder="Old Password"
                                  />
                               </div>
-                           </div>
+                        </div>
+                        <div className="shadow-sm -space-y-px w-3/4">
+                              <div>
+                                 <input
+                                 id="newPassword"
+                                 name="newPassword"
+                                 type="password"
+                                 value={form.newPassword}
+                                 onChange={handleOnInputChange}
+                                 required
+                                 className="appearance-none relative block w-full px-3 py-2 border-x-0 border-t-0 bg-gray-100 border-b-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-orange-500 focus:border-orange-500 focus:z-10 sm:text-sm"
+                                 placeholder="New Password"
+                                 />
+                              </div>
+                        </div>
+                        <div className="shadow-sm -space-y-px w-3/4">
+                              <div>
+                                 <input
+                                 id="confirmNewPassword"
+                                 name="confirmNewPassword"
+                                 type="password"
+                                 value={form.confirmNewPassword}
+                                 onChange={handleOnInputChange}
+                                 required
+                                 className="appearance-none relative block w-full px-3 py-2 border-x-0 border-t-0 bg-gray-100 border-b-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-orange-500 focus:border-orange-500 focus:z-10 sm:text-sm"
+                                 placeholder="Confirm New Password"
+                                 />
+                              </div>
+                        </div>
                        </form>
                      </div>
                    </div>
@@ -249,10 +312,10 @@ function ProfileChange({profileChangeOpen, setProfileChangeOpen}) {
                  <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                    <button
                      type="button"
-                     className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
-                     onClick={(e) => {logoutUser(); setPasswordOpen(!passwordOpen); navigate('/')}}
+                     className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-purple-600 text-base font-medium text-white hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
+                     onClick={handleOnSubmit}
                    >
-                     Logout
+                     Confirm
                    </button>
                  </div>
                </Dialog.Panel>

@@ -5,7 +5,7 @@ import { UserCircleIcon } from '@heroicons/react/solid'
 
 
 //this component is used to edit a user's profile information and save any changes
-export default function ProfileEditForm({info, profileChangeOpen, setProfileChangeOpen}) {
+export default function ProfileEditForm({info, profileChangeOpen, setProfileChangeOpen, passwordOpen, setPasswordOpen}) {
     const navigate = useNavigate();
     const [form, setForm] = useState({'first_name': "", 'last_name': "", 'email': "", 'password': ""})
     const [error, setError] = useState({});
@@ -105,7 +105,7 @@ export default function ProfileEditForm({info, profileChangeOpen, setProfileChan
                       />
                     </div>
                     <div className="col-span-6 sm:col-span-4">
-                      <p onClick={() => {console.log("clicked")}} className="block text-sm font-medium text-purple-500 underline hover:text-purple-400 cursor-pointer">
+                      <p onClick={() => {console.log("clicked"); setPasswordOpen(true);}} className="block text-sm font-medium text-purple-500 underline hover:text-purple-400 cursor-pointer">
                         Update password
                       </p>
                     </div>
