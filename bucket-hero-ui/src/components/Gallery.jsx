@@ -55,24 +55,26 @@ export default function Gallery({}) {
                 <div className="flex flex-col">
                     <form onSubmit={handleOnSubmit} className="flex flex-row">   
                         <SearchDropdown setSearchValue={setSearchValue}/>
-                        <label for="search-dropdown" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300">Your Email</label>
-                        <div class="relative w-full">
-                            <input onChange={handleOnTextChange} value={searchValue} type="search" id="search-dropdown" class="block p-2.5 w-64 z-20 text-sm text-gray-900 bg-gray-50 rounded-r-lg border-l-gray-50 border-l-2 border border-gray-300 focus:ring-purple-500 focus:border-purple-500 dark:bg-gray-700 dark:border-l-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-purple-500" placeholder={"Search by " + searchCategory.toLowerCase()} required/>
-                            <button type="submit" class="absolute top-0 right-0 p-2.5 text-sm font-medium text-white bg-purple-700 rounded-r-lg border border-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">
-                                <svg aria-hidden="true" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                                <span class="sr-only">Search</span>
+                        <label htmlFor="search-dropdown" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300">Your Email</label>
+                        <div className="relative w-full">
+                            <input onChange={handleOnTextChange} value={searchValue} type="search" id="search-dropdown" className="block p-2.5 pb-2 w-64 z-20 text-sm text-gray-900 bg-gray-50 rounded-r-lg border-l-gray-50 border-l-2 border border-gray-300 focus:ring-purple-500 focus:border-purple-500 dark:bg-gray-700 dark:border-l-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-purple-500" placeholder={"Search by " + searchCategory.toLowerCase()} required/>
+                            <button type="submit" className="absolute top-0 right-0 p-2.5 pb-2 text-sm font-medium text-white bg-purple-700 rounded-r-lg border border-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">
+                                <svg aria-hidden="true" className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                                <span className="sr-only">Search</span>
                             </button>
                         </div>
                     </form>
                     {/* loops through itemInfo object to display all filters*/}
                     <div className="flex flex-row flex-wrap mt-2">
                         {Object.keys(itemInfo).map(key => {
+                           //makes the filter keywork capital
+                            const filter = key.charAt(0).toUpperCase() + key.slice(1);
                             if (itemInfo[key] != "")
                                 return (
                                     <div className="flex flex-row items-center mr-2">
                                         {/* onClick updates form and deletes filter */}
-                                        <XIcon className="h-4 w-4 text-slate-400 cursor-pointer" onClick={() => setItemInfo((f) => ({ ...f, [key]: ""}))}/>
-                                        <p>{`${key}: ${itemInfo[key]}`}</p>
+                                        <XIcon className="h-4 w-4 pr-1 text-slate-400 cursor-pointer" onClick={() => setItemInfo((f) => ({ ...f, [key]: ""}))}/>
+                                        <p>{`${filter}: ${itemInfo[key]}`}</p>
                                     </div>
                                 )
                         })}
@@ -109,7 +111,7 @@ function SearchDropdown({setSearchValue}) {
     return (
         <Menu as="div" className="relative inline-block text-left">
       <div>
-        <Menu.Button className="inline-flex justify-center w-full h-10 rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">
+        <Menu.Button className="inline-flex justify-center w-full h-10 rounded-md rounded-r-none border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">
           {searchCategory == 'name' ? 'Options' : searchCategory }
           <ChevronDownIcon className="-mr-1 ml-2 h-5 w-5" aria-hidden="true" />
         </Menu.Button>
@@ -124,7 +126,7 @@ function SearchDropdown({setSearchValue}) {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+        <Menu.Items className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
           <div className="py-1">
             <Menu.Item>
               {({ active }) => (
