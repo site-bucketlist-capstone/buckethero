@@ -1,5 +1,5 @@
 import { useAuthContext } from "../contexts/auth";
-import { useState, useRef, Fragment } from "react";
+import { useState, useRef, Fragment, useEffect } from "react";
 import { UserCircleIcon } from '@heroicons/react/solid'
 import { useNavigate } from "react-router-dom";
 
@@ -14,7 +14,7 @@ import apiClient from '../services/apiClient';
 import * as axios from 'axios';
 
 export default function Profile( ) {
-   const {user, setUser} = useAuthContext();
+   const {user, setUser, fetchUserFromToken} = useAuthContext();
    const [isShowing, setIsShowing] = useState(false);
    const [complete, setComplete] = useState([]);
    const [isProcessing, setIsProcessing] = useState(false);
@@ -22,7 +22,7 @@ export default function Profile( ) {
    const [profileChangeOpen, setProfileChangeOpen] = useState(false);
    const [passwordOpen, setPasswordOpen] = useState(false);
    const imgUrl = user?.pfp ? user.pfp : "https://c8.alamy.com/zooms/9/52c3ea49892f4e5789b31cadac8aa969/2gefnr1.jpg";
-
+   const navigate = useNavigate();
    async function showCompleted() {
       setIsProcessing(true)
       setError(null)
@@ -38,6 +38,10 @@ export default function Profile( ) {
       }
    }
 
+   useEffect(() => {
+      fetchUserFromToken();
+   }, []);
+
    function handleComplete() {
       setIsShowing(true);
       showCompleted();
@@ -52,6 +56,7 @@ export default function Profile( ) {
    // }
 
    const handleOnSubmitImage = async (event) => {
+    //event.preventDefault();
       const file = event.target.files[0]
       setFile(file)
       let imageString = ""
@@ -68,8 +73,17 @@ export default function Profile( ) {
                //need to properly fetch user 
                // setUser(apiClient.fetchUserFromToken())
             })
-         .catch(err => console.error(err)) 
+         .catch(err => console.error(err));
+        return data;
    }
+
+  //  async function handleOnSubmitHandler(e) {
+  //     handleOnSubmitImage(e);
+  //     const result = await fetchUserFromToken();
+  //     console.log(result.data);
+  //  }
+
+
 
 
    return (

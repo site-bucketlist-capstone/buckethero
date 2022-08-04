@@ -114,7 +114,9 @@ class ApiClient {
     } 
 
     async addProfilePicture(imageString) {
-        return await this.request({endpoint: `profile`, method: 'PUT', data: imageString})
+        const result = await this.request({endpoint: `profile`, method: 'PUT', data: imageString});
+        if (result) window.location.reload(false);
+        return result;
     } 
 
     async getViewerInfo(userId) {
