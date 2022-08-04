@@ -72,6 +72,31 @@ class Items {
         return items
     }
 
+    static async fetchItemsByUserId(userId) {
+        const results = await db.query(
+            `
+                SELECT list_items.id,
+                       list_items.list_id,
+                       list_items.name, 
+                       list_items.due_date, 
+                       list_items.category, 
+                       list_items.location, 
+                       list_items.price_point 
+                FROM list_items
+                
+                WHERE list_items.user_id = $1
+                ORDER BY id DESC
+            `, [ userId]
+        )
+        const items = results.rows
+
+        if (!items) {
+            throw new NotFoundError() 
+        }
+
+        return items
+    }
+
     static async fetchItemsByCompletion({user}) {
         const results = await db.query(
             `
