@@ -76,6 +76,10 @@ class ApiClient {
         return await this.request({endpoint: `list/items/due_date`, method: "GET"});
     }
 
+    async fetchAllUserListItems(userId) {
+        return await this.request({endpoint: `list/items/${userId}/all`, method: "GET"});
+    }
+
     async fetchGallery() {
         return await this.request({endpoint: `global/`, method: "GET"});
     }
@@ -110,7 +114,9 @@ class ApiClient {
     } 
 
     async addProfilePicture(imageString) {
-        return await this.request({endpoint: `profile`, method: 'PUT', data: imageString})
+        const result = await this.request({endpoint: `profile`, method: 'PUT', data: imageString});
+        if (result) window.location.reload(false);
+        return result;
     } 
 
     async getViewerInfo(userId) {

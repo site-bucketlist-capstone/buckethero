@@ -50,7 +50,21 @@ router.get("/items/:filterOption", security.requireAuthenticatedUser, async (req
     else if ( filterOption == "due_date") {
       const result = await Items.fetchItemsByDueDate({user}) 
       return res.status(200).json({result})
-    } 
+    } else if (filterOption == "all") {
+      const user_id = req.params.userId;
+      const result = await Items.fetchItemsByUserId(user_id) 
+      return res.status(200).json({result})
+    }
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.get("/items/:userId/all", security.requireAuthenticatedUser, async (req, res, next) => {
+  try {
+    const user_id = req.params.userId;
+    const result = await Items.fetchItemsByUserId(user_id) 
+    return res.status(200).json({result})
   } catch (err) {
     next(err)
   }
