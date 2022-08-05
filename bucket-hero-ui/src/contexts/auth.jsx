@@ -102,7 +102,7 @@ export const AuthContextProvider = ({children}) => {
                 await fetchUserFromToken();
                 return true;
             } else if (error) {
-                console.log("there is an error")
+                
                 setError((e) => ({ ...e, updatePassword: error }));
                 return false;
             }
