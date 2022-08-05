@@ -33,7 +33,6 @@ export default function GalleryNewItem({}) {
         if (res) {
             //set inspired badge
             setInspired(true);
-            console.log("inspired", inspired);
             setGallModal((f) => ({...f, open: false}));
             setSuccess("Successfully added item to list!");
             }
