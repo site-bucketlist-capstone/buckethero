@@ -197,7 +197,7 @@ export default function Profile( ) {
                         <img src={GoGetterBadge} className="w-14 h-14" alt="orange and pink gradient diamond with star in middle"/>
                         <div className="w-3/4">
                            <p>Go Getter:</p>
-                           <p>Completed 5 list items</p>
+                           <p>Created 5 list items</p>
                         </div>
                      </div>
                       : null} 
