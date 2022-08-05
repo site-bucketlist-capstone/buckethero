@@ -9,6 +9,9 @@ import { ExclamationIcon } from '@heroicons/react/outline'
 import Banner from '../assets/profile-banner.png';
 import Completed from "./Completed";
 import ProfileEditForm from "./ProfileEditForm";
+import NewcomerBadge from '../assets/1.png';
+import ThirdTimesACharmBadge from '../assets/2.png';
+import GoGetterBadge from '../assets/3.png';
 
 import apiClient from '../services/apiClient';
 import * as axios from 'axios';
@@ -131,9 +134,9 @@ export default function Profile( ) {
                         <input type="file" id="file" onChange={handleOnSubmitImage}/>
                      </div>
                      <p className="text-gray-400">Click profile pic to edit</p>
-                     { newcomer ? <p>Newcomer</p> : null} 
-                     { thirdTimesACharm ? <p>Third Times a Charm</p> : null}
-                     { goGetter ? <p>Go Getter</p> : null} 
+                     { newcomer ? <img src={NewcomerBadge} className="w-16 h-16" alt="orange gradient circle with white 1"/> : null} 
+                     { thirdTimesACharm ? <img src={ThirdTimesACharmBadge} className="w-14 h-14" alt="orange gradient circle with white 1"/> : null}
+                     { goGetter ? <img src={GoGetterBadge} className="w-14 h-14" alt="orange and pink gradient diamond with star in middle"/> : null} 
                   </div>
                   
                   <div className="ml-4 flex flex-col justify-end mt-4">
