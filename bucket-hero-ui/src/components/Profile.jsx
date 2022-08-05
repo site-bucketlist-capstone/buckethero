@@ -1,5 +1,5 @@
 import { useAuthContext } from "../contexts/auth";
-import { useState, useEffect, useRef, Fragment } from "react";
+import { useState, useRef, Fragment, useEffect } from "react";
 import { UserCircleIcon } from '@heroicons/react/solid'
 import { useNavigate } from "react-router-dom";
 
@@ -16,9 +16,9 @@ import { useDashContext } from "../contexts/dashboard";
 import { useGallContext } from "../contexts/gallery";
 
 export default function Profile( ) {
-   const {user, setUser} = useAuthContext();
    const {lists, fetchListItems} = useDashContext();
    const {inspired} = useGallContext();
+   const {user, setUser, fetchUserFromToken} = useAuthContext();
    const [isShowing, setIsShowing] = useState(false);
    const [complete, setComplete] = useState([]);
    const [isProcessing, setIsProcessing] = useState(false);
@@ -26,7 +26,7 @@ export default function Profile( ) {
    const [profileChangeOpen, setProfileChangeOpen] = useState(false);
    const [passwordOpen, setPasswordOpen] = useState(false);
    const imgUrl = user?.pfp ? user.pfp : "https://c8.alamy.com/zooms/9/52c3ea49892f4e5789b31cadac8aa969/2gefnr1.jpg";
-
+   const navigate = useNavigate();
    async function showCompleted() {
       setIsProcessing(true)
       setError(null)
@@ -42,6 +42,10 @@ export default function Profile( ) {
       }
    }
 
+   useEffect(() => {
+      fetchUserFromToken();
+   }, []);
+
    function handleComplete() {
       setIsShowing(true);
       showCompleted();
@@ -50,6 +54,7 @@ export default function Profile( ) {
    const [file, setFile] = useState()
 
    const handleOnSubmitImage = async (event) => {
+    //event.preventDefault();
       const file = event.target.files[0]
       setFile(file)
       let imageString = ""
@@ -66,7 +71,8 @@ export default function Profile( ) {
                //need to properly fetch user 
                // setUser(apiClient.fetchUserFromToken())
             })
-         .catch(err => console.error(err)) 
+         .catch(err => console.error(err));
+        return data;
    }
 
    const [thirdTimesACharm, setThirdTimesACharm] = useState(false)
@@ -100,6 +106,13 @@ export default function Profile( ) {
     }
     console.log("inspired", inspired)
    })
+  //  async function handleOnSubmitHandler(e) {
+  //     handleOnSubmitImage(e);
+  //     const result = await fetchUserFromToken();
+  //     console.log(result.data);
+  //  }
+
+
 
 
    return (
@@ -141,7 +154,7 @@ export default function Profile( ) {
             }
             {error ? <span>{error}</span> : "" }
             </div>
-            {!isShowing ? <ProfileEditForm passwordOpen={passwordOpen} setPasswordOpen={setPasswordOpen} profileChangeOpen={profileChangeOpen} setProfileChangeOpen={setProfileChangeOpen} info={user}/> : <Completed completed={complete}/>}
+            {!isShowing ? <ProfileEditForm passwordOpen={passwordOpen} setPasswordOpen={setPasswordOpen} profileChangeOpen={profileChangeOpen} setProfileChangeOpen={setProfileChangeOpen} info={user}/> : <Completed completed={complete} isPublic={false}/>}
          </div>            
       </div>
    );
