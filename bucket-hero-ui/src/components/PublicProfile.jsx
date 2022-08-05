@@ -22,10 +22,8 @@ export default function PublicProfile( ) {
             setError(error)
           }
           if (data) {
-            
-            await setViewer(data.user);
+            setViewer(data.user);
          }
-         console.log(data.user);
          setIsProcessing(false);
 
       }
