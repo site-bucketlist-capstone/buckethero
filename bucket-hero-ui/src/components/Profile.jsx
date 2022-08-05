@@ -19,7 +19,8 @@ export default function Profile( ) {
    const {lists, fetchListItems} = useDashContext();
    const {inspired} = useGallContext();
    const {user, setUser, fetchUserFromToken} = useAuthContext();
-   const [isShowing, setIsShowing] = useState(false);
+   const [isShowing, setIsShowing] = useState(true);
+   const [success, setSuccess] = useState({message: ""})
    const [complete, setComplete] = useState([]);
    const [isProcessing, setIsProcessing] = useState(false);
    const [error, setError] = useState();
@@ -117,44 +118,61 @@ export default function Profile( ) {
 
    return (
        <div>
-          {profileChangeOpen ? <ProfileChange profileChangeOpen={profileChangeOpen} setProfileChangeOpen={setProfileChangeOpen}></ProfileChange>: null}
-          {passwordOpen ? <PasswordChange passwordOpen={passwordOpen} setPasswordOpen={setPasswordOpen}></PasswordChange>: null}
+          {profileChangeOpen ? <ProfileChange setSuccess={setSuccess} profileChangeOpen={profileChangeOpen} setProfileChangeOpen={setProfileChangeOpen}></ProfileChange>: null}
+          {passwordOpen ? <PasswordChange setSuccess={setSuccess} passwordOpen={passwordOpen} setPasswordOpen={setPasswordOpen}></PasswordChange>: null}
          <div className="flex flex-col p-4">
             <img src={Banner} alt="" className="-z-20 h-60 w-full rounded"/>
-            <div className="-mt-20 pl-2 sm:pl-0 sm:ml-12 pr-6 flex flex-col items-center sm:flex-row sm:items-end sm:justify-between">
-               <div className="flex flex-row items-center">
-                  <div>
-                     <div className="h-40 w-40 rounded-full overflow-hidden hover:drop-shadow-xl">
-                        <label htmlFor="file">
-                           <img src={user.profile_image ? user.profile_image : imgUrl} alt="profile picture" className="scale-150 cursor-pointer"/>
-                        </label>
-                        <input type="file" id="file" onChange={handleOnSubmitImage}/>
+            <div className="-mt-14 sm:-mt-20 pl-2 sm:pl-0 sm:ml-12 pr-6 flex flex-col items-center sm:flex-row sm:items-end sm:justify-between">
+               <div className="sm:flex sm:flex-row sm:items-center">
+                  <div className="flex flex-row items-center">
+                     <div>
+                        <div className="h-24 w-24 sm:h-40 sm:w-40 rounded-full overflow-hidden hover:drop-shadow-xl">
+                           <label htmlFor="file">
+                              <img src={user.profile_image ? user.profile_image : imgUrl} alt="profile picture" className="scale-150 cursor-pointer"/>
+                           </label>
+                           <input type="file" id="file" onChange={handleOnSubmitImage}/>
+                        </div>
+                        <p className="text-gray-400 text-xs sm:text-sm text-center">Click profile pic to edit</p>
                      </div>
+                     
+                     <div className="ml-4 flex flex-col justify-end mt-4">
+                        <span className="mb-6 ">   </span>
+                        <div className="mt-4">
+                           <span className="font-semibold text-lg">{user.first_name}   {user.last_name}</span>
+                        </div>  
+                        <div className="font-light text-slate-500">
+                           <span>Email: </span>
+                           <span>   {user.email}</span>
+                        </div>
+                     </div>
+
                      <p className="text-gray-400">Click profile pic to edit</p>
                      { newcomer ? <p>Newcomer</p> : null} 
                      { thirdTimesACharm ? <p>Third Times a Charm</p> : null}
                      { goGetter ? <p>Go Getter</p> : null} 
                   </div>
                   
-                  <div className="ml-4 flex flex-col justify-end mt-4">
-                     <span className="mb-6 ">   </span>
-                     <div className="mt-4">
-                        <span className="font-semibold text-lg">{user.first_name}   {user.last_name}</span>
-                     </div>  
-                     <div className="font-light text-slate-500">
-                        <span>Email: </span>
-                        <span>   {user.email}</span>
-                     </div>
+                  <div className="mt-12 ml-8 text-sm font-medium text-center text-gray-500 border-b border-gray-200 ">
+                     {isShowing ? <><ul className="flex flex-wrap -mb-px">
+                        <li className="mr-2">
+                              <a className="inline-block p-4 text-purple-600 rounded-t-lg border-b-2 border-purple-600 active " aria-current="page">Completed Items</a>
+                        </li>
+                        <li className="mr-2" onClick={() => setIsShowing(false)}>
+                              <a className="inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 cursor-pointer">Edit Profile</a>
+                        </li>
+                     </ul></> : <><ul className="flex flex-wrap -mb-px">
+                        <li className="mr-2">
+                              <a onClick={handleComplete} className="inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 cursor-pointer">Completed Items</a>
+                        </li>
+                        <li className="mr-2">
+                              <a className="inline-block p-4 text-purple-600 rounded-t-lg border-b-2 border-purple-600 active " aria-current="page">Edit Profile</a>
+                        </li>
+                     </ul></>}
                   </div>
                </div>
-               {
-               !isShowing ? <button className="mt-4 sm:mt-12 self-center rounded bg-purple-400 p-2 text-white hover:bg-white hover:border-2 hover:border-purple-400 hover:text-purple-400" onClick={handleComplete}>Completed Items</button>
-               : 
-               <button className="mt-4 sm:mt-12 self-center bg-white border-2 border-purple-400 text-purple-400 rounded p-2 hover:bg-purple-400 hover:text-white" onClick={() => setIsShowing(false)}>Hide Completed</button>
-            }
             {error ? <span>{error}</span> : "" }
             </div>
-            {!isShowing ? <ProfileEditForm passwordOpen={passwordOpen} setPasswordOpen={setPasswordOpen} profileChangeOpen={profileChangeOpen} setProfileChangeOpen={setProfileChangeOpen} info={user}/> : <Completed completed={complete} isPublic={false}/>}
+            {!isShowing ? <ProfileEditForm setSuccess={setSuccess} success={success} passwordOpen={passwordOpen} setPasswordOpen={setPasswordOpen} profileChangeOpen={profileChangeOpen} setProfileChangeOpen={setProfileChangeOpen} info={user}/> : <Completed completed={complete} isPublic={false}/>}
          </div>            
       </div>
    );
@@ -206,7 +224,7 @@ function ProfileChange({profileChangeOpen, setProfileChangeOpen}) {
                        </Dialog.Title>
                        <div className="mt-2">
                          <p className="text-sm text-gray-500">
-                           You must log out and log back in for your profile to update.
+                           Because you changed your email, you must log out and log back in for your profile to update.
                          </p>
                        </div>
                      </div>
@@ -230,7 +248,7 @@ function ProfileChange({profileChangeOpen, setProfileChangeOpen}) {
    )
  }
 
- function PasswordChange({passwordOpen, setPasswordOpen}) {
+ function PasswordChange({passwordOpen, setPasswordOpen, setSuccess}) {
 
    const cancelButtonRef = useRef(null);
    const navigate = useNavigate();
@@ -266,8 +284,8 @@ function ProfileChange({profileChangeOpen, setProfileChangeOpen}) {
       if (!errors?.confirmpassword) {
          
          const passwordForm = {old_password: form.oldPassword, password: form.newPassword};
-         updatePassword(passwordForm);
-         //then pull up logout modal
+         const res = updatePassword(passwordForm);
+         if (res) {setPasswordOpen(false); setSuccess({message: "Successfully changed password"})};
       }
 
    }
@@ -307,7 +325,7 @@ function ProfileChange({profileChangeOpen, setProfileChangeOpen}) {
                          Change password
                        </Dialog.Title>
                        {errors?.confirmpassword ? <p className="text-red-500">{errors.confirmpassword}</p> : null}
-                       {error?.updatePassword ? <p className="text-red-500">{errors.updatePassword}</p> : null}
+                       {error?.updatePassword ? <p className="text-red-500">{error.updatePassword}</p> : null}
                        <form>
                         <div className="shadow-sm -space-y-px w-3/4">
                               <div>
