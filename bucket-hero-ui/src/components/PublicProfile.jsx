@@ -23,44 +23,40 @@ export default function PublicProfile( ) {
           }
           if (data) {
             
-            setViewer(data.user);
+            await setViewer(data.user);
          }
          console.log(data.user);
          setIsProcessing(false);
 
       }
+
+      const showListItems =  async() => {
+         setIsProcessing(true)
+         setError(null)
+         const {data, error} = await apiClient.fetchAllUserListItems(viewerId);
+         if (error) {
+           const message = error?.response?.data?.error?.message
+           setError(error)
+           setIsProcessing(false);
+         }
+         if (data) {
+           setComplete(data.result);
+           setIsProcessing(false);
+         }
+         console.log(data);
+      }
       setUpViewer();
+      showListItems();
    }, []);
 
    const {user, setUser} = useAuthContext();
-   const [isShowing, setIsShowing] = useState(false);
+   const [isShowing, setIsShowing] = useState(true);
    const [isPublic, setIsPublic] = useState(true);
    const [complete, setComplete] = useState([]);
    const [isProcessing, setIsProcessing] = useState(false);
    const [error, setError] = useState();
 
    const imgUrl = viewer?.pfp ? viewer.pfp : "https://c8.alamy.com/zooms/9/52c3ea49892f4e5789b31cadac8aa969/2gefnr1.jpg";
-
-   async function showListItems() {
-      setIsProcessing(true)
-      setError(null)
-      const {data, error} = await apiClient.fetchAllUserListItems(viewerId);
-      if (error) {
-        const message = error?.response?.data?.error?.message
-        setError(error)
-        setIsProcessing(false);
-      }
-      if (data) {
-        setComplete(data.result);
-        setIsProcessing(false);
-      }
-      console.log(data);
-   }
-
-   function handleComplete() {
-      setIsShowing(true);
-      showListItems();
-   }
 
    const [file, setFile] = useState();
 
@@ -90,15 +86,15 @@ export default function PublicProfile( ) {
                      </div>
                   </div>
                </div>
-               {
-               !isShowing ? <button className="mt-4 sm:mt-12 self-center rounded bg-purple-400 p-2 text-white hover:bg-white hover:border-2 hover:border-purple-400 hover:text-purple-400" onClick={handleComplete}>{viewer.first_name} List Items</button>
+               {/* {
+               !isShowing ? <button className="mt-4 sm:mt-12 self-center rounded bg-purple-400 p-2 text-white hover:bg-white hover:border-2 hover:border-purple-400 hover:text-purple-400" onClick={() => setIsShowing(false)}  >{viewer.first_name} List Items</button>
                : 
-               <button className="mt-4 sm:mt-12 self-center bg-white border-2 border-purple-400 text-purple-400 rounded p-2 hover:bg-purple-400 hover:text-white" onClick={() => setIsShowing(false)}>Hide {viewer.first_name} List Items</button>
-            }
+               <button className="mt-4 sm:mt-12 self-center bg-white border-2 border-purple-400 text-purple-400 rounded p-2 hover:bg-purple-400 hover:text-white" onClick={handleComplete}>Hide {viewer.first_name} List Items</button>
+            } */}
             {error ? <span>{error}</span> : "" }
             </div>
             {isProcessing ? <p>Loading...</p> : null}
-            {isShowing ? <Completed completed={complete} isPublic={isPublic}/> : null}
+            {<Completed completed={complete} isPublic={isPublic}/>}
          </div>            
       </div>
    );
