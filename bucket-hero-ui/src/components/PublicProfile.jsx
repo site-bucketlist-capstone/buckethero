@@ -43,7 +43,7 @@ export default function PublicProfile( ) {
            setComplete(data.result);
            setIsProcessing(false);
          }
-         console.log(data);
+         //console.log(data);
       }
       setUpViewer();
       showListItems();
