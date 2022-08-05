@@ -1,5 +1,5 @@
 import { useAuthContext } from "../contexts/auth";
-import { useState, useRef, Fragment } from "react";
+import { useState, useEffect, useRef, Fragment } from "react";
 import { UserCircleIcon } from '@heroicons/react/solid'
 import { useNavigate } from "react-router-dom";
 
@@ -12,9 +12,13 @@ import ProfileEditForm from "./ProfileEditForm";
 
 import apiClient from '../services/apiClient';
 import * as axios from 'axios';
+import { useDashContext } from "../contexts/dashboard";
+import { useGallContext } from "../contexts/gallery";
 
 export default function Profile( ) {
    const {user, setUser} = useAuthContext();
+   const {lists, fetchListItems} = useDashContext();
+   const {inspired} = useGallContext();
    const [isShowing, setIsShowing] = useState(false);
    const [complete, setComplete] = useState([]);
    const [isProcessing, setIsProcessing] = useState(false);
@@ -45,12 +49,6 @@ export default function Profile( ) {
 
    const [file, setFile] = useState()
 
-   // const handleOnChangeImage = event => {
-   //    const file = event.target.files[0]
-   //    setFile(file)
-   
-   // }
-
    const handleOnSubmitImage = async (event) => {
       const file = event.target.files[0]
       setFile(file)
@@ -71,6 +69,38 @@ export default function Profile( ) {
          .catch(err => console.error(err)) 
    }
 
+   const [thirdTimesACharm, setThirdTimesACharm] = useState(false)
+   const [goGetter, setGoGetter] = useState(false)
+   const [newcomer, setNewcomer] = useState(false)
+
+   //checks if user has at least one item in their list
+   const checkItems = async (listId) => {
+    const result = await fetchListItems(listId);
+    let numItems = 0 
+    result.result.map((item) => {
+      if (item.is_completed == true) {
+        setNewcomer(true)
+      }
+      numItems += 1
+    })
+    if (numItems >= 5) 
+    {
+      setGoGetter(true)
+    }
+   }
+
+   useEffect(() => {
+    let numLists = 0 
+    lists.map((list) => {
+      numLists +=  1 
+      checkItems(list.id)
+    })
+    if (numLists >= 3) {
+      setThirdTimesACharm(true)
+    }
+    console.log("inspired", inspired)
+   })
+
 
    return (
        <div>
@@ -88,6 +118,9 @@ export default function Profile( ) {
                         <input type="file" id="file" onChange={handleOnSubmitImage}/>
                      </div>
                      <p className="text-gray-400">Click profile pic to edit</p>
+                     { newcomer ? <p>Newcomer</p> : null} 
+                     { thirdTimesACharm ? <p>Third Times a Charm</p> : null}
+                     { goGetter ? <p>Go Getter</p> : null} 
                   </div>
                   
                   <div className="ml-4 flex flex-col justify-end mt-4">

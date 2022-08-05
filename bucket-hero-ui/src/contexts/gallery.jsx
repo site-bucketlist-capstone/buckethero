@@ -12,6 +12,9 @@ export const GallContextProvider = ({children}) => {
    const [searchCategory, setSearchCategory] = useState("name");
    const [searchValue, setSearchValue] = useState("");
    const [error, setError] = useState();
+   //for inspired badge
+   const [inspired, setInspired] = useState(false);
+
    
    useEffect(() => {
       const fetchGallery = async () => {
@@ -33,7 +36,9 @@ export const GallContextProvider = ({children}) => {
       searchValue, 
       setSearchValue,
       searchCategory,
-      setSearchCategory
+      setSearchCategory,
+      inspired, 
+      setInspired
    }
 
   return (
