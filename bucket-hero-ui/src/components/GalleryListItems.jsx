@@ -13,7 +13,7 @@ export default function GalleryListItems({item}) {
 // User will add gallery list item via the dropdown component
 
    return (
-    <div className='rounded bg-slate-100 flex flex-row items-center justify-around p-2 mb-2'>
+    <div className='rounded bg-slate-100 flex flex-row items-center justify-around p-2 mb-2 sm:max-w-6xl self-center w-full'>
         <div className='sm:flex sm:justify-between w-5/6 sm:w-3/4'>
             <div className='mr-8 text-xl font-semibold sm:w-1/4 text-purple-800 sm:flex sm:items-center'>
                 {item?.name}
@@ -37,7 +37,7 @@ export default function GalleryListItems({item}) {
         {/* added first name last name of user */}
         <Dropdown item={item}></Dropdown>
         {item.first_name ? 
-          <Link to={`user/${item.user_id}`}><p className="mt-2">{`Added by ${item.first_name} ${item.last_name}`}</p> </Link>
+          <Link to={`user/${item.user_id}`}><p className="mt-2">{`Added by `}<span className='text-orange-400 underline'>{`${item.first_name} ${item.last_name}`}</span></p> </Link>
           : 
           <p className="mt-2">{`Added by BucketHero`}</p> 
         }

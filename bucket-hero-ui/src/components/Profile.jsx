@@ -9,13 +9,21 @@ import { ExclamationIcon } from '@heroicons/react/outline'
 import Banner from '../assets/profile-banner.png';
 import Completed from "./Completed";
 import ProfileEditForm from "./ProfileEditForm";
+import NewcomerBadge from '../assets/1.png';
+import ThirdTimesACharmBadge from '../assets/2.png';
+import GoGetterBadge from '../assets/3.png';
 
 import apiClient from '../services/apiClient';
 import * as axios from 'axios';
+import { useDashContext } from "../contexts/dashboard";
+import { useGallContext } from "../contexts/gallery";
 
 export default function Profile( ) {
+   const {lists, fetchListItems} = useDashContext();
+   const {inspired} = useGallContext();
    const {user, setUser, fetchUserFromToken} = useAuthContext();
-   const [isShowing, setIsShowing] = useState(false);
+   const [isShowing, setIsShowing] = useState(true);
+   const [success, setSuccess] = useState({message: ""})
    const [complete, setComplete] = useState([]);
    const [isProcessing, setIsProcessing] = useState(false);
    const [error, setError] = useState();
@@ -23,6 +31,7 @@ export default function Profile( ) {
    const [passwordOpen, setPasswordOpen] = useState(false);
    const imgUrl = user?.pfp ? user.pfp : "https://c8.alamy.com/zooms/9/52c3ea49892f4e5789b31cadac8aa969/2gefnr1.jpg";
    const navigate = useNavigate();
+
    async function showCompleted() {
       setIsProcessing(true)
       setError(null)
@@ -40,6 +49,7 @@ export default function Profile( ) {
 
    useEffect(() => {
       fetchUserFromToken();
+      handleComplete();
    }, []);
 
    function handleComplete() {
@@ -48,12 +58,6 @@ export default function Profile( ) {
    }
 
    const [file, setFile] = useState()
-
-   // const handleOnChangeImage = event => {
-   //    const file = event.target.files[0]
-   //    setFile(file)
-   
-   // }
 
    const handleOnSubmitImage = async (event) => {
     //event.preventDefault();
@@ -77,52 +81,135 @@ export default function Profile( ) {
         return data;
    }
 
-  //  async function handleOnSubmitHandler(e) {
-  //     handleOnSubmitImage(e);
-  //     const result = await fetchUserFromToken();
-  //     console.log(result.data);
-  //  }
+   const [thirdTimesACharm, setThirdTimesACharm] = useState(false)
+   const [goGetter, setGoGetter] = useState(false)
+   const [newcomer, setNewcomer] = useState(false)
+
+   //checks if user has at least one item in their list
+   const checkItems = async (listId) => {
+    const result = await fetchListItems(listId);
+    let numItems = 0 
+    result.result.map((item) => {
+      if (item.is_completed == true) {
+        setNewcomer(true)
+      }
+      numItems += 1
+    })
+    if (numItems >= 5) 
+    {
+      setGoGetter(true)
+    }
+   }
+
+   useEffect(() => {
+    let numLists = 0 
+    lists.map((list) => {
+      numLists +=  1 
+      checkItems(list.id)
+    })
+    if (numLists >= 3) {
+      setThirdTimesACharm(true)
+    }
+    
+   })
+ 
 
 
 
 
    return (
        <div>
-          {profileChangeOpen ? <ProfileChange profileChangeOpen={profileChangeOpen} setProfileChangeOpen={setProfileChangeOpen}></ProfileChange>: null}
-          {passwordOpen ? <PasswordChange passwordOpen={passwordOpen} setPasswordOpen={setPasswordOpen}></PasswordChange>: null}
+          {profileChangeOpen ? <ProfileChange setSuccess={setSuccess} profileChangeOpen={profileChangeOpen} setProfileChangeOpen={setProfileChangeOpen}></ProfileChange>: null}
+          {passwordOpen ? <PasswordChange setSuccess={setSuccess} passwordOpen={passwordOpen} setPasswordOpen={setPasswordOpen}></PasswordChange>: null}
          <div className="flex flex-col p-4">
             <img src={Banner} alt="" className="-z-20 h-60 w-full rounded"/>
-            <div className="-mt-20 pl-2 sm:pl-0 sm:ml-12 pr-6 flex flex-col items-center sm:flex-row sm:items-end sm:justify-between">
-               <div className="flex flex-row items-center">
-                  <div>
-                     <div className="h-40 w-40 rounded-full overflow-hidden hover:drop-shadow-xl">
-                        <label htmlFor="file">
-                           <img src={user.profile_image ? user.profile_image : imgUrl} alt="profile picture" className="scale-150 cursor-pointer"/>
-                        </label>
-                        <input type="file" id="file" onChange={handleOnSubmitImage}/>
+            <div className="-mt-14 sm:-mt-20 pl-2 sm:pl-0 sm:ml-12 pr-6 flex flex-col items-center sm:flex-row sm:items-end sm:justify-between">
+               <div className="sm:flex sm:flex-row sm:items-center">
+                  <div className="flex flex-row items-center">
+                     <div>
+                        <div className="h-24 w-24 sm:h-40 sm:w-40 rounded-full overflow-hidden hover:drop-shadow-xl">
+                           <label htmlFor="file">
+                              <img src={user.profile_image ? user.profile_image : imgUrl} alt="profile picture" className="scale-150 cursor-pointer"/>
+                           </label>
+                           <input type="file" id="file" onChange={handleOnSubmitImage}/>
+                        </div>
+                        <p className="text-gray-400 text-xs sm:text-sm text-center">Click profile pic to edit</p>
                      </div>
-                     <p className="text-gray-400">Click profile pic to edit</p>
+                     
+                     <div className="ml-4 flex flex-col justify-end mt-4">
+                        <span className="mb-6 ">   </span>
+                        <div className="mt-4">
+                           <span className="font-semibold text-lg">{user.first_name}   {user.last_name}</span>
+                        </div>  
+                        <div className="font-light text-slate-500">
+                           <span>Email: </span>
+                           <span>   {user.email}</span>
+                        </div>
+                     </div>
+
+                     
                   </div>
                   
-                  <div className="ml-4 flex flex-col justify-end mt-4">
-                     <span className="mb-6 ">   </span>
-                     <div className="mt-4">
-                        <span className="font-semibold text-lg">{user.first_name}   {user.last_name}</span>
-                     </div>  
-                     <div className="font-light text-slate-500">
-                        <span>Email: </span>
-                        <span>   {user.email}</span>
-                     </div>
+                  <div className="mt-12 ml-8 text-sm font-medium text-center text-gray-500 border-b border-gray-200 ">
+                     {isShowing ? <><ul className="flex flex-wrap -mb-px">
+                        <li className="mr-2">
+                              <a className="inline-block p-4 text-purple-600 rounded-t-lg border-b-2 border-purple-600 active " aria-current="page">Completed Items</a>
+                        </li>
+                        <li className="mr-2" onClick={() => setIsShowing(false)}>
+                              <a className="inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 cursor-pointer">Edit Profile</a>
+                        </li>
+                     </ul></> : <><ul className="flex flex-wrap -mb-px">
+                        <li className="mr-2">
+                              <a onClick={handleComplete} className="inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 cursor-pointer">Completed Items</a>
+                        </li>
+                        <li className="mr-2">
+                              <a className="inline-block p-4 text-purple-600 rounded-t-lg border-b-2 border-purple-600 active " aria-current="page">Edit Profile</a>
+                        </li>
+                     </ul></>}
                   </div>
                </div>
-               {
-               !isShowing ? <button className="mt-4 sm:mt-12 self-center rounded bg-purple-400 p-2 text-white hover:bg-white hover:border-2 hover:border-purple-400 hover:text-purple-400" onClick={handleComplete}>Completed Items</button>
-               : 
-               <button className="mt-4 sm:mt-12 self-center bg-white border-2 border-purple-400 text-purple-400 rounded p-2 hover:bg-purple-400 hover:text-white" onClick={() => setIsShowing(false)}>Hide Completed</button>
-            }
-            {error ? <span>{error}</span> : "" }
+            
             </div>
-            {!isShowing ? <ProfileEditForm passwordOpen={passwordOpen} setPasswordOpen={setPasswordOpen} profileChangeOpen={profileChangeOpen} setProfileChangeOpen={setProfileChangeOpen} info={user}/> : <Completed completed={complete} isPublic={false}/>}
+            <div className="sm:flex sm:flex-row sm:px-16 sm:mt-4">
+               <div className="w-2/12 flex flex-col items-center pt-8 bg-slate-100 h-fit pb-4 rounded">
+                  <p className="font-semibold">Achievements</p>
+                  <div className="flex flex-col w-full justify-around mt-2">
+                     { newcomer ?
+                     <div className="flex flex-row items-center p-2 justify-around">
+                        <img src={NewcomerBadge} className="w-16 h-16" alt="orange gradient circle with white 1"/>
+                        <div className="w-3/4">
+                           <p>Newcomer:</p>
+                           <p>Completed 1 list item</p>
+                        </div>
+                     </div>
+                     : null} 
+                     { thirdTimesACharm ? 
+                     <div className="flex flex-row items-center p-2 justify-around">
+                        <img src={ThirdTimesACharmBadge} className="w-14 h-14" alt="orange gradient circle with white 1"/>
+                        <div className="w-3/4">
+                           <p>Third Times a Charm:</p>
+                           <p>Created 3 lists</p>
+                        </div> 
+                     </div>
+                     : null}
+                     { goGetter ? 
+                     <div className="flex flex-row items-center p-2 justify-around">
+                        <img src={GoGetterBadge} className="w-14 h-14" alt="orange and pink gradient diamond with star in middle"/>
+                        <div className="w-3/4">
+                           <p>Go Getter:</p>
+                           <p>Created 5 list items</p>
+                        </div>
+                     </div>
+                      : null} 
+                  </div>
+               </div>
+               <div className="w-10/12">
+                  {!isShowing ? <ProfileEditForm setSuccess={setSuccess} success={success} passwordOpen={passwordOpen} setPasswordOpen={setPasswordOpen} profileChangeOpen={profileChangeOpen} setProfileChangeOpen={setProfileChangeOpen} info={user}/> : <Completed completed={complete} isPublic={false}/>}
+               </div>
+               
+            </div>
+            
+            
          </div>            
       </div>
    );
@@ -174,7 +261,7 @@ function ProfileChange({profileChangeOpen, setProfileChangeOpen}) {
                        </Dialog.Title>
                        <div className="mt-2">
                          <p className="text-sm text-gray-500">
-                           You must log out and log back in for your profile to update.
+                           Because you changed your email, you must log out and log back in for your profile to update.
                          </p>
                        </div>
                      </div>
@@ -198,7 +285,7 @@ function ProfileChange({profileChangeOpen, setProfileChangeOpen}) {
    )
  }
 
- function PasswordChange({passwordOpen, setPasswordOpen}) {
+ function PasswordChange({passwordOpen, setPasswordOpen, setSuccess}) {
 
    const cancelButtonRef = useRef(null);
    const navigate = useNavigate();
@@ -234,8 +321,8 @@ function ProfileChange({profileChangeOpen, setProfileChangeOpen}) {
       if (!errors?.confirmpassword) {
          
          const passwordForm = {old_password: form.oldPassword, password: form.newPassword};
-         updatePassword(passwordForm);
-         //then pull up logout modal
+         const res = updatePassword(passwordForm);
+         if (res) {setPasswordOpen(false); setSuccess({message: "Successfully changed password"})};
       }
 
    }
@@ -275,7 +362,7 @@ function ProfileChange({profileChangeOpen, setProfileChangeOpen}) {
                          Change password
                        </Dialog.Title>
                        {errors?.confirmpassword ? <p className="text-red-500">{errors.confirmpassword}</p> : null}
-                       {error?.updatePassword ? <p className="text-red-500">{errors.updatePassword}</p> : null}
+                       {error?.updatePassword ? <p className="text-red-500">{error.updatePassword}</p> : null}
                        <form>
                         <div className="shadow-sm -space-y-px w-3/4">
                               <div>

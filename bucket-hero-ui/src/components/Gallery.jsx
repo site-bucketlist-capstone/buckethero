@@ -1,7 +1,7 @@
 import GalleryListItems from "./GalleryListItems";
 import GalleryNewItem from "./GalleryNewItem";
 import { useGallContext } from "../contexts/gallery";
-
+import { useAuthContext } from "../contexts/auth";
 import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon, XIcon } from '@heroicons/react/solid'
@@ -9,7 +9,7 @@ import { useState, useEffect } from 'react'
 
 export default function Gallery({}) {
     const {gallery, gallModal, setGallModal, success, searchValue, setSearchValue, searchCategory, setSearchCategory} = useGallContext();
-
+    const {user} = useAuthContext();
     const [itemInfo, setItemInfo] = useState({
         "name" : "",
         "location" : "",
@@ -45,15 +45,15 @@ export default function Gallery({}) {
     //gallery page renders items for user to add to their bucket lists
     return (
         <div className='flex flex-col items-center mt-16 sm:mt-6 p-4 sm:p-0'>
-            <div className="w-full px-12 sm:flex sm:flex-row items-end justify-between">
-                <div className="text-center sm:text-left">
+            <div className="w-full px-20 sm:flex sm:flex-row items-end justify-between sm:mt-4">
+                <div className="text-center sm:text-left sm:ml-20">
                     <h3 className="text-2xl font-semibold">Inspo Board</h3>
                     <p>Gain items to put on your own list and gain inspiration!</p>
                 </div>
                 <p className="text-lime-500 font-semibold text-center sm:text-left">{success}</p>
                 {/* search bar */}
                 <div className="flex flex-col">
-                    <form onSubmit={handleOnSubmit} className="flex flex-row">   
+                    <form onSubmit={handleOnSubmit} className="flex flex-row sm:mr-20">   
                         <SearchDropdown setSearchValue={setSearchValue}/>
                         <label htmlFor="search-dropdown" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300">Your Email</label>
                         <div className="relative w-full">
@@ -81,10 +81,12 @@ export default function Gallery({}) {
                      </div>
                 </div>
             </div>
-            <div className="sm:w-3/4 mt-4">
+            <div className="sm:w-3/4 mt-4 flex flex-col">
                 {
                     currentItems.map((item) => {
-                    return <GalleryListItems key={item.id} item={item} />
+                      if (item.first_name != user.first_name) {
+                        return <GalleryListItems key={item.id} item={item} />
+                      }
                     })
                 }
             </div>
