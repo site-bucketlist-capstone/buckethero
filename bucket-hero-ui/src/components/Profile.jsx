@@ -9,6 +9,9 @@ import { ExclamationIcon } from '@heroicons/react/outline'
 import Banner from '../assets/profile-banner.png';
 import Completed from "./Completed";
 import ProfileEditForm from "./ProfileEditForm";
+import NewcomerBadge from '../assets/1.png';
+import ThirdTimesACharmBadge from '../assets/2.png';
+import GoGetterBadge from '../assets/3.png';
 
 import apiClient from '../services/apiClient';
 import * as axios from 'axios';
@@ -28,6 +31,7 @@ export default function Profile( ) {
    const [passwordOpen, setPasswordOpen] = useState(false);
    const imgUrl = user?.pfp ? user.pfp : "https://c8.alamy.com/zooms/9/52c3ea49892f4e5789b31cadac8aa969/2gefnr1.jpg";
    const navigate = useNavigate();
+
    async function showCompleted() {
       setIsProcessing(true)
       setError(null)
@@ -45,6 +49,7 @@ export default function Profile( ) {
 
    useEffect(() => {
       fetchUserFromToken();
+      handleComplete();
    }, []);
 
    function handleComplete() {
@@ -105,13 +110,9 @@ export default function Profile( ) {
     if (numLists >= 3) {
       setThirdTimesACharm(true)
     }
-    console.log("inspired", inspired)
+    
    })
-  //  async function handleOnSubmitHandler(e) {
-  //     handleOnSubmitImage(e);
-  //     const result = await fetchUserFromToken();
-  //     console.log(result.data);
-  //  }
+ 
 
 
 
@@ -146,10 +147,7 @@ export default function Profile( ) {
                         </div>
                      </div>
 
-                     <p className="text-gray-400">Click profile pic to edit</p>
-                     { newcomer ? <p>Newcomer</p> : null} 
-                     { thirdTimesACharm ? <p>Third Times a Charm</p> : null}
-                     { goGetter ? <p>Go Getter</p> : null} 
+                     
                   </div>
                   
                   <div className="mt-12 ml-8 text-sm font-medium text-center text-gray-500 border-b border-gray-200 ">
@@ -172,7 +170,46 @@ export default function Profile( ) {
                </div>
             {error ? <span>{error}</span> : "" }
             </div>
-            {!isShowing ? <ProfileEditForm setSuccess={setSuccess} success={success} passwordOpen={passwordOpen} setPasswordOpen={setPasswordOpen} profileChangeOpen={profileChangeOpen} setProfileChangeOpen={setProfileChangeOpen} info={user}/> : <Completed completed={complete} isPublic={false}/>}
+            <div className="sm:flex sm:flex-row sm:px-16 sm:mt-4">
+               <div className="w-2/12 flex flex-col items-center pt-8 bg-slate-100 h-fit pb-4 rounded">
+                  <p className="font-semibold">Achievements</p>
+                  <div className="flex flex-col w-full justify-around mt-2">
+                     { newcomer ?
+                     <div className="flex flex-row items-center p-2 justify-around">
+                        <img src={NewcomerBadge} className="w-16 h-16" alt="orange gradient circle with white 1"/>
+                        <div className="w-3/4">
+                           <p>Newcomer:</p>
+                           <p>Added 1 list item</p>
+                        </div>
+                     </div>
+                     : null} 
+                     { thirdTimesACharm ? 
+                     <div className="flex flex-row items-center p-2 justify-around">
+                        <img src={ThirdTimesACharmBadge} className="w-14 h-14" alt="orange gradient circle with white 1"/>
+                        <div className="w-3/4">
+                           <p>Third Times a Charm:</p>
+                           <p>Created 3 lists</p>
+                        </div> 
+                     </div>
+                     : null}
+                     { goGetter ? 
+                     <div className="flex flex-row items-center p-2 justify-around">
+                        <img src={GoGetterBadge} className="w-14 h-14" alt="orange and pink gradient diamond with star in middle"/>
+                        <div className="w-3/4">
+                           <p>Go Getter:</p>
+                           <p>Created 5 list items</p>
+                        </div>
+                     </div>
+                      : null} 
+                  </div>
+               </div>
+               <div className="w-10/12">
+                  {!isShowing ? <ProfileEditForm setSuccess={setSuccess} success={success} passwordOpen={passwordOpen} setPasswordOpen={setPasswordOpen} profileChangeOpen={profileChangeOpen} setProfileChangeOpen={setProfileChangeOpen} info={user}/> : <Completed completed={complete} isPublic={false}/>}
+               </div>
+               
+            </div>
+            
+            
          </div>            
       </div>
    );
