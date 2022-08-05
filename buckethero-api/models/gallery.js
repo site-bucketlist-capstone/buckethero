@@ -14,9 +14,9 @@ class Gallery {
                 g.last_name,
                 g.user_id
          FROM gallery_items AS g
-         `
+         `, 
       )  
-      console.log("uSER FROM GALLERy",user);
+      // console.log("uSER FROM GALLERy",user);
       return results.rows;
    }
 
