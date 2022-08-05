@@ -26,7 +26,7 @@ app.use(security.extractUserFromJwt);
 app.use("/auth", authRoutes)
 app.use("/list", listRoutes) 
 app.use("/global", gallRoutes);
-app.use("/profile", profileRoutes)
+//app.use("/echo “web: node server.js” > Procfilefile", profileRoutes)
 
 app.use((req, res, next) => {
    return next(new NotFoundError());
