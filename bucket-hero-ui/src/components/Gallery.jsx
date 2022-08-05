@@ -1,7 +1,7 @@
 import GalleryListItems from "./GalleryListItems";
 import GalleryNewItem from "./GalleryNewItem";
 import { useGallContext } from "../contexts/gallery";
-
+import { useAuthContext } from "../contexts/auth";
 import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon, XIcon } from '@heroicons/react/solid'
@@ -9,7 +9,7 @@ import { useState, useEffect } from 'react'
 
 export default function Gallery({}) {
     const {gallery, gallModal, setGallModal, success, searchValue, setSearchValue, searchCategory, setSearchCategory} = useGallContext();
-
+    const {user} = useAuthContext();
     const [itemInfo, setItemInfo] = useState({
         "name" : "",
         "location" : "",
@@ -84,7 +84,9 @@ export default function Gallery({}) {
             <div className="sm:w-3/4 mt-4 flex flex-col">
                 {
                     currentItems.map((item) => {
-                    return <GalleryListItems key={item.id} item={item} />
+                      if (item.first_name != user.first_name) {
+                        return <GalleryListItems key={item.id} item={item} />
+                      }
                     })
                 }
             </div>
