@@ -168,7 +168,7 @@ export default function Profile( ) {
                      </ul></>}
                   </div>
                </div>
-            {error ? <span>{error}</span> : "" }
+            
             </div>
             <div className="sm:flex sm:flex-row sm:px-16 sm:mt-4">
                <div className="w-2/12 flex flex-col items-center pt-8 bg-slate-100 h-fit pb-4 rounded">
@@ -179,7 +179,7 @@ export default function Profile( ) {
                         <img src={NewcomerBadge} className="w-16 h-16" alt="orange gradient circle with white 1"/>
                         <div className="w-3/4">
                            <p>Newcomer:</p>
-                           <p>Added 1 list item</p>
+                           <p>Completed 1 list item</p>
                         </div>
                      </div>
                      : null} 
