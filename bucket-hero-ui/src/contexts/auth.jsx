@@ -97,12 +97,14 @@ export const AuthContextProvider = ({children}) => {
 
     const updatePassword = async(form) => {
         const editPass = async () => {
-            const {data, err} = await apiClient.editPassword(form);
+            const {data, error} = await apiClient.editPassword(form);
             if (data) {
                 await fetchUserFromToken();
-            } else if (err) {
+                return true;
+            } else if (error) {
                 
-                setError((e) => ({ ...e, updatePassword: err }))
+                setError((e) => ({ ...e, updatePassword: error }));
+                return false;
             }
         }
         await editPass();

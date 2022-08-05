@@ -5,7 +5,7 @@ import { UserCircleIcon } from '@heroicons/react/solid'
 
 
 //this component is used to edit a user's profile information and save any changes
-export default function ProfileEditForm({info, profileChangeOpen, setProfileChangeOpen, passwordOpen, setPasswordOpen}) {
+export default function ProfileEditForm({info, success, setSuccess, profileChangeOpen, setProfileChangeOpen, passwordOpen, setPasswordOpen}) {
     const navigate = useNavigate();
     const [form, setForm] = useState({'first_name': "", 'last_name': "", 'email': "", 'password': ""})
     const [error, setError] = useState({});
@@ -37,6 +37,7 @@ export default function ProfileEditForm({info, profileChangeOpen, setProfileChan
       event.preventDefault();
       
       const nav = await updateProfile(form);
+      setSuccess({message: "Successfully updated profile!"});
       //if nav show modal
       
       if (nav) {
@@ -57,7 +58,9 @@ export default function ProfileEditForm({info, profileChangeOpen, setProfileChan
           <div className="mt-5 md:mt-0 flex flex-col items-center">
             <form className=" flex flex-col items-center w-full sm:w-1/2" onSubmit={handleOnSubmit}>
               <div className="shadow overflow-hidden sm:rounded-md w-full">
+                
                 <div className="px-4 py-5 bg-white sm:p-6 ">
+                  <p className="text-sm mb-2 text-green-500">{success?.message}</p>
                   <div className="grid grid-cols-6 gap-6">
                     <div className="col-span-6 sm:col-span-3">
                       <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">
