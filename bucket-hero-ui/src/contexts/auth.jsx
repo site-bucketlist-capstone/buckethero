@@ -12,9 +12,6 @@ export const AuthContextProvider = ({children}) => {
     const [isProcessing, setIsProcessing] = useState(false);
     const [error, setError] = useState();
 
-    useEffect(() => {
-        
-    }, [])
 
     async function loginUser(form) {
         

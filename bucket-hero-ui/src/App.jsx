@@ -53,6 +53,7 @@ function App() {
 
   useEffect(() => {
     const fetchUser = async () => {
+      console.log("in app fetch user")
       const {data, err} = await fetchUserFromToken()
       if (data) setUser(data.user)
       if (err) setError(err)
@@ -61,7 +62,7 @@ function App() {
     const token = localStorage.getItem("buckethero-token");
     if(token) {
       apiClient.setToken(token)
-      fetchUser()
+      fetchUser();
     }
   }, [])
   

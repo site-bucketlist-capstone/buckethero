@@ -1,10 +1,12 @@
 import {createContext, useState, useContext, useEffect} from 'react'
 
 import apiClient from '../services/apiClient';
+import { useAuthContext } from './auth';
 
 const GallContext = createContext(null);
 
 export const GallContextProvider = ({children}) => {
+    const {user} = useAuthContext();
    const [gallery, setGallery] = useState([]);
    const [gallModal, setGallModal] = useState({open: false, item: {}, list_id: "", name: ""});
    const [isProcessing, setIsProcessing] = useState(false);
@@ -24,8 +26,11 @@ export const GallContextProvider = ({children}) => {
           }
           if (error) setError(error);
       }
-      fetchGallery();
-   }, []);
+      if (user?.email) {
+        fetchGallery();
+      }
+      
+   }, [user]);
    
    const gallValue = {
       gallery,

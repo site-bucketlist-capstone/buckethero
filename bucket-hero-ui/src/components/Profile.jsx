@@ -35,6 +35,7 @@ export default function Profile( ) {
    async function showCompleted() {
       setIsProcessing(true)
       setError(null)
+      
       const {data, error} = await apiClient.fetchCompletedItems();
       if (error) {
         const message = error?.response?.data?.error?.message
@@ -48,13 +49,21 @@ export default function Profile( ) {
    }
 
    useEffect(() => {
-      fetchUserFromToken();
-      handleComplete();
-   }, []);
+      const initialize = async () => {
+         
+         const newUser = await fetchUserFromToken();
+         if (newUser?.data?.email) setUser(newUser.data);
+         handleComplete();
+         
+      }
+      if (user?.email) initialize();
+      
+   }, [user]);
 
    function handleComplete() {
       setIsShowing(true);
       showCompleted();
+      
    }
 
    const [file, setFile] = useState()
@@ -330,7 +339,7 @@ function ProfileChange({profileChangeOpen, setProfileChangeOpen}) {
    
    return (
      <Transition.Root show={passwordOpen} as={Fragment}>
-       <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={(e) => {setPasswordOpen(!passwordOpen); navigate('/')}}>
+       <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={(e) => {setPasswordOpen(!passwordOpen);}}>
          <Transition.Child
            as={Fragment}
            enter="ease-out duration-300"
@@ -356,15 +365,15 @@ function ProfileChange({profileChangeOpen, setProfileChangeOpen}) {
              >
                <Dialog.Panel className="relative bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:max-w-lg sm:w-full">
                  <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                   <div className="sm:flex sm:items-start">
+                   <div className="px-4">
                      <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                       <Dialog.Title as="h3" className="text-lg leading-6 font-medium text-gray-900">
+                       <Dialog.Title as="h3" className="text-lg leading-6 font-medium text-gray-900 mb-2">
                          Change password
                        </Dialog.Title>
                        {errors?.confirmpassword ? <p className="text-red-500">{errors.confirmpassword}</p> : null}
                        {error?.updatePassword ? <p className="text-red-500">{error.updatePassword}</p> : null}
                        <form>
-                        <div className="shadow-sm -space-y-px w-3/4">
+                        <div className="shadow-sm -space-y-px mb-2">
                               <div>
                                  <input
                                  id="oldPassword"
@@ -378,7 +387,7 @@ function ProfileChange({profileChangeOpen, setProfileChangeOpen}) {
                                  />
                               </div>
                         </div>
-                        <div className="shadow-sm -space-y-px w-3/4">
+                        <div className="shadow-sm -space-y-px mb-2">
                               <div>
                                  <input
                                  id="newPassword"
@@ -392,7 +401,7 @@ function ProfileChange({profileChangeOpen, setProfileChangeOpen}) {
                                  />
                               </div>
                         </div>
-                        <div className="shadow-sm -space-y-px w-3/4">
+                        <div className="shadow-sm -space-y-px mb-2">
                               <div>
                                  <input
                                  id="confirmNewPassword"
