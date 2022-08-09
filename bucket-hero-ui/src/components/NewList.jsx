@@ -10,6 +10,7 @@ import Picker from 'emoji-picker-react';
 export default function NewList({}) {
     const [form, setForm] = useState({'name': "", 'emoji_unicode': "1f92f"});
     const navigate = useNavigate();
+    const [errorEmoji, setErrorEmoji] =  useState("");
 
     const {lists, 
         setLists, 
@@ -43,13 +44,15 @@ export default function NewList({}) {
     const [openEmojiBoard, setOpenEmojiBoard] = useState(false)
 
     const onEmojiClick = (event, emojiObject) => {
+      setErrorEmoji("");
       setChosenEmojiUnicode(emojiObject.unified)
-    //   if (emojiObject.unified.length > 6) {
-    //     let result = chosenEmojiUnicode.slice(0, 6);
-    //     console.log(result);
-    //     setChosenEmojiUnicode(result)
-        
-    //   }
+      if (emojiObject.unified.length > 6) {
+        let result = chosenEmojiUnicode.slice(0, 6);
+        console.log(result);
+        setChosenEmojiUnicode(result)
+        setErrorEmoji("Emoji unavaible, please pick another one");
+        return;
+      }
       setForm((f) => ({ ...f, ["emoji_unicode"]: emojiObject.unified}))
       setOpenEmojiBoard(false)
       
@@ -100,6 +103,8 @@ export default function NewList({}) {
                 </div>
                 </form>
             </div>
+            <span className="text-red-500">{errorEmoji ? errorEmoji : <></>}</span>
+            
             {openEmojiBoard ? <Picker onEmojiClick={onEmojiClick}/> : null}
 
             
