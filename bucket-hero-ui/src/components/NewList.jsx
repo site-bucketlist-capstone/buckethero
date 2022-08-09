@@ -44,9 +44,15 @@ export default function NewList({}) {
 
     const onEmojiClick = (event, emojiObject) => {
       setChosenEmojiUnicode(emojiObject.unified)
+    //   if (emojiObject.unified.length > 6) {
+    //     let result = chosenEmojiUnicode.slice(0, 6);
+    //     console.log(result);
+    //     setChosenEmojiUnicode(result)
+        
+    //   }
       setForm((f) => ({ ...f, ["emoji_unicode"]: emojiObject.unified}))
       setOpenEmojiBoard(false)
-      console.log(chosenEmojiUnicode)
+      
     };
     const handleOnEmojiClick = () => {
         setOpenEmojiBoard(true)
