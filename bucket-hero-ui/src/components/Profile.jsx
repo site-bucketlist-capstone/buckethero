@@ -35,6 +35,7 @@ export default function Profile( ) {
    async function showCompleted() {
       setIsProcessing(true)
       setError(null)
+      
       const {data, error} = await apiClient.fetchCompletedItems();
       if (error) {
         const message = error?.response?.data?.error?.message
@@ -48,13 +49,22 @@ export default function Profile( ) {
    }
 
    useEffect(() => {
-      fetchUserFromToken();
-      handleComplete();
-   }, []);
+      const initialize = async () => {
+         
+         const newUser = await fetchUserFromToken();
+         console.log("inside profile use effect", newUser);
+         if (newUser?.data?.email) setUser(newUser.data);
+         handleComplete();
+         
+      }
+      if (user?.email) initialize();
+      
+   }, [user]);
 
    function handleComplete() {
       setIsShowing(true);
       showCompleted();
+      
    }
 
    const [file, setFile] = useState()

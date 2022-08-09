@@ -21,6 +21,8 @@ export const DashContextProvider = ({children}) => {
 
     useEffect(() => {
         //initialize lists? by fetching the lists?
+        
+        console.log("user", user);
         const fetchLists = async () => {
             const {data, error} = await apiClient.fetchLists();
             if (data) {
@@ -39,7 +41,7 @@ export const DashContextProvider = ({children}) => {
             if (error) setError(error);
         }
         const token = localStorage.getItem("buckethero-token");
-        if(token) {
+        if(token && user?.email) {
             apiClient.setToken(token);
             fetchLists();
             fetchComingUp();
@@ -83,13 +85,17 @@ export const DashContextProvider = ({children}) => {
     //function to fetch items for a given list
     const fetchListItems = async (id) => {
         //fetch list item using id
-        
-        const {data, err} = await apiClient.fetchItemsById(id);
-        if (data) {
-            //console.log("fetched list item data", data)
-            return data;
+        console.log("fetch items id", id);
+        if (id) {
+            const {data, err} = await apiClient.fetchItemsById(id);
+            if (data) {
+                //console.log("fetched list item data", data)
+                return data;
+            }
+            if (err) return false;
+        } else {
+            return {result: []}
         }
-        if (err) return false;
         //return value to be an array of list items
     }
 

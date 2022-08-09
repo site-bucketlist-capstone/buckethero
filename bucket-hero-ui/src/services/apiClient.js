@@ -17,7 +17,8 @@ class ApiClient {
         const url = `${this.remoteHostUrl}/${endpoint}`
 
         const headers = {
-            "Content-Type" : "application/json"
+            "Content-Type" : "application/json",
+            
         }
 
         if (this.token) {
@@ -25,9 +26,12 @@ class ApiClient {
         }
 
         try {
+            
             const res = await axios({url, method, data, headers});
+            console.log("successfully got data", res.data)
             return {data: res.data, error: null}
         } catch (error) {
+            console.log("error, did not get data")
             console.error({errorResponse: error.response});
             const message = error?.response?.data?.error?.message;
             return {data: null, error: message || String(error)}
@@ -63,7 +67,10 @@ class ApiClient {
 
     //fetch list items for a list id `user/items/${listId}`
     async fetchItemsById(id) {
-        return await this.request({endpoint: `list/items/${id}`, method: "GET"});
+        if (id) {
+            return await this.request({endpoint: `list/items/${id}`, method: "GET"});
+        }
+        
     }
 
     async fetchCompletedItems() {
@@ -80,7 +87,7 @@ class ApiClient {
     }
 
     async fetchGallery() {
-        return await this.request({endpoint: `global/`, method: "GET"});
+        return await this.request({endpoint: `global`, method: "GET"});
     }
 
     async newItem(form) {
