@@ -17,7 +17,7 @@ export default function ListColComp({name, emojiUnicode, id, selected, setSelect
     
     function handleOnEditClick(event) {
         event.stopPropagation();
-        console.log("clicked edit icon");
+        // console.log("clicked edit icon");
     }
     
     let emojiString = ""

@@ -98,7 +98,7 @@ function LogoutConfirm({setLogoutOpen, logoutOpen}) {
 
   //logout handler
   const {user, setUser, fetchUserFromToken, logoutUser} = useAuthContext();
-  console.log("logout modal")
+  // console.log("logout modal")
   return (
     <Transition.Root show={logoutOpen} as={Fragment}>
       <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={setLogoutOpen}>

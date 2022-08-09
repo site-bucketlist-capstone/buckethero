@@ -66,7 +66,7 @@ export default function Register({}) {
         //axios to backend
 
         const res = await signupUser(form);
-        console.log("submitted", res);
+        // console.log("submitted", res);
         if (res) navigate("/");
       }
 

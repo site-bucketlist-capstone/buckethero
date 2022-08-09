@@ -94,11 +94,11 @@ export default function EditList( ) {
         if (data) {     
           return true
         } else if (err) {
-          console.log(err);
+          // console.log(err);
           setError((e) => ({ ...e, form: err }))
           return false;
         }
-        console.log("INSIDEEEEE")
+        // console.log("INSIDEEEEE")
       }
       setIsProcessingDelete(false);  
       const res = await deleteList();

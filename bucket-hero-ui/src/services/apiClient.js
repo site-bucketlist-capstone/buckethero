@@ -84,7 +84,7 @@ class ApiClient {
     }
 
     async newItem(form) {
-        console.log("in api client")
+        // console.log("in api client")
         return await this.request({endpoint: `list/${form.list_id}/newItem`, method: 'POST', data: form})
     }
 

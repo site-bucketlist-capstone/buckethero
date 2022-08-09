@@ -30,7 +30,7 @@ export default function SignIn() {
         password: "",
     });
     const {user, setUser, error, setError, isProcessing, setIsProcessing, loginUser} = useAuthContext();
-    console.log("error", error);
+    // console.log("error", error);
     //const [error, setError] = useState({});
     //const [isLoading, setIsLoading] = useState(false)
 
@@ -49,7 +49,7 @@ export default function SignIn() {
     const handleOnSubmit = async (e) => {
         e.preventDefault();
         const res = await loginUser(form);
-        console.log("submitted", res);
+        // console.log("submitted", res);
         //const nav = await loginUser(form);
         if (res) navigate("/");
         

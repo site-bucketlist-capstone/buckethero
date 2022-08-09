@@ -118,7 +118,7 @@ export const DashContextProvider = ({children}) => {
     const fetchComingUp = async () => {
         const {data, error} = await apiClient.fetchComingUpItems();
         if (data) {
-            console.log(data)
+            // console.log(data)
             await setComingUp(data.result);
         }
         if (error) setError(error);

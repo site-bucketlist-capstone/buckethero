@@ -87,7 +87,7 @@ router.delete("/:listId/delete", security.requireAuthenticatedUser, async (req, 
   try {
     const { user } = res.locals
     const listId = req.params.listId 
-    console.log(listId)
+    // console.log(listId)
     const result = await List.removeListByListId(listId, {user})
     
     return res.status(202).json({result})

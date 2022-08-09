@@ -131,7 +131,7 @@ export default function Profile( ) {
                            <label htmlFor="file">
                               <img src={user.profile_image ? user.profile_image : imgUrl} alt="profile picture" className="scale-150 cursor-pointer"/>
                            </label>
-                           <input type="file" id="file" onChange={handleOnSubmitImage}/>
+                           <input type="file" id="file" accept="image/png, image/jpeg" onChange={handleOnSubmitImage}/>
                         </div>
                         <p className="text-gray-400 text-xs sm:text-sm text-center">Click profile pic to edit</p>
                      </div>

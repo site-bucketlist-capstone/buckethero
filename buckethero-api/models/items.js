@@ -185,7 +185,7 @@ class Items {
         } else {
             isCompleted = itemUpdate.is_completed;
         }
-        console.log(isCompleted);
+        // console.log(isCompleted);
         const result = await db.query(
             `
             UPDATE list_items

@@ -18,7 +18,7 @@ export default function NewItem() {
     }
     
     const handleOnSubmit = async (e) => {
-        console.log("in submit");
+        // console.log("in submit");
         e.preventDefault();
         if (form.due_date === "") {
             let copy = form;
@@ -26,7 +26,7 @@ export default function NewItem() {
             setForm(copy);
         }
         const res = await newItem(form);
-        console.log("submitted");
+        // console.log("submitted");
         if (res) setModalOpen(false);
         
     }

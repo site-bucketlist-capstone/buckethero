@@ -15,7 +15,7 @@ export default function ListItemComp({item, isPublic}) {
         //edit item
         
         event.stopPropagation();
-        console.log(!item.is_completed)
+        // console.log(!item.is_completed)
         const form = {list_id: selected, item_id: item.id, is_completed: !item.is_completed}
         const data = await editItem(form);
     }

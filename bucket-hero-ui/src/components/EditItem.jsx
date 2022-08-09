@@ -19,7 +19,7 @@ export default function EditItem({item}) {
     }
     
     const handleOnSubmit = async (e) => {
-        console.log("in submit");
+        // console.log("in submit");
         e.preventDefault();
         if (form.due_date === "") {
             let copy = form;
@@ -27,7 +27,7 @@ export default function EditItem({item}) {
             setForm(copy);
         }
         const res = await editItem(form);
-        console.log("submitted");
+        // console.log("submitted");
         if (res) setEditItemModal((e) => ({...e, open: false}));
         
     }
