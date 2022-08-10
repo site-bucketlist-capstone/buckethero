@@ -47,9 +47,9 @@ export default function NewList({}) {
       setErrorEmoji("");
       setChosenEmojiUnicode(emojiObject.unified)
       if (emojiObject.unified.length > 6) {
-        let result = chosenEmojiUnicode.slice(0, 6);
-        console.log(result);
-        setChosenEmojiUnicode(result)
+        // let result = chosenEmojiUnicode.slice(0, 6);
+        // console.log(result);
+        // setChosenEmojiUnicode(result)
         setErrorEmoji("Emoji unavaible, please pick another one");
         return;
       }
