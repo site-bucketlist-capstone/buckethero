@@ -180,13 +180,13 @@ export default function Profile( ) {
             
             </div>
             <div className="sm:flex sm:flex-row sm:px-16 sm:mt-4">
-               <div className="sm:w-2/12 min-w-fit flex flex-col items-center pt-8 bg-slate-100 h-fit pb-4 rounded">
+               <div className="sm:w-2/12 min-w-fit flex flex-col items-center pt-4 mt-4 bg-slate-100 h-fit pb-4 rounded">
                   <p className="font-semibold">Achievements</p>
                   <div className="flex flex-col w-full justify-around mt-2">
                      { newcomer ?
                      <div className="flex flex-row items-center sm:block md:flex md:flex-row md:items-center p-2 justify-around">
                         <img src={NewcomerBadge} className="w-16 h-16" alt="orange gradient circle with white 1"/>
-                        <div className="w-3/4">
+                        <div className="ml-2 w-3/4">
                            <p>Newcomer:</p>
                            <p>Completed 1 list item</p>
                         </div>
@@ -195,7 +195,7 @@ export default function Profile( ) {
                      { thirdTimesACharm ? 
                      <div className="flex flex-row items-center sm:block md:flex md:flex-row md:items-center p-2 justify-around">
                         <img src={ThirdTimesACharmBadge} className="w-14 h-14" alt="orange gradient circle with white 1"/>
-                        <div className="w-3/4">
+                        <div className="ml-2 w-3/4">
                            <p>Third Times a Charm:</p>
                            <p>Created 3 lists</p>
                         </div> 
@@ -204,7 +204,7 @@ export default function Profile( ) {
                      { goGetter ? 
                      <div className="flex flex-row items-center sm:block md:flex md:flex-row md:items-center p-2 justify-around">
                         <img src={GoGetterBadge} className="w-14 h-14" alt="orange and pink gradient diamond with star in middle"/>
-                        <div className="w-3/4">
+                        <div className="ml-2 w-3/4">
                            <p>Go Getter:</p>
                            <p>Created 5 list items</p>
                         </div>

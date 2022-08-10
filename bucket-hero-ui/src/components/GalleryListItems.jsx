@@ -15,8 +15,8 @@ export default function GalleryListItems({item}) {
    return (
     <div className='rounded bg-slate-100 flex flex-row items-center justify-around p-2 mb-2 sm:max-w-6xl self-center w-full'>
         <div className='sm:flex sm:justify-between w-5/6 sm:w-3/4'>
-            <div className='mr-8 text-xl font-semibold sm:w-1/4 text-purple-800 sm:flex sm:items-center'>
-                {item?.name}
+            <div className=' sm:w-2/4 sm:flex sm:items-center'>
+                <p className='text-xl font-semibold text-purple-800'>{item?.name}</p>
             </div>
             <div className='flex flex-col sm:w-1/2 sm:flex sm:flex-col sm:justify-center'>
                 <div className='flex flex-row '>
@@ -33,13 +33,13 @@ export default function GalleryListItems({item}) {
                 </div>
             </div>
         </div>
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-ends sm:w-1/6">
         {/* added first name last name of user */}
         <Dropdown item={item}></Dropdown>
         {item.first_name ? 
-          <Link to={`user/${item.user_id}`}><p className="mt-2">{`Added by `}<span className='text-orange-400 underline'>{`${item.first_name} ${item.last_name}`}</span></p> </Link>
+          <Link to={`user/${item.user_id}`}><p className="mt-2 text-right">{`Added by `}<span className='text-orange-400 underline'>{`${item.first_name} ${item.last_name}`}</span></p> </Link>
           : 
-          <p className="mt-2">{`Added by BucketHero`}</p> 
+          <p className="mt-2 text-right">{`Added by BucketHero`}</p> 
         }
       </div>
       
