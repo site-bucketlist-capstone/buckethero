@@ -16,7 +16,7 @@ const tempData = [
 
 export default function ComingUp({}) {
     const {comingUp} = useDashContext();
-    //console.log(comingUp);
+    
     function formatDate(date) {
         //if(date) return new Date(date).toDateString();
         //else return null
@@ -28,7 +28,7 @@ export default function ComingUp({}) {
             let TotalDays = Math.ceil(difference / (1000 * 3600 * 24));
             return TotalDays;
         }
-        console.log(days(date_1, date_2) +" days until");
+        
         const res = days(date_1, date_2);
         if (res < 0) return <><ClockIcon className='text-red-500 h-6 w-6 mr-2'/><p className='text-red-500'>{res*-1} days late</p></>;
         else if (res == 1) return <><ClockIcon className='text-gray-500 h-6 w-6 mr-2'/><p className=''>{res} day away</p></>

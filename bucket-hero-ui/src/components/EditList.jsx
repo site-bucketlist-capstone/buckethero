@@ -128,7 +128,7 @@ export default function EditList( ) {
    let emojiString = `&#x${chosenEmojiUnicode};`;
   
   return (
-      <div className='container mx-auto border rounded sm:w-2/3 p-7 h-max flex flex-col justify-between'>
+      <div className='mt-20 container mx-auto border rounded sm:w-2/3 p-7 h-max flex flex-col justify-between'>
          { open ? <Modal handleOnDelete={handleOnDelete} open={open} setOpen={setOpen}/> :
          <div className=''>
             <h2 className='text-xl font-bold'>Edit List</h2>

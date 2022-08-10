@@ -28,10 +28,10 @@ class ApiClient {
         try {
             
             const res = await axios({url, method, data, headers});
-            console.log("successfully got data", res.data)
+            
             return {data: res.data, error: null}
         } catch (error) {
-            console.log("error, did not get data")
+            
             console.error({errorResponse: error.response});
             const message = error?.response?.data?.error?.message;
             return {data: null, error: message || String(error)}
@@ -91,7 +91,7 @@ class ApiClient {
     }
 
     async newItem(form) {
-        // console.log("in api client")
+        
         return await this.request({endpoint: `list/${form.list_id}/newItem`, method: 'POST', data: form})
     }
 

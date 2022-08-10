@@ -50,7 +50,7 @@ export default function NavBar({setLogoutOpen}) {
                     </a>
                   ))}
                   {user?.email ? 
-                  <a onClick={(e) => {console.log("logout"); setLogoutOpen(true)}} className="cursor-pointer font-medium text-orange-600 hover:text-orange-500">
+                  <a onClick={(e) => {setLogoutOpen(true)}} className="cursor-pointer font-medium text-orange-600 hover:text-orange-500">
                     Logout
                   </a> : <><a href="/register" className="font-medium hover:text-orange-100 hover:bg-orange-700 text-white bg-orange-600 p-3 px-4 rounded">
                     Register

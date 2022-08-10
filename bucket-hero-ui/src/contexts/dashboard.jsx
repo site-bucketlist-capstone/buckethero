@@ -22,7 +22,7 @@ export const DashContextProvider = ({children}) => {
     useEffect(() => {
         //initialize lists? by fetching the lists?
         
-        console.log("user", user);
+        
         const fetchLists = async () => {
             const {data, error} = await apiClient.fetchLists();
             if (data) {
@@ -67,7 +67,7 @@ export const DashContextProvider = ({children}) => {
         const nav = await fetchNew();
         await fetchLists();
         setIsProcessing(false);
-        //console.log("lists after new", lists);
+        
         return nav;
     }
 
@@ -85,11 +85,11 @@ export const DashContextProvider = ({children}) => {
     //function to fetch items for a given list
     const fetchListItems = async (id) => {
         //fetch list item using id
-        console.log("fetch items id", id);
+        
         if (id) {
             const {data, err} = await apiClient.fetchItemsById(id);
             if (data) {
-                //console.log("fetched list item data", data)
+                
                 return data;
             }
             if (err) return false;
@@ -102,11 +102,11 @@ export const DashContextProvider = ({children}) => {
     const newItem = async (form) => {
         setIsProcessing(true)
         setError((e) => ({ ...e, form: null }))
-        //console.log("in new item")
+        
         const fetchNew = async () => {
             const {data, err} = await apiClient.newItem(form);
             if (data) {
-                //console.log("got data")
+                
                 return true;
             } else if (err) {
                 return false;
@@ -114,17 +114,17 @@ export const DashContextProvider = ({children}) => {
 
         }
         const nav = await fetchNew();
-        //console.log("have nav", nav);
+        
         const items = await fetchListItems(form.list_id);
         await fetchComingUp();
         setIsProcessing(false);
-        //console.log("list items after new", items);
+        
         return nav;
     }
     const fetchComingUp = async () => {
         const {data, error} = await apiClient.fetchComingUpItems();
         if (data) {
-            // console.log(data)
+            
             await setComingUp(data.result);
         }
         if (error) setError(error);
@@ -135,12 +135,12 @@ export const DashContextProvider = ({children}) => {
         const fetchComingUp = async () => {
             const {data, error} = await apiClient.fetchComingUpItems();
             if (data) {
-                //console.log(data)
+                
                 await setComingUp(data.result);
             }
             if (error) setError(error);
         } 
-        //console.log("form", form);
+       
         const {data, err} = await apiClient.editItem(form);
         if (data) {
             //fetch list items

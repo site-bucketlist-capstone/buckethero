@@ -13,7 +13,7 @@ export default function ListItems({}) {
     useEffect(() => {
         
         const getItems = async () => {
-            console.log("selected in list items", selected);
+            
             const result = await fetchListItems(selected);
             if (result.result !== items) {
                 let itemsCopy = result.result.sort((a, b) => (a.is_completed > b.is_completed) ? 1 : -1);
@@ -26,7 +26,7 @@ export default function ListItems({}) {
         getItems();
         
         
-        //console.log("use effect items", items);
+        
         
     }, [selected, modalOpen, lists]);
 

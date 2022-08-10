@@ -180,11 +180,11 @@ export default function Profile( ) {
             
             </div>
             <div className="sm:flex sm:flex-row sm:px-16 sm:mt-4">
-               <div className="w-2/12 flex flex-col items-center pt-8 bg-slate-100 h-fit pb-4 rounded">
+               <div className="sm:w-2/12 min-w-fit flex flex-col items-center pt-8 bg-slate-100 h-fit pb-4 rounded">
                   <p className="font-semibold">Achievements</p>
                   <div className="flex flex-col w-full justify-around mt-2">
                      { newcomer ?
-                     <div className="flex flex-row items-center p-2 justify-around">
+                     <div className="flex flex-row items-center sm:block md:flex md:flex-row md:items-center p-2 justify-around">
                         <img src={NewcomerBadge} className="w-16 h-16" alt="orange gradient circle with white 1"/>
                         <div className="w-3/4">
                            <p>Newcomer:</p>
@@ -193,7 +193,7 @@ export default function Profile( ) {
                      </div>
                      : null} 
                      { thirdTimesACharm ? 
-                     <div className="flex flex-row items-center p-2 justify-around">
+                     <div className="flex flex-row items-center sm:block md:flex md:flex-row md:items-center p-2 justify-around">
                         <img src={ThirdTimesACharmBadge} className="w-14 h-14" alt="orange gradient circle with white 1"/>
                         <div className="w-3/4">
                            <p>Third Times a Charm:</p>
@@ -202,7 +202,7 @@ export default function Profile( ) {
                      </div>
                      : null}
                      { goGetter ? 
-                     <div className="flex flex-row items-center p-2 justify-around">
+                     <div className="flex flex-row items-center sm:block md:flex md:flex-row md:items-center p-2 justify-around">
                         <img src={GoGetterBadge} className="w-14 h-14" alt="orange and pink gradient diamond with star in middle"/>
                         <div className="w-3/4">
                            <p>Go Getter:</p>
@@ -212,7 +212,7 @@ export default function Profile( ) {
                       : null} 
                   </div>
                </div>
-               <div className="w-10/12">
+               <div className="sm:w-10/12">
                   {!isShowing ? <ProfileEditForm setSuccess={setSuccess} success={success} passwordOpen={passwordOpen} setPasswordOpen={setPasswordOpen} profileChangeOpen={profileChangeOpen} setProfileChangeOpen={setProfileChangeOpen} info={user}/> : <Completed completed={complete} isPublic={false}/>}
                </div>
                

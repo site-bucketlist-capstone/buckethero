@@ -75,7 +75,7 @@ export default function PublicProfile( ) {
                   
                   <div className="ml-4 flex flex-col justify-end mt-4">
                      <span className="mb-6 ">   </span>
-                     <div className="mt-4">
+                     <div className="mt-8">
                         <span className="font-semibold text-lg">{viewer.first_name}   {viewer.last_name}</span>
                      </div>  
                      <div className="font-light text-slate-500">
