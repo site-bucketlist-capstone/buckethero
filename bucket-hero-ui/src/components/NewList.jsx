@@ -63,7 +63,7 @@ export default function NewList({}) {
     let emojiString = `&#x${chosenEmojiUnicode};`
 
     return (
-        <div className='container mx-auto border rounded sm:w-2/3 p-7 h-max flex flex-col justify-between'>
+        <div className='mt-20 container mx-auto border rounded sm:w-2/3 p-7 h-max flex flex-col justify-between'>
             <div className=''>
                 <h2 className='text-xl font-bold'>New List</h2>
                 <form className="mt-8 space-y-6" onSubmit={handleOnSubmit}>
