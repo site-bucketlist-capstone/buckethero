@@ -16,7 +16,7 @@ export default function Completed({completed, isPublic}) {
     
     return (
         <div className='mt-4 flex flex-col items-center sm:px-12 mb-8 '>
-            <div className="bg-slate-200 p-6 sm:w-1/2 flex flex-col rounded items-center">
+            <div className="bg-slate-100 p-6 sm:w-1/2 flex flex-col rounded items-center">
                 { isPublic ? <p className="text-lg font-semibold">Number of list items:</p> : 
                 <p className="text-lg font-semibold">Number of completed items:</p>
                 }

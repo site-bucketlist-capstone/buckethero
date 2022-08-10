@@ -45,15 +45,15 @@ export default function Gallery({}) {
     //gallery page renders items for user to add to their bucket lists
     return (
         <div className='flex flex-col items-center mt-16 sm:mt-6 p-4 sm:p-0'>
-            <div className="w-full px-20 sm:flex sm:flex-row items-end justify-between sm:mt-4">
-                <div className="text-center sm:text-left sm:ml-20">
+            <div className="sm:w-3/4 sm:flex sm:flex-row items-end justify-between sm:mt-4">
+                <div className="text-center sm:text-left sm:ml-4">
                     <h3 className="text-2xl font-semibold">Inspo Board</h3>
                     <p>Gain items to put on your own list and gain inspiration!</p>
                 </div>
                 <p className="text-lime-500 font-semibold text-center sm:text-left">{success}</p>
                 {/* search bar */}
                 <div className="flex flex-col items-center">
-                    <form onSubmit={handleOnSubmit} className="flex flex-row sm:mr-20">   
+                    <form onSubmit={handleOnSubmit} className="flex flex-row sm:mr-2">   
                         <SearchDropdown setSearchValue={setSearchValue}/>
                         <label htmlFor="search-dropdown" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300">Your Email</label>
                         <div className="relative w-full">
