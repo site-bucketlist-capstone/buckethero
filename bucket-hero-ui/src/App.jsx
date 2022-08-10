@@ -23,6 +23,7 @@ import NewList from './components/NewList';
 import Profile from './components/Profile';
 import EditList from './components/EditList';
 import PublicProfile from './components/PublicProfile';
+import AccessForbidden from './components/AccessForbidden';
 
 
 
@@ -77,12 +78,12 @@ function App() {
           <Route path='/' element={user?.email ? <Dashboard/>: <Hero/>}/>
           <Route path='/signin' element={<SignIn setUser={setUser}/>}/>
           <Route path='/register' element={<Register setUser={setUser}/>}/>
-          <Route path='/inspo' element={<Gallery/>}/>
-          <Route path='/newlist' element={<NewList/>}/>
-          <Route path='/profile' element={<Profile/>}/>
-          <Route path='/list/:list_id/edit' element={<EditList />}/>
+          <Route path='/inspo' element={user?.email ? <Gallery/> : <AccessForbidden/>}/>
+          <Route path='/newlist' element={user?.email ? <NewList/> : <AccessForbidden/>}/>
+          <Route path='/profile' element={user?.email ? <Profile/> : <AccessForbidden/>}/>
+          <Route path='/list/:list_id/edit' element={user?.email ? <EditList /> : <AccessForbidden/> }/>
           <Route path='*' element={<div>Not Found: Page doesnt exist</div>}/>
-          <Route path='/inspo/user/:userId' element={<PublicProfile />}></Route>
+          <Route path='/inspo/user/:userId' element={user?.email ? <PublicProfile /> : <AccessForbidden/>}></Route>
         </Routes>
       </BrowserRouter>
     </div>
