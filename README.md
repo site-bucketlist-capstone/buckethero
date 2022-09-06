@@ -20,7 +20,8 @@ Users can:
 - See upcoming bucket list items and all completed list items
 
 Gif Walkthrough
-~in progress
+![ezgif com-gif-maker (5)](https://user-images.githubusercontent.com/75582135/188526099-f6278104-26f5-4613-9a87-2e48374cfdeb.gif)
+
 
 
 ### Open-source libraries used
